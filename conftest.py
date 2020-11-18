@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 @pytest.fixture(scope='module')
 def base_url():
-    return 'http://localhost:4000'
+    return 'https://ww2.fylehq.com'
 
 @pytest.fixture(scope='module')
 def module_browser(base_url):

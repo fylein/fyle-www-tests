@@ -38,15 +38,15 @@ def test_home_page_features(browser):
         browser.refresh()
 
     card_urls = [
-        'http://localhost:4000/product/expenses',
-        'http://localhost:4000/product/cards',
-        'http://localhost:4000/product/approvals',
-        'http://localhost:4000/product/compliance',
-        'http://localhost:4000/product/budgets',
-        'http://localhost:4000/product/payments',
-        'http://localhost:4000/product/analytics',
-        'http://localhost:4000/product/integrations',
-        'http://localhost:4000/product/finance-operations'
+        'http://ww2.fylehq.com/product/expenses',
+        'http://ww2.fylehq.com/product/cards',
+        'http://ww2.fylehq.com/product/approvals',
+        'http://ww2.fylehq.com/product/compliance',
+        'http://ww2.fylehq.com/product/budgets',
+        'http://ww2.fylehq.com/product/payments',
+        'http://ww2.fylehq.com/product/analytics',
+        'http://ww2.fylehq.com/product/integrations',
+        'http://ww2.fylehq.com/product/finance-operations'
     ]
     card_list_desktop = [
         "//section[contains(@class, 'home-page-features')]//a[contains(@class, 'container-wrapper')]//h5[contains(text(), 'Expenses')]//parent::*//parent::*",
