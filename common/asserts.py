@@ -129,7 +129,7 @@ def assert_cards_redirection(browser, cards_xpath, redirect_to_urls, same_tab=Fa
     if same_tab:
         for i, card_elem in enumerate(cards_xpath):
             card = browser.find(card_elem, scroll=True)
-            #browser.scroll_up_or_down(-100)
+            browser.scroll_up_or_down(-100)
             browser.click_element(card)
             assert browser.get_current_url().rstrip('/') == redirect_to_urls[i], "Redirecting to wrong page"
             browser.back()
@@ -266,12 +266,9 @@ def assert_home_testimonial(browser):
         current_active_index = get_active_index(carousel_indicators)
         assert carousel_items[current_active_index].is_displayed(), 'Error in testimonial idicators'
 
-def assert_left_right_para_block(browser):
-    left_blocks = browser.find_many(xpath="//section[contains(@class, 'features-parallel-content-img homepage')]//div[contains(@class, 'fyle-features-row')]//div[contains(@class, 'fy-feature-left-para-padding--70')]")
-    rignt_blocks = browser.find_many(xpath="//section[contains(@class, 'features-parallel-content-img homepage')]//div[contains(@class, 'fyle-features-row')]//div[contains(@class, 'fy-feature-right-para-padding--70')]")
-
+def assert_left_right_para_block(browser, left_blocks, right_blocks, value):
     for i, left_block in enumerate(left_blocks):
-        assert_spacing_right(left_block, 70)
+        assert_spacing_right(left_block, value)
 
-    for i, right_block in enumerate(rignt_blocks):
-        assert_spacing_left(right_block, 70)
+    for i, right_block in enumerate(right_blocks):
+        assert_spacing_left(right_block, value)

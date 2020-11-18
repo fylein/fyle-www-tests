@@ -37,7 +37,7 @@ def test_home_page_features(browser):
     if not browser.is_desktop():
         browser.refresh()
 
-    card_url = [
+    card_urls = [
         'http://localhost:4000/product/expenses',
         'http://localhost:4000/product/cards',
         'http://localhost:4000/product/approvals',
@@ -60,18 +60,17 @@ def test_home_page_features(browser):
         "//section[contains(@class, 'home-page-features')]//a[contains(@class, 'container-wrapper')]//h5[contains(text(), 'Finance ops')]//parent::*//parent::*"
     ]
 
-    card_list = card_list_desktop
-
-    assert_cards_redirection(browser, card_list, card_url, same_tab=True)
+    assert_cards_redirection(browser, card_list_desktop, card_urls, same_tab=True)
 
 @pytest.mark.parametrize('browser', [('desktop_1')], indirect=True)
 def test_home_testimonial(browser):
     assert_home_testimonial(browser)
 
-
 @pytest.mark.parametrize('browser', [('desktop_1')], indirect=True)
 def test_para_block(browser):
-    assert_left_right_para_block(browser)
+    left_blocks = browser.find_many(xpath="//section[contains(@class, 'features-parallel-content-img homepage')]//div[contains(@class, 'fyle-features-row')]//div[contains(@class, 'fy-feature-left-para-padding--70')]")
+    right_blocks = browser.find_many(xpath="//section[contains(@class, 'features-parallel-content-img homepage')]//div[contains(@class, 'fyle-features-row')]//div[contains(@class, 'fy-feature-right-para-padding--70')]")
+    assert_left_right_para_block(browser, left_blocks, right_blocks, 70)
 
 @pytest.mark.parametrize('browser', [('desktop_1')], indirect=True)
 def test_modal_open(browser):
