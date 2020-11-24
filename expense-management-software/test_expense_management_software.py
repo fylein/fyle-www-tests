@@ -2,7 +2,7 @@ from time import sleep
 import logging
 import pytest
 from common.utils import resize_browser
-from common.asserts import assert_vertical_spacing_between, assert_spacing_bottom, assert_spacing_top, assert_spacing_right, assert_spacing_left, assert_overflowing, assert_customer_testimonial, assert_customer_logo, assert_typography, assert_cards_redirection
+from common.asserts import assert_vertical_spacing_between, assert_spacing_bottom, assert_spacing_top, assert_spacing_right, assert_spacing_left, assert_overflowing, assert_customer_logo, assert_typography, assert_cards_redirection
 
 logger = logging.getLogger(__name__)
 
@@ -97,5 +97,18 @@ def test_competitor_section_card_redirection(browser):
         card_list = card_list_desktop
     else:
         card_list = card_list_mobile
-    
+
     assert_cards_redirection(browser, card_list, card_url, same_tab=True)
+
+
+@pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
+def test_resource_card_redirection(browser):
+    card_urls = [
+        'https://ww2.fylehq.com/resources/ebooks/levvel-t&e-report',
+        'https://ww2.fylehq.com/case-study/capillary-expense-automation',
+        'https://www.youtube.com/watch?v=-il3Md_xc8E'
+    ]
+
+    card_list = "//section[contains(@class, 'three-card-bottom')]//div[contains(@class, 'cards-row')]//a[contains(@class, 'feature-cards')]"
+
+    assert_cards_redirection(browser, card_list, card_urls, same_tab=False)

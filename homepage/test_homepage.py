@@ -4,7 +4,7 @@ import pytest
 
 from common.asserts import assert_overflowing, assert_cards_redirection, assert_home_testimonial, assert_left_right_para_block
 from common.utils import resize_browser
-from common.test_getdemo import assert_bad_email, assert_missing_firstname, assert_success
+from common.test_getdemo import assert_bad_email, assert_required_fields, assert_success, assert_non_business_email, assert_invalid_names
 
 logger = logging.getLogger(__name__)
 
@@ -21,8 +21,8 @@ def test_bad_email(browser):
     assert_bad_email(browser)
 
 @pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
-def test_missing_firstname(browser):
-    assert_missing_firstname(browser)
+def test_required_fields(browser):
+    assert_required_fields(browser)
 
 @pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
 def test_success(browser):
@@ -33,20 +33,28 @@ def test_page_overflow(browser):
     assert_overflowing(browser=browser)
 
 @pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
+def test_non_business_email(browser):
+    assert_non_business_email(browser=browser)
+
+@pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
+def test_invalid_names(browser):
+    assert_invalid_names(browser=browser)
+
+@pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
 def test_home_page_features(browser):
     if not browser.is_desktop():
         browser.refresh()
 
     card_urls = [
-        'http://ww2.fylehq.com/product/expenses',
-        'http://ww2.fylehq.com/product/cards',
-        'http://ww2.fylehq.com/product/approvals',
-        'http://ww2.fylehq.com/product/compliance',
-        'http://ww2.fylehq.com/product/budgets',
-        'http://ww2.fylehq.com/product/payments',
-        'http://ww2.fylehq.com/product/analytics',
-        'http://ww2.fylehq.com/product/integrations',
-        'http://ww2.fylehq.com/product/finance-operations'
+        'https://ww2.fylehq.com/product/expenses',
+        'https://ww2.fylehq.com/product/cards',
+        'https://ww2.fylehq.com/product/approvals',
+        'https://ww2.fylehq.com/product/compliance',
+        'https://ww2.fylehq.com/product/budgets',
+        'https://ww2.fylehq.com/product/payments',
+        'https://ww2.fylehq.com/product/analytics',
+        'https://ww2.fylehq.com/product/integrations',
+        'https://ww2.fylehq.com/product/finance-operations'
     ]
     card_list_desktop = [
         "//section[contains(@class, 'home-page-features')]//a[contains(@class, 'container-wrapper')]//h5[contains(text(), 'Expenses')]//parent::*//parent::*",
@@ -62,7 +70,7 @@ def test_home_page_features(browser):
 
     assert_cards_redirection(browser, card_list_desktop, card_urls, same_tab=True)
 
-@pytest.mark.parametrize('browser', [('desktop_1')], indirect=True)
+@pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
 def test_home_testimonial(browser):
     assert_home_testimonial(browser)
 

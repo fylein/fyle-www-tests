@@ -129,7 +129,7 @@ def assert_cards_redirection(browser, cards_xpath, redirect_to_urls, same_tab=Fa
     if same_tab:
         for i, card_elem in enumerate(cards_xpath):
             card = browser.find(card_elem, scroll=True)
-            browser.scroll_up_or_down(-100)
+            #browser.scroll_up_or_down(-100)
             browser.click_element(card)
             assert browser.get_current_url().rstrip('/') == redirect_to_urls[i], "Redirecting to wrong page"
             browser.back()
@@ -236,6 +236,8 @@ def assert_click_scroll_into_view(browser, clickable_elements_xpath):
 
 
 def assert_home_testimonial(browser):
+    if not browser.is_desktop():
+        browser.refresh()
     carousel_items = browser.find_many("//section[contains(@class, 'home-customer-testimonial')]//div[contains(@class, 'carousel-item')]")
     carousel_length = len(carousel_items)
     current_active_index = get_active_index(carousel_items)
@@ -243,7 +245,10 @@ def assert_home_testimonial(browser):
     #check right arrow
     browser.find(xpath="//section[contains(@class, 'home-customer-testimonial')]", scroll=True)
     sleep(1)
-    right_arrow = browser.find(xpath="//section[contains(@class, 'home-customer-testimonial')]//div[contains(@id, 'home-customer-carousel')]//div[contains(@class, 'slider-arrows')]//a[contains(@class, 'right')]")
+    if browser.is_desktop():
+        right_arrow = browser.find(xpath="//section[contains(@class, 'home-customer-testimonial')]//div[contains(@id, 'home-customer-carousel')]//div[contains(@class, 'slider-arrows')]//a[contains(@class, 'right')]")
+    else:
+        right_arrow = browser.find(xpath="//section[contains(@class, 'home-customer-testimonial')]//div[contains(@id, 'home-customer-carousel')]//div[contains(@class, 'slider-arrows') and contains(@class, 'd-md-none')]//a[contains(@class, 'right')]")
     browser.click_element(right_arrow)
     active_index = get_active_index(carousel_items)
     assert active_index == ((current_active_index + 1) % carousel_length), 'Right click operation is not working'
@@ -251,20 +256,24 @@ def assert_home_testimonial(browser):
     #check left arrow
     sleep(1)
     current_active_index = active_index
-    left_arrow = browser.find(xpath="(//section[contains(@class, 'home-customer-testimonial')]//div[contains(@id, 'home-customer-carousel')]//div[contains(@class, 'slider-arrows')]//a[contains(@class, 'left')])[2]")
+    if browser.is_desktop():
+        left_arrow = browser.find(xpath="(//section[contains(@class, 'home-customer-testimonial')]//div[contains(@id, 'home-customer-carousel')]//div[contains(@class, 'carousel-inner')]//div[contains(@class, 'slider-arrows')]//a[contains(@class, 'left')])[2]")
+    else:
+        left_arrow = browser.find(xpath="//section[contains(@class, 'home-customer-testimonial')]//div[contains(@id, 'home-customer-carousel')]//div[contains(@class, 'slider-arrows') and contains(@class, 'd-md-none')]//a[contains(@class, 'left')]")
     browser.click_element(left_arrow)
     active_index = get_active_index(carousel_items)
     assert active_index == ((current_active_index + (carousel_length - 1)) % carousel_length), 'Left click operation is not working'
 
-    #Test case for carousel indicators(company logos)
-    carousel_indicators = browser.find_many("//section[contains(@class, 'home-customer-testimonial')]//div[contains(@class, 'company-logo-list')]")
-    browser.find(xpath="//section[contains(@class, 'home-customer-testimonial')]", scroll=True)
-    sleep(0.5)
-    for i, indicator in enumerate(carousel_indicators):
-        browser.click_element(indicator)
+    if browser.is_desktop():
+        #Test case for carousel indicators(company logos)
+        carousel_indicators = browser.find_many("//section[contains(@class, 'home-customer-testimonial')]//div[contains(@class, 'company-logo-list')]")
+        browser.find(xpath="//section[contains(@class, 'home-customer-testimonial')]", scroll=True)
         sleep(0.5)
-        current_active_index = get_active_index(carousel_indicators)
-        assert carousel_items[current_active_index].is_displayed(), 'Error in testimonial idicators'
+        for i, indicator in enumerate(carousel_indicators):
+            browser.click_element(indicator)
+            sleep(0.5)
+            current_active_index = get_active_index(carousel_indicators)
+            assert carousel_items[current_active_index].is_displayed(), 'Error in testimonial idicators'
 
 def assert_left_right_para_block(browser, left_blocks, right_blocks, value):
     for i, left_block in enumerate(left_blocks):
