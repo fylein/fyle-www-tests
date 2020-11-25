@@ -25,20 +25,20 @@ def test_required_fields(browser):
     assert_required_fields(browser)
 
 @pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
-def test_success(browser):
-    assert_success(browser)
-
-@pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
-def test_page_overflow(browser):
-    assert_overflowing(browser=browser)
-
-@pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
 def test_non_business_email(browser):
     assert_non_business_email(browser=browser)
 
 @pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
 def test_invalid_names(browser):
     assert_invalid_names(browser=browser)
+
+@pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
+def test_success(browser):
+    assert_success(browser)
+
+@pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
+def test_page_overflow(browser):
+    assert_overflowing(browser=browser)
 
 @pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
 def test_home_page_features(browser):

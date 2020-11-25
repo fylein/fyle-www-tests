@@ -128,8 +128,7 @@ def assert_collapsible_feature_comparison_table(browser):
 def assert_cards_redirection(browser, cards_xpath, redirect_to_urls, same_tab=False):
     if same_tab:
         for i, card_elem in enumerate(cards_xpath):
-            card = browser.find(card_elem, scroll=True)
-            #browser.scroll_up_or_down(-100)
+            card = browser.find(card_elem, scroll=True, scroll_by=-200)
             browser.click_element(card)
             assert browser.get_current_url().rstrip('/') == redirect_to_urls[i], "Redirecting to wrong page"
             browser.back()

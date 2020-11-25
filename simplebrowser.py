@@ -108,11 +108,13 @@ class SimpleBrowser:
         self.driver.execute_script(f'window.scrollBy(0, {pixels_to_scroll});')
         sleep(random.uniform(0.0, 1.0))
 
-    def find(self, xpath, scroll=False):
+    def find(self, xpath, scroll=False, scroll_by=0):
         try:
             l = self.wait.until(EC.presence_of_element_located((By.XPATH, xpath)))
             if scroll:
                 self.driver.execute_script("arguments[0].scrollIntoView(true);", l)
+                sleep(1)
+                self.driver.execute_script(f"window.scrollBy(0, {scroll_by});")
                 sleep(1)
                 l = self.wait.until(
                     EC.presence_of_element_located((By.XPATH, xpath)))
