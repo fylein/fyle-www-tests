@@ -2,7 +2,7 @@ import time
 import logging
 import pytest
 
-from common.asserts import assert_overflowing, assert_cards_redirection, assert_home_testimonial, assert_left_right_para_block
+from common.asserts import assert_overflowing, assert_cards_redirection, assert_home_testimonial, assert_left_right_para_block, assert_links
 from common.utils import resize_browser
 from common.test_getdemo import assert_bad_email, assert_required_fields, assert_success, assert_non_business_email, assert_invalid_names
 
@@ -73,6 +73,20 @@ def test_home_page_features(browser):
 @pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
 def test_home_testimonial(browser):
     assert_home_testimonial(browser)
+
+@pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
+def test_blog_link(browser):
+    blog_link = "(//div[contains(@class, 'resources-links')]//a[contains(text(), 'Blog')])"
+    link = 'https://ww2.fylehq.com/blog'
+    blog_body = "//body[contains(@class, 'body-2')]"
+    assert_links(browser, blog_link, link, blog_body)
+
+@pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
+def test_help_link(browser):
+    help_link = "(//div[contains(@class, 'resources-links')]//a[contains(text(), 'Help articles')])"
+    link = 'https://ww2.fylehq.com/help/en'
+    help_body = "//div[contains(@class, 'content')]"
+    assert_links(browser, help_link, link, help_body)
 
 @pytest.mark.parametrize('browser', [('desktop_1')], indirect=True)
 def test_para_block(browser):

@@ -287,3 +287,13 @@ def assert_left_right_para_block(browser, left_blocks, right_blocks, value):
 
     for i, right_block in enumerate(right_blocks):
         assert_spacing_left(right_block, value)
+
+def assert_links(browser, link_element, link, xpath):
+    ele = browser.find_many(link_element)
+    if browser.is_desktop():
+        browser.click_element(ele[1])
+    else:
+        browser.click_element(ele[0])
+    assert browser.get_current_url().rstrip('/') == link, "Redirecting to wrong page"
+    landing_page_element = browser.find(xpath)
+    assert landing_page_element.is_displayed, "Page not loaded!"
