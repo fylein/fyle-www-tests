@@ -129,14 +129,14 @@ def assert_cards_redirection(browser, cards_xpath, redirect_to_urls, same_tab=Fa
     if same_tab:
         for i, card_elem in enumerate(cards_xpath):
             card = browser.find(card_elem, scroll=True, scroll_by=-200)
-            browser.click_element(card)
+            browser.click_element(card, cards=True)
             assert browser.get_current_url().rstrip('/') == redirect_to_urls[i], "Redirecting to wrong page"
             browser.back()
     else:
         cards = browser.find_many(xpath=cards_xpath)
         assert len(cards) > 0, 'Wrong xpath given for cards'
         for card in cards:
-            browser.click_element(card)
+            browser.click_element(card, cards=True)
             browser.switch_tab_next(1)
             assert browser.get_current_url() in redirect_to_urls, 'Redirecting to wrong page'
             browser.close_windows()
@@ -244,22 +244,29 @@ def assert_home_testimonial(browser):
     #check right arrow
     browser.find(xpath="//section[contains(@class, 'home-customer-testimonial')]", scroll=True)
     sleep(1)
+    right_arrow_xpath_desktop = "//section[contains(@class, 'home-customer-testimonial')]//div[contains(@id, 'home-customer-carousel')]//div[contains(@class, 'slider-arrows')]//a[contains(@class, 'right')]"
+    right_arrow_xpath_mobile = "//section[contains(@class, 'home-customer-testimonial')]//div[contains(@id, 'home-customer-carousel')]//div[contains(@class, 'slider-arrows') and contains(@class, 'd-md-none')]//a[contains(@class, 'right')]"
     if browser.is_desktop():
-        right_arrow = browser.find(xpath="//section[contains(@class, 'home-customer-testimonial')]//div[contains(@id, 'home-customer-carousel')]//div[contains(@class, 'slider-arrows')]//a[contains(@class, 'right')]")
+        browser.find(xpath=right_arrow_xpath_desktop)
+        browser.click(xpath=right_arrow_xpath_desktop)
     else:
-        right_arrow = browser.find(xpath="//section[contains(@class, 'home-customer-testimonial')]//div[contains(@id, 'home-customer-carousel')]//div[contains(@class, 'slider-arrows') and contains(@class, 'd-md-none')]//a[contains(@class, 'right')]")
-    browser.click_element(right_arrow)
+        browser.find(xpath=right_arrow_xpath_mobile)
+        browser.click(xpath=right_arrow_xpath_mobile)
+
     active_index = get_active_index(carousel_items)
     assert active_index == ((current_active_index + 1) % carousel_length), 'Right click operation is not working'
 
     #check left arrow
-    sleep(1)
     current_active_index = active_index
+    left_arrow_xpath_desktop = "(//section[contains(@class, 'home-customer-testimonial')]//div[contains(@id, 'home-customer-carousel')]//div[contains(@class, 'carousel-inner')]//div[contains(@class, 'slider-arrows')]//a[contains(@class, 'left')])[2]"
+    left_arrow_xpath_mobile = "//section[contains(@class, 'home-customer-testimonial')]//div[contains(@id, 'home-customer-carousel')]//div[contains(@class, 'slider-arrows') and contains(@class, 'd-md-none')]//a[contains(@class, 'left')]"
     if browser.is_desktop():
-        left_arrow = browser.find(xpath="(//section[contains(@class, 'home-customer-testimonial')]//div[contains(@id, 'home-customer-carousel')]//div[contains(@class, 'carousel-inner')]//div[contains(@class, 'slider-arrows')]//a[contains(@class, 'left')])[2]")
+        browser.find(xpath=left_arrow_xpath_desktop)
+        browser.click(xpath=left_arrow_xpath_desktop)
     else:
-        left_arrow = browser.find(xpath="//section[contains(@class, 'home-customer-testimonial')]//div[contains(@id, 'home-customer-carousel')]//div[contains(@class, 'slider-arrows') and contains(@class, 'd-md-none')]//a[contains(@class, 'left')]")
-    browser.click_element(left_arrow)
+        browser.find(xpath=left_arrow_xpath_mobile)
+        browser.click(xpath=left_arrow_xpath_mobile)
+
     active_index = get_active_index(carousel_items)
     assert active_index == ((current_active_index + (carousel_length - 1)) % carousel_length), 'Left click operation is not working'
 

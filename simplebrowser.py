@@ -114,8 +114,9 @@ class SimpleBrowser:
             if scroll:
                 self.driver.execute_script("arguments[0].scrollIntoView(true);", l)
                 sleep(1)
-                self.driver.execute_script(f"window.scrollBy(0, {scroll_by});")
-                sleep(1)
+                if scroll_by != 0:
+                    self.driver.execute_script(f"window.scrollBy(0, {scroll_by});")
+                    sleep(2)
                 l = self.wait.until(
                     EC.presence_of_element_located((By.XPATH, xpath)))
         except TimeoutException:
@@ -139,7 +140,9 @@ class SimpleBrowser:
         sleep(3)
         return l
 
-    def click_element(self, element):
+    def click_element(self, element, cards=False):
+        if cards:
+            l = self.hover(element)
         l = element.click()
         sleep(3)
         return l
@@ -232,4 +235,3 @@ class SimpleBrowser:
 
     def clear_local_storage(self):
         self.driver.execute_script("window.localStorage.clear();")
-

@@ -83,12 +83,12 @@ def test_para_block(browser):
 @pytest.mark.parametrize('browser', [('desktop_1')], indirect=True)
 def test_modal_open(browser):
     browser.click("//section[contains(@class, 'homepage-hero')]//div[contains(@class, 'hero-cta')]//a")
-    modal = browser.find("//div[contains(@id, 'contact-us-modal')]")
+    modal = browser.find("//div[@id = 'contact-us-modal']")
     assert modal.is_displayed(), 'Modal is not opened'
 
 @pytest.mark.parametrize('browser', [('desktop_1')], indirect=True)
 def test_modal_open_bottom(browser):
     browser.refresh()
     browser.click("//section[contains(@class, 'homepage-deepdive-section')]//div[contains(@class, 'cta-container')]//a")
-    modal = browser.find("//div[contains(@id, 'contact-us-modal')]")
+    modal = browser.find("//div[@id='contact-us-modal']")
     assert modal.is_displayed(), 'Modal is not opened'

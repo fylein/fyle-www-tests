@@ -20,7 +20,7 @@ def submit_getdemo_form(browser, email=None, firstname=None, lastname=None, phon
         browser.input(xpath="//input[@name='phone']", keys=phone)
     if company_size:
         browser.click(xpath="//input[@id='number_of_employees']")
-        browser.click(xpath=f"//li[@value='{company_size}']")
+        browser.click(xpath=f"//form[@id='contact-us-form']//li[@value='{company_size}']")
     if agree:
         browser.click(xpath='//div[contains(@class, "custom-checkbox")]')
     browser.click(xpath='//button[text()=" Get a demo "]')
@@ -28,7 +28,7 @@ def submit_getdemo_form(browser, email=None, firstname=None, lastname=None, phon
 def assert_bad_email(browser):
     open_getdemo_form(browser)
     submit_getdemo_form(browser, email='foo')
-    e = browser.find(xpath="//label[@for='demo-email'][@class='error']")
+    e = browser.find(xpath="//form[@id='contact-us-form']//label[@for='demo-email'][@class='error']")
     assert e and e.is_displayed(), 'No error displayed for invalid email'
 
 def assert_required_fields(browser):
