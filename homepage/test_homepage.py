@@ -41,7 +41,7 @@ def test_page_overflow(browser):
     assert_overflowing(browser=browser)
 
 @pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
-def test_home_page_features(browser):
+def test_product_features_section(browser):
     if not browser.is_desktop():
         browser.refresh()
 

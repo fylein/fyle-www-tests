@@ -2,7 +2,8 @@ from time import sleep
 import logging
 import pytest
 from common.utils import resize_browser
-from common.asserts import assert_vertical_spacing_between, assert_spacing_bottom, assert_spacing_top, assert_spacing_right, assert_spacing_left, assert_overflowing, assert_customer_logo, assert_typography, assert_cards_redirection
+from common.asserts import assert_vertical_spacing_between, assert_spacing_bottom, assert_spacing_top, assert_spacing_right, assert_spacing_left, assert_overflowing
+from common.asserts import assert_customer_logo, assert_typography, assert_cards_redirection
 
 logger = logging.getLogger(__name__)
 
