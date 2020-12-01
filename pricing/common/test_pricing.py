@@ -3,7 +3,7 @@ import time
 import pytest
 from common.utils import resize_browser
 from common.asserts import assert_customer_testimonial, assert_overflowing
-from common.test_getdemo import assert_bad_email, assert_missing_firstname, assert_success
+from common.test_getdemo import assert_bad_email, assert_success, assert_required_fields, assert_non_business_email, assert_invalid_names
 
 logger = logging.getLogger(__name__)
 
@@ -25,8 +25,16 @@ def test_bad_email(browser):
     assert_bad_email(browser)
 
 @pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
-def test_missing_firstname(browser):
-    assert_missing_firstname(browser)
+def test_required_fields(browser):
+    assert_required_fields(browser)
+
+@pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
+def test_non_business_email(browser):
+    assert_non_business_email(browser=browser)
+
+@pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
+def test_invalid_names(browser):
+    assert_invalid_names(browser=browser)
 
 @pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
 def test_success(browser):
@@ -66,16 +74,16 @@ def test_compareplan_table(browser):
     assert table and table.is_displayed(), 'Compare all plans table is not opening'
 
 # check the ctas present inside the compare all plans table
-@pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
-def test_download_cta(browser):
-    open_table_btn = browser.find(xpath="//div[contains(text(), 'Compare all plans')]", scroll=True)
-    browser.scroll_up_or_down(-200)
-    browser.click_element(open_table_btn)
-    cta = browser.find(xpath="//button[contains(text(), 'Download all plans')]", scroll=True)
-    browser.scroll_up_or_down(-200)
-    browser.click_element(cta)
-    download_form = browser.find(xpath="//form[@id='contact-us-form-feature-download']")
-    assert download_form and download_form.is_displayed(), 'All feature download form is not open'
+# @pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
+# def test_download_cta(browser):
+#     open_table_btn = browser.find(xpath="//div[contains(text(), 'Compare all plans')]", scroll=True)
+#     browser.scroll_up_or_down(-200)
+#     browser.click_element(open_table_btn)
+#     cta = browser.find(xpath="//button[contains(text(), 'Download all plans')]", scroll=True)
+#     browser.scroll_up_or_down(-200)
+#     browser.click_element(cta)
+#     download_form = browser.find(xpath="//form[@id='contact-us-form-feature-download']")
+#     assert download_form and download_form.is_displayed(), 'All feature download form is not open'
 
 @pytest.mark.parametrize('browser', [('desktop_1')], indirect=True)
 def test_demo_cta(browser):
