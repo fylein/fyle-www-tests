@@ -140,9 +140,13 @@ class SimpleBrowser:
         sleep(3)
         return l
 
-    def click_element(self, element, cards=False):
-        if cards:
-            l = self.hover(element)
+    def click_element(self, element):
+        l = element.click()
+        sleep(3)
+        return l
+
+    def hover_and_click(self, element):
+        self.hover(element)
         l = element.click()
         sleep(3)
         return l

@@ -129,14 +129,14 @@ def assert_cards_redirection(browser, cards_xpath, redirect_to_urls, same_tab=Fa
     if same_tab:
         for i, card_elem in enumerate(cards_xpath):
             card = browser.find(card_elem, scroll=True, scroll_by=-200)
-            browser.click_element(card, cards=True)
+            browser.hover_and_click(card)
             assert browser.get_current_url().rstrip('/') == redirect_to_urls[i], "Redirecting to wrong page"
             browser.back()
     else:
         cards = browser.find_many(xpath=cards_xpath)
         assert len(cards) > 0, 'Wrong xpath given for cards'
         for card in cards:
-            browser.click_element(card, cards=True)
+            browser.hover_and_click(card)
             browser.switch_tab_next(1)
             assert browser.get_current_url() in redirect_to_urls, 'Redirecting to wrong page'
             browser.close_windows()
