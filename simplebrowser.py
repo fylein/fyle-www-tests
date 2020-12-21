@@ -145,6 +145,7 @@ class SimpleBrowser:
         sleep(3)
         return l
 
+    # Method to do hover(move_to_elemet) operation before clicking to avoid click interception error.
     def hover_and_click(self, element):
         self.hover(element)
         l = element.click()
