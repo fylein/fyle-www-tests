@@ -108,12 +108,15 @@ class SimpleBrowser:
         self.driver.execute_script(f'window.scrollBy(0, {pixels_to_scroll});')
         sleep(random.uniform(0.0, 1.0))
 
-    def find(self, xpath, scroll=False):
+    def find(self, xpath, scroll=False, scroll_by=0):
         try:
             l = self.wait.until(EC.presence_of_element_located((By.XPATH, xpath)))
             if scroll:
                 self.driver.execute_script("arguments[0].scrollIntoView(true);", l)
                 sleep(1)
+                if scroll_by != 0:
+                    self.driver.execute_script(f"window.scrollBy(0, {scroll_by});")
+                    sleep(2)
                 l = self.wait.until(
                     EC.presence_of_element_located((By.XPATH, xpath)))
         except TimeoutException:
@@ -138,6 +141,13 @@ class SimpleBrowser:
         return l
 
     def click_element(self, element):
+        l = element.click()
+        sleep(3)
+        return l
+
+    # Method to do hover(move_to_elemet) operation before clicking to avoid click interception error.
+    def hover_and_click(self, element):
+        self.hover(element)
         l = element.click()
         sleep(3)
         return l
