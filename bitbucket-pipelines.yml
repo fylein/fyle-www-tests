@@ -8,6 +8,7 @@ pipelines:
           caches:
             - pip
           script:
+            - export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
             - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
             - pytest -v homepage/test_homepage.py::test_bad_email
 
@@ -18,5 +19,6 @@ pipelines:
           caches:
             - pip
           script:
+            - export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
             - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
             - pytest -v homepage/test_homepage.py::test_bad_email
