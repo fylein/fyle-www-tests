@@ -14,6 +14,6 @@ def base_url():
 def module_browser(base_url):
     browser = create_browser()
     browser.get(base_url)
-    browser.click(xpath="//span[contains(@class, 'banner-close')]")
+    #browser.click(xpath="//span[contains(@class, 'banner-close')]")
     yield browser
-    del browser
+    browser.close()

@@ -12,6 +12,7 @@ __pycache__/
 venv/
 dev.py
 release.sh
+.env
 
 # Ignore build files
 build/

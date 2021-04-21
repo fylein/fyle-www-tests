@@ -11,6 +11,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
+from webdrivermanager import get_hub_url
 
 logger = logging.getLogger(__name__)
 
@@ -37,19 +38,31 @@ class SimpleBrowser:
         assert browser in ['chrome', 'safari',
                            'firefox', None], 'unsupported browser'
         driver = None
-        for _ in range(0, 3):
-            try:
-                if browser == 'safari':
-                    driver = SimpleBrowser.__create_safari_driver(
-                        width=width, height=height)
-                if browser == 'chrome' or not browser:
-                    driver = SimpleBrowser.__create_chrome_driver(
-                        width=width, height=height)
-            except SessionNotCreatedException:
-                logger.exception('couldnt create session properly')
-                sleep(4)
-            if driver:
-                break
+        # for _ in range(0, 3):
+        #     try:
+        #         if browser == 'safari':
+        #             driver = SimpleBrowser.__create_safari_driver(
+        #                 width=width, height=height)
+        #         if browser == 'chrome' or not browser:
+        #             driver = SimpleBrowser.__create_chrome_driver(
+        #                 width=width, height=height)
+        #     except SessionNotCreatedException:
+        #         logger.exception('couldnt create session properly')
+        #         sleep(4)
+        #     if driver:
+        #         break
+        # return driver
+        capabilities = {
+            "build" : "Website Build",
+            "name" : "Bad email",
+            "platform" : "Windows 10",
+            "browserName" : "Chrome",
+            "version" : "88.0",
+            "console" : True,
+            "implicit_wait" : 8,
+        }
+
+        driver = webdriver.Remote(command_executor= get_hub_url(), desired_capabilities= capabilities)
         return driver
 
     def __init__(self, browser, width, height):
@@ -65,7 +78,7 @@ class SimpleBrowser:
         driver = self.driver
         self.driver = None
         if driver:
-            driver.close()
+            driver.quit()
         sleep(2)
 
     def __del__(self):
