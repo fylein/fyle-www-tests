@@ -19,3 +19,4 @@ dist/
 fylesdk.egg-info/
 linkedin.py
 reload.sql
+geckodriver.log

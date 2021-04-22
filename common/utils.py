@@ -6,16 +6,13 @@ from simplebrowser import SimpleBrowser
 logger = logging.getLogger(__name__)
 
 resolutions = {
-    'desktop_1': {'width': 1536, 'height': 864},
+    'desktop_1': {'width': 1920, 'height': 864},
     'mobile_1': {'width': 414, 'height': 896}
 }
 
 def create_browser():
     name = os.getenv('BROWSER', 'chrome')
-    width = 1920
-    height = 1080
-    logger.debug('creating browser %s, width %s, height %s', name, width, height)
-    browser = SimpleBrowser(browser=name, width=width, height=height)
+    browser = SimpleBrowser(browser=name)
     return browser
 
 def resize_browser(browser, resolution):

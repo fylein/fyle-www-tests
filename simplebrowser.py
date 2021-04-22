@@ -11,6 +11,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
+from webdrivers import get_driver
 
 logger = logging.getLogger(__name__)
 
@@ -18,33 +19,13 @@ logger = logging.getLogger(__name__)
 class SimpleBrowser:
 
     @classmethod
-    def __create_chrome_driver(cls, width, height):
-        assert width
-        assert height
-        options = Options()
-        options.add_argument(f'--window-size={width},{height}')
-        driver = webdriver.Chrome(options=options)
-        return driver
-
-    @classmethod
-    def __create_safari_driver(cls, width, height):
-        driver = webdriver.Safari()
-        driver.set_window_size(width, height)
-        return driver
-
-    @classmethod
-    def __create_driver(cls, browser, width, height):
-        assert browser in ['chrome', 'safari',
+    def __create_driver(cls, browser):
+        assert browser in ['chrome', 'ie', 'edge',
                            'firefox', None], 'unsupported browser'
         driver = None
         for _ in range(0, 3):
             try:
-                if browser == 'safari':
-                    driver = SimpleBrowser.__create_safari_driver(
-                        width=width, height=height)
-                if browser == 'chrome' or not browser:
-                    driver = SimpleBrowser.__create_chrome_driver(
-                        width=width, height=height)
+                driver = get_driver(browser)
             except SessionNotCreatedException:
                 logger.exception('couldnt create session properly')
                 sleep(4)
@@ -52,10 +33,9 @@ class SimpleBrowser:
                 break
         return driver
 
-    def __init__(self, browser, width, height):
+    def __init__(self, browser):
         self.browser = browser
-        self.driver = SimpleBrowser.__create_driver(
-            browser=browser, width=width, height=height)
+        self.driver = SimpleBrowser.__create_driver(browser=browser)
         assert self.driver, 'unable to initialize browser properly'
         self.timeout = 5
         self.wait = WebDriverWait(self.driver, self.timeout)
