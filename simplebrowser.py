@@ -9,7 +9,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
-from webdrivers import get_driver
+from webdriver_settings import get_driver
 
 logger = logging.getLogger(__name__)
 
