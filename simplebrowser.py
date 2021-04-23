@@ -19,7 +19,7 @@ class SimpleBrowser:
     @classmethod
     def __create_driver(cls, browser):
         assert browser in ['chrome', 'ie', 'edge',
-                           'firefox', None], 'unsupported browser'
+                           'firefox', 'remote', None], 'unsupported browser'
         driver = None
         for _ in range(0, 3):
             try:
@@ -43,7 +43,7 @@ class SimpleBrowser:
         driver = self.driver
         self.driver = None
         if driver:
-            driver.close()
+            driver.quit()
         sleep(2)
 
     def __del__(self):
