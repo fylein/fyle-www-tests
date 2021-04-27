@@ -1,6 +1,5 @@
-import logging
 import os
-
+import logging
 from simplebrowser import SimpleBrowser
 
 logger = logging.getLogger(__name__)
@@ -10,9 +9,11 @@ resolutions = {
     'mobile_1': {'width': 414, 'height': 896}
 }
 
-def create_browser():
-    name = os.getenv('BROWSER', 'chrome')
-    browser = SimpleBrowser(browser=name)
+def get_browser_name():
+    return os.getenv('BROWSER', 'chrome')
+
+def create_browser(browser_name, capabilities):
+    browser = SimpleBrowser(browser_name, capabilities)
     return browser
 
 def resize_browser(browser, resolution):

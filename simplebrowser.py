@@ -9,7 +9,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
-from webdrivers import get_driver
+from webdriver_settings import get_driver
 
 logger = logging.getLogger(__name__)
 
@@ -17,13 +17,14 @@ logger = logging.getLogger(__name__)
 class SimpleBrowser:
 
     @classmethod
-    def __create_driver(cls, browser):
+    def __create_driver(cls, browser, capabilities):
         assert browser in ['chrome', 'ie', 'edge',
                            'firefox', 'remote', None], 'unsupported browser'
         driver = None
         for _ in range(0, 3):
             try:
-                driver = get_driver(browser)
+                #Getting driver from webdriver_settings
+                driver = get_driver(browser, capabilities)
             except SessionNotCreatedException:
                 logger.exception('couldnt create session properly')
                 sleep(4)
@@ -31,9 +32,9 @@ class SimpleBrowser:
                 break
         return driver
 
-    def __init__(self, browser):
+    def __init__(self, browser, capabilities):
         self.browser = browser
-        self.driver = SimpleBrowser.__create_driver(browser=browser)
+        self.driver = SimpleBrowser.__create_driver(browser=browser, capabilities=capabilities)
         assert self.driver, 'unable to initialize browser properly'
         self.timeout = 5
         self.wait = WebDriverWait(self.driver, self.timeout)
