@@ -1,0 +1,28 @@
+image: python:3.7
+
+pipelines:
+  branches:
+    master:
+      - step:
+          name: Test
+          caches:
+            - pip
+          script:
+            - pip install virtualenv
+            - virtualenv venv --python=python3.7
+            - source venv/bin/activate
+            - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+            - pytest -v homepage/test_homepage.py::test_bad_email
+
+  pull-requests:
+     '**':
+      - step:
+          name: TestConfig
+          caches:
+            - pip
+          script:
+            - pip install virtualenv
+            - virtualenv venv --python=python3.7
+            - source venv/bin/activate
+            - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+            - pytest -v homepage/test_demoform.py::test_bad_email
