@@ -26,6 +26,23 @@ BROWSER_CAPABALITIES = [None] if get_browser_name() != 'remote' else [
             "platform" : "MacOS Big sur",
             "browserName" : "Safari",
             "version" : "14.0",
+        },
+
+        {
+            "build" : "Test build",
+            "name" : "Bad email - firefox",
+            "platform" : "Windows 10",
+            "browserName" : "Firefox",
+            "version" : "87.0"
+        },
+
+        {
+            "build" : "Test build",
+            "name" : "Bad emial - IE",
+            "platform" : "Windows 10",
+            "browserName" : "Internet Explorer",
+            "version" : "11.0",
+            "ie.compatibility" : 11001
         }
     ]
 
