@@ -5,8 +5,6 @@ pipelines:
     master:
       - step:
           name: Test
-          caches:
-            - pip
           script:
             - pip install virtualenv
             - virtualenv venv --python=python3.7
@@ -14,15 +12,33 @@ pipelines:
             - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
             - python -m pytest -v homepage/test_homepage.py::test_bad_email --junitxml=test-reports/report.xml
 
-  pull-requests:
-     '**':
+  custom:
+    prod-pipeline:
       - step:
-          name: TestConfig
-          caches:
-            - pip
+          name: Prod test
           script:
             - pip install virtualenv
             - virtualenv venv --python=python3.7
             - source venv/bin/activate
             - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-            - python -m pytest -v homepage/test_demoform.py::test_bad_email --junitxml=test-reports/report.xml
+            - python -m pytest -v homepage/test_demoform.py::test_bad_email --url prod --junitxml=test-reports/report.xml
+
+    staging1-pipeline:
+        - step:
+            name: Staging1 test
+            script:
+              - pip install virtualenv
+              - virtualenv venv --python=python3.7
+              - source venv/bin/activate
+              - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+              - python -m pytest -v homepage/test_demoform.py::test_bad_email --url stag1 --junitxml=test-reports/report.xml
+
+    staging2-pipeline:
+      - step:
+          name: Staging2 test
+          script:
+            - pip install virtualenv
+            - virtualenv venv --python=python3.7
+            - source venv/bin/activate
+            - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+            - python -m pytest -v homepage/test_demoform.py::test_bad_email --url stag2 --junitxml=test-reports/report.xml
