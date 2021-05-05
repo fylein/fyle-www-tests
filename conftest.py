@@ -76,10 +76,3 @@ def module_browser(base_url, request):
     yield browser
     browser.close()
 
-#Setting the resolution parameters in fixture itself, this avoids adding @mark.parameterize() for every test cases.
-@pytest.fixture(params=[('desktop_1'), ('mobile_1')], scope='function')
-def browser(module_browser, base_url, request):
-    resize_browser(browser=module_browser, resolution=request.param)
-    module_browser.get(base_url + '/')
-    time.sleep(4)
-    return module_browser

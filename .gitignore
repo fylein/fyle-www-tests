@@ -21,3 +21,4 @@ test-reports/
 linkedin.py
 reload.sql
 geckodriver.log
+test-reports/

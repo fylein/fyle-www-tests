@@ -40,7 +40,7 @@ class SimpleBrowser:
         self.wait = WebDriverWait(self.driver, self.timeout)
 
     def close(self):
-        sleep(1)
+        sleep(0.1)
         driver = self.driver
         self.driver = None
         if driver:
@@ -92,10 +92,10 @@ class SimpleBrowser:
             l = self.wait.until(EC.presence_of_element_located((By.XPATH, xpath)))
             if scroll:
                 self.driver.execute_script("arguments[0].scrollIntoView(true);", l)
-                sleep(1)
+                #sleep(1)
                 if scroll_by != 0:
                     self.driver.execute_script(f"window.scrollBy(0, {scroll_by});")
-                    sleep(2)
+                    #sleep(2)
                 l = self.wait.until(
                     EC.presence_of_element_located((By.XPATH, xpath)))
         except TimeoutException:
@@ -109,14 +109,14 @@ class SimpleBrowser:
 
     def click(self, xpath, scroll=False):
         l = self.find(xpath, scroll)
-        sleep(1)
+        #sleep(1)
         ltag = l.tag_name.lower() if l.tag_name else None
         assert ltag in ['input', 'li', 'button', 'span',
                         'a', 'div', 'textarea'], 'xpath did not return proper element'
         l = self.wait.until(
             EC.element_to_be_clickable((By.XPATH, xpath)))
         l.click()
-        sleep(3)
+        #sleep(3)
         return l
 
     def click_element(self, element):
