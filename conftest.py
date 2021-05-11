@@ -1,8 +1,7 @@
-import time
 import logging
 import pytest
 
-from common.utils import create_browser, resize_browser, get_browser_name
+from common.utils import create_browser, get_browser_name
 
 logger = logging.getLogger(__name__)
 
@@ -55,11 +54,3 @@ def module_browser(base_url, request):
     browser.click(xpath="//span[contains(@class, 'banner-close')]")
     yield browser
     browser.close()
-
-#Setting the resolution parameters in fixture itself, this avoids adding @mark.parameterize() for every test cases.
-@pytest.fixture(params=[('desktop_1'), ('mobile_1')], scope='function')
-def browser(module_browser, base_url, request):
-    resize_browser(browser=module_browser, resolution=request.param)
-    module_browser.get(base_url + '/')
-    time.sleep(4)
-    return module_browser
