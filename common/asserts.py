@@ -84,8 +84,8 @@ def assert_spacing_top(element=None, value=None):
 def assert_spacing_right(element=None, value=None):
     padding_right = int(element.value_of_css_property('padding-right').replace('px', ''))
     margin_right = int(element.value_of_css_property('margin-right').replace('px', ''))
-    space_top = padding_right + margin_right
-    assert space_top == value, f"spacing right is not correct for '{element.text}'"
+    space_right = padding_right + margin_right
+    assert space_right == value, f"spacing right is not correct for '{element.text}'"
 
 def assert_spacing_left(element=None, value=None):
     padding_left = int(element.value_of_css_property('padding-left').replace('px', ''))
@@ -125,7 +125,7 @@ def assert_collapsible_feature_comparison_table(browser):
             assert feature_contents.is_displayed() is False, f'Unable to collapse feature: {div.text}'
         browser.scroll_up_or_down(50)
 
-def assert_cards_redirection(browser, cards_xpath, redirect_to_urls, same_tab=False):
+def assert_cards_redirection(browser, section_xpath, cards_xpath, redirect_to_urls, same_tab=False):
     if same_tab:
         for i, card_elem in enumerate(cards_xpath):
             card = browser.find(card_elem, scroll=True, scroll_by=-200)
@@ -135,14 +135,18 @@ def assert_cards_redirection(browser, cards_xpath, redirect_to_urls, same_tab=Fa
     else:
         cards = browser.find_many(xpath=cards_xpath)
         assert len(cards) > 0, 'Wrong xpath given for cards'
-        for card in cards:
+        for i, card in enumerate(cards):
+            # browser.scroll_to_element(card)
+            section = browser.find(xpath=section_xpath)
             browser.hover_and_click(card)
             browser.switch_tab_next(1)
-            assert browser.get_current_url() in redirect_to_urls, 'Redirecting to wrong page'
-            browser.close_windows()
-            if browser.is_desktop() is False:
-                browser.scroll_up_or_down(300)
-            sleep(2)
+            sleep(1)
+            logger.info(browser.get_current_url())
+            assert browser.get_current_url() == redirect_to_urls[i], 'Redirecting to wrong page'
+            browser.close_windows() 
+            # if browser.is_desktop() is False:
+            #     browser.scroll_up_or_down(300)
+            #sleep(2)
 
 def assert_cta_click_and_modal_show(browser, cta_section_xpath, cta_xpath):
     section = browser.find(xpath=cta_section_xpath, scroll=True)
@@ -281,12 +285,12 @@ def assert_home_testimonial(browser):
             current_active_index = get_active_index(carousel_indicators)
             assert carousel_items[current_active_index].is_displayed(), 'Error in testimonial idicators'
 
-def assert_left_right_para_block(browser, left_blocks, right_blocks, value):
-    for i, left_block in enumerate(left_blocks):
-        assert_spacing_right(left_block, value)
+# def assert_left_right_para_block(browser, left_blocks, right_blocks, value):
+#     for i, left_block in enumerate(left_blocks):
+#         assert_spacing_right(left_block, value)
 
-    for i, right_block in enumerate(right_blocks):
-        assert_spacing_left(right_block, value)
+#     for i, right_block in enumerate(right_blocks):
+#         assert_spacing_left(right_block, value)
 
 def assert_links(browser, link_element, link, xpath):
     ele = browser.find_many(link_element)

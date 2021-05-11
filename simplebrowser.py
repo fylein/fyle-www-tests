@@ -127,8 +127,11 @@ class SimpleBrowser:
     # Method to do hover(move_to_elemet) operation before clicking to avoid click interception error.
     def hover_and_click(self, element):
         self.hover(element)
+        action = ActionChains(self.driver)
+        action.move_to_element(element).perform()
+        sleep(6)
         l = element.click()
-        sleep(3)
+        #sleep(3)
         return l
 
     def input(self, xpath, keys, scroll=False):
@@ -139,9 +142,9 @@ class SimpleBrowser:
                         'a', 'div', 'textarea'], 'xpath did not return proper element'
         l = self.wait.until(EC.element_to_be_clickable((By.XPATH, xpath)))
         l.click()
-        sleep(0.1)
+        #sleep(0.1)
         l.send_keys(keys)
-        sleep(0.1)
+        #sleep(0.1)
         return l
 
     def close_windows(self):
@@ -219,3 +222,20 @@ class SimpleBrowser:
 
     def clear_local_storage(self):
         self.driver.execute_script("window.localStorage.clear();")
+
+    # def poll(self, elem, interval, timeout):
+    #     if elem.is_displayed():
+    #         return elem
+    #     if timeout <= 0:
+    #         logger.error('Poll Time out exception')
+    #         return
+    #     time_out = timeout - interval
+    #     self.poll(elem, interval, time_out)
+    
+    # def move_and_click(self, elem):
+    #     self.driver.execute_script("arguments[0].scrollIntoView(true);", elem)
+    #     action = ActionChains(self.driver)
+    #     action.move_to_element(elem).click().perform()
+    #     logger.info('click performed')
+    #     return elem
+

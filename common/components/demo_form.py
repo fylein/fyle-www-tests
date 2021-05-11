@@ -1,7 +1,10 @@
+from time import sleep
 import logging
 from common.asserts import assert_thank_you_modal
 
 logger = logging.getLogger(__name__)
+
+
 
 def open_getdemo_form(browser):
     if browser.is_desktop():
@@ -49,13 +52,15 @@ def assert_success(browser):
     open_getdemo_form(browser)
     submit_getdemo_form(browser, email='test@fyle.in', firstname='test', lastname='test', phone='123456789', company_size='Under 5', agree=True)
     e = browser.find(xpath="//h3[contains(text(), 'Thank')]")
+    sleep(2)
     assert e and e.is_displayed(), 'Not displaying thank you message'
-    ty_message = 'Sit back and relax. Our Sales team will get in touch with you within the next 24 hours to schedule a detailed demo.'
+    ty_message = 'Our sales team will respond within the next 60 minutes to schedule a detailed product demo.'
     assert_thank_you_modal(browser, ty_message, 'demoform')
 
 def assert_non_business_email(browser):
     open_getdemo_form(browser)
     submit_getdemo_form(browser, email='test@gmail.com', firstname='test', lastname='test', phone='1234567865', company_size='Under 5', agree=True)
+    sleep(2)
     email_error = browser.find(xpath="//label[@for='demo-email'][@class='error email-error']")
     assert email_error and email_error.is_displayed(), 'No error displayed for non business email'
 
