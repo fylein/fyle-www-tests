@@ -4,8 +4,6 @@ from common.asserts import assert_thank_you_modal
 
 logger = logging.getLogger(__name__)
 
-
-
 def open_getdemo_form(browser):
     if browser.is_desktop():
         browser.click(xpath="//div[contains(@class, 'nav-item')]//a[contains(text(), 'Get a demo')]")

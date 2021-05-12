@@ -136,17 +136,12 @@ def assert_cards_redirection(browser, section_xpath, cards_xpath, redirect_to_ur
         cards = browser.find_many(xpath=cards_xpath)
         assert len(cards) > 0, 'Wrong xpath given for cards'
         for i, card in enumerate(cards):
-            # browser.scroll_to_element(card)
             card = browser.find(xpath=f'({cards_xpath})[{i+1}]', scroll=True)
             browser.hover_and_click(card)
             browser.switch_tab_next(1)
             #sleep(1)
-            logger.info(browser.get_current_url())
             assert browser.get_current_url() == redirect_to_urls[i], 'Redirecting to wrong page'
-            browser.close_windows() 
-            # if browser.is_desktop() is False:
-            #     browser.scroll_up_or_down(300)
-            #sleep(2)
+            browser.close_windows()
 
 def assert_cta_click_and_modal_show(browser, cta_section_xpath, cta_xpath):
     section = browser.find(xpath=cta_section_xpath, scroll=True)
@@ -285,13 +280,6 @@ def assert_home_testimonial(browser):
             current_active_index = get_active_index(carousel_indicators)
             assert carousel_items[current_active_index].is_displayed(), 'Error in testimonial idicators'
 
-# def assert_left_right_para_block(browser, left_blocks, right_blocks, value):
-#     for i, left_block in enumerate(left_blocks):
-#         assert_spacing_right(left_block, value)
-
-#     for i, right_block in enumerate(right_blocks):
-#         assert_spacing_left(right_block, value)
-
 def assert_links(browser, link_element, link, xpath):
     ele = browser.find_many(link_element)
     if browser.is_desktop():
@@ -305,5 +293,4 @@ def assert_links(browser, link_element, link, xpath):
 
 def assert_element_width(element, width):
     element_width = int(element.value_of_css_property('width').replace('px', ''))
-    logger.info(element_width)
     assert element_width == width, "Paragraph width is incorrect"
