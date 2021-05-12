@@ -39,7 +39,7 @@ class SimpleBrowser:
         self.timeout = 5
         self.wait = WebDriverWait(self.driver, self.timeout)
 
-    def close(self):
+    def quit(self):
         sleep(1)
         driver = self.driver
         self.driver = None
@@ -49,7 +49,7 @@ class SimpleBrowser:
 
     def __del__(self):
         logger.debug('destructor called')
-        self.close()
+        self.quit()
 
     def get(self, url):
         return self.driver.get(url)
@@ -149,7 +149,7 @@ class SimpleBrowser:
         while len(self.driver.window_handles) > 1:
             w = self.driver.window_handles[-1]
             self.driver.switch_to.window(w)
-            self.driver.close()
+            self.driver.quit()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
     def mark_divs(self):
