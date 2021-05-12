@@ -137,10 +137,10 @@ def assert_cards_redirection(browser, section_xpath, cards_xpath, redirect_to_ur
         assert len(cards) > 0, 'Wrong xpath given for cards'
         for i, card in enumerate(cards):
             # browser.scroll_to_element(card)
-            section = browser.find(xpath=section_xpath)
+            card = browser.find(xpath=f'({cards_xpath})[{i+1}]', scroll=True)
             browser.hover_and_click(card)
             browser.switch_tab_next(1)
-            sleep(1)
+            #sleep(1)
             logger.info(browser.get_current_url())
             assert browser.get_current_url() == redirect_to_urls[i], 'Redirecting to wrong page'
             browser.close_windows() 

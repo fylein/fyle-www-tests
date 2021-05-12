@@ -25,11 +25,13 @@ def test_non_business_email(browser):
 def test_invalid_names(browser):
     assert_invalid_names(browser)
 
-# def test_success(browser):
-#     assert_success(browser)
+def test_success(browser):
+    assert_success(browser)
 
-# def test_page_overflow(browser):
-#     assert_overflowing(browser=browser)
+def test_resources_section(browser, base_url):
+    links = [f'{base_url}/resources/expense-management-roi-calculator', f'{base_url}/resources/ebooks/automate-travel-expense-management', f'{base_url}/resources']
+    assert_resources_section(browser, links)
 
-# def test_para_block(browser):
-#     assert_para_blocks()
+def test_page_overflow(browser):
+    assert_overflowing(browser=browser)
+

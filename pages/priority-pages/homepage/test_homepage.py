@@ -3,7 +3,6 @@ import logging
 import pytest
 
 from common.asserts import assert_overflowing, assert_cards_redirection, assert_home_testimonial, assert_links
-from common.utils import resize_browser
 from common.components.para_blocks import assert_para_blocks
 from homepage import desktop_browser as browser
 from common.components.demo_form import assert_bad_email, assert_required_fields, assert_success, assert_non_business_email, assert_invalid_names
@@ -29,19 +28,18 @@ def test_page_overflow(browser):
 def test_para_blocks(browser):
     assert_para_blocks(browser, para_width=660, image_width=880, spacing=85)
 
-# def test_required_fields(browser):
-#     assert_required_fields(browser)
+def test_required_fields(browser):
+    assert_required_fields(browser)
 
-# def test_success(browser):
-#     assert_success(browser)
+def test_success(browser):
+    assert_success(browser)
 
-# def test_sneak_peek_section(browser):
-#     assert_sneak_peek_section(browser)
+def test_sneak_peek_section(browser):
+    assert_sneak_peek_section(browser)
 
-# @pytest.mark.parametrize('browser', [('desktop_1')], indirect=True)
-# def test_resources_section(browser):
-#     links = ['http://localhost:4000/resources/expense-management-roi-calculator', 'http://localhost:4000/resources/ebooks/automate-travel-expense-management', 'http://localhost:4000/resources/']
-#     assert_resources_section(browser, links)
+def test_resources_section(browser, base_url):
+    links = [f'{base_url}/resources/expense-management-roi-calculator', f'{base_url}/resources/ebooks/automate-travel-expense-management', f'{base_url}/resources']
+    assert_resources_section(browser, links)
 
 # @pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
 # def test_blog_link(browser):

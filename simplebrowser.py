@@ -40,12 +40,12 @@ class SimpleBrowser:
         self.wait = WebDriverWait(self.driver, self.timeout)
 
     def close(self):
-        sleep(0.1)
+        #sleep(0.1)
         driver = self.driver
         self.driver = None
         if driver:
             driver.quit()
-        sleep(2)
+        #sleep(2)
 
     def __del__(self):
         logger.debug('destructor called')
@@ -129,7 +129,6 @@ class SimpleBrowser:
         self.hover(element)
         action = ActionChains(self.driver)
         action.move_to_element(element).perform()
-        sleep(6)
         l = element.click()
         #sleep(3)
         return l
@@ -201,7 +200,7 @@ class SimpleBrowser:
         return self.driver.back()
 
     def switch_tab_next(self, number):
-        sleep(2)
+        #sleep(2)
         return self.driver.switch_to.window(self.driver.window_handles[number])
 
     # method to get the downloaded file name
@@ -222,20 +221,4 @@ class SimpleBrowser:
 
     def clear_local_storage(self):
         self.driver.execute_script("window.localStorage.clear();")
-
-    # def poll(self, elem, interval, timeout):
-    #     if elem.is_displayed():
-    #         return elem
-    #     if timeout <= 0:
-    #         logger.error('Poll Time out exception')
-    #         return
-    #     time_out = timeout - interval
-    #     self.poll(elem, interval, time_out)
-    
-    # def move_and_click(self, elem):
-    #     self.driver.execute_script("arguments[0].scrollIntoView(true);", elem)
-    #     action = ActionChains(self.driver)
-    #     action.move_to_element(elem).click().perform()
-    #     logger.info('click performed')
-    #     return elem
 

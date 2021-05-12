@@ -1,44 +1,19 @@
 import logging
 import time
 import pytest
+from . import desktop_browser as browser
 from common.utils import resize_browser
 from common.asserts import assert_customer_testimonial, assert_overflowing
 from common.test_getdemo import assert_bad_email, assert_success, assert_required_fields, assert_non_business_email, assert_invalid_names
 
 logger = logging.getLogger(__name__)
 
-@pytest.fixture(scope='function')
-def browser(module_browser, base_url, request):
-    resize_browser(browser=module_browser, resolution=request.param)
-    module_browser.get(base_url + "/pricing")
-    time.sleep(4)
-    return module_browser
 
 # check page x-overflow (common method)
 @pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
 def test_page_overflow(browser):
     assert_overflowing(browser)
 
-# check demo form (common section)
-@pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
-def test_bad_email(browser):
-    assert_bad_email(browser)
-
-@pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
-def test_required_fields(browser):
-    assert_required_fields(browser)
-
-@pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
-def test_non_business_email(browser):
-    assert_non_business_email(browser=browser)
-
-@pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
-def test_invalid_names(browser):
-    assert_invalid_names(browser=browser)
-
-@pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
-def test_success(browser):
-    assert_success(browser)
 
 # check slide change in cutsomer testimonial (common section)
 @pytest.mark.parametrize('browser', [('desktop_1')], indirect=True)
