@@ -28,9 +28,9 @@ def submit_getdemo_form(browser, email=None, firstname=None, lastname=None, phon
         browser.click(xpath='//div[contains(@class, "custom-checkbox")]')
     browser.click(xpath='//button[text()=" Get a demo "]')
 
-def assert_bad_email(browser):
+def assert_bad_email(browser, email='foo'):
     open_getdemo_form(browser)
-    submit_getdemo_form(browser, email='foo')
+    submit_getdemo_form(browser, email=email)
     e = browser.find(xpath="//form[@id='contact-us-form']//label[@for='demo-email'][@class='error']")
     assert e and e.is_displayed(), 'No error displayed for invalid email'
 
@@ -64,9 +64,9 @@ def assert_non_business_email(browser):
     email_error = browser.find(xpath="//label[@for='demo-email'][@class='error email-error']")
     assert email_error and email_error.is_displayed(), 'No error displayed for non business email'
 
-def assert_invalid_names(browser):
+def assert_invalid_names(browser, first_name='test1', last_name='test2'):
     open_getdemo_form(browser)
-    submit_getdemo_form(browser, firstname='test1', lastname='test2')
+    submit_getdemo_form(browser, firstname=first_name, lastname=last_name)
     firstname_error = browser.find(xpath="//label[@for='demo-first-name'][@class='error demo-first-name-error']")
     lastname_error = browser.find(xpath="//label[@for='demo-last-name'][@class='error demo-last-name-error']")
     assert firstname_error and firstname_error.is_displayed(), "No error displayed for invalid firstname"

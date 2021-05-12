@@ -301,3 +301,9 @@ def assert_links(browser, link_element, link, xpath):
     assert browser.get_current_url().rstrip('/') == link, "Redirecting to wrong page"
     landing_page_element = browser.find(xpath)
     assert landing_page_element.is_displayed, "Page not loaded!"
+
+
+def assert_element_width(element, width):
+    element_width = int(element.value_of_css_property('width').replace('px', ''))
+    logger.info(element_width)
+    assert element_width == width, "Paragraph width is incorrect"
