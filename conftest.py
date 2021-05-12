@@ -1,9 +1,8 @@
-import time
 import logging
 import pytest
 import os
 
-from common.utils import create_browser, resize_browser, get_browser_name
+from common.utils import create_browser, get_browser_name
 
 logger = logging.getLogger(__name__)
 
@@ -75,4 +74,3 @@ def module_browser(base_url, request):
     browser.click(xpath="//span[contains(@class, 'banner-close')]")
     yield browser
     browser.close()
-
