@@ -29,8 +29,8 @@ def test_success(browser):
     assert_success(browser)
 
 def test_resources_section(browser, base_url):
-    links = [f'{base_url}/resources/expense-management-roi-calculator', f'{base_url}/resources/ebooks/automate-travel-expense-management', f'{base_url}/resources']
-    assert_resources_section(browser, links)
+    links = ['/resources/expense-management-roi-calculator', '/resources/ebooks/automate-travel-expense-management', '/resources']
+    assert_resources_section(browser, base_url, links)
 
 def test_page_overflow(browser):
     assert_overflowing(browser=browser)

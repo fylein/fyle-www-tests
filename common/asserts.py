@@ -125,7 +125,7 @@ def assert_collapsible_feature_comparison_table(browser):
             assert feature_contents.is_displayed() is False, f'Unable to collapse feature: {div.text}'
         browser.scroll_up_or_down(50)
 
-def assert_cards_redirection(browser, section_xpath, cards_xpath, redirect_to_urls, same_tab=False):
+def assert_cards_redirection(browser, base_url, section_xpath, cards_xpath, redirect_to_urls, same_tab=False):
     if same_tab:
         for i, card_elem in enumerate(cards_xpath):
             card = browser.find(card_elem, scroll=True, scroll_by=-200)
@@ -140,7 +140,7 @@ def assert_cards_redirection(browser, section_xpath, cards_xpath, redirect_to_ur
             browser.hover_and_click(card)
             browser.switch_tab_next(1)
             #sleep(1)
-            assert browser.get_current_url() == redirect_to_urls[i], 'Redirecting to wrong page'
+            assert browser.get_current_url() == f'{base_url}{redirect_to_urls[i]}', 'Redirecting to wrong page'
             browser.close_windows()
 
 def assert_cta_click_and_modal_show(browser, cta_section_xpath, cta_xpath):

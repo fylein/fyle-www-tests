@@ -38,8 +38,8 @@ def test_sneak_peek_section(browser):
     assert_sneak_peek_section(browser)
 
 def test_resources_section(browser, base_url):
-    links = [f'{base_url}/resources/expense-management-roi-calculator', f'{base_url}/resources/ebooks/automate-travel-expense-management', f'{base_url}/resources']
-    assert_resources_section(browser, links)
+    links = ['/resources/expense-management-roi-calculator', '/resources/ebooks/automate-travel-expense-management', '/resources']
+    assert_resources_section(browser, base_url, links)
 
 # @pytest.mark.parametrize('browser', [('desktop_1'), ('mobile_1')], indirect=True)
 # def test_blog_link(browser):
