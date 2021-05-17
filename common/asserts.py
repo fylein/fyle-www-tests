@@ -294,3 +294,7 @@ def assert_links(browser, link_element, link, xpath):
 def assert_element_width(element, width):
     element_width = int(element.value_of_css_property('width').replace('px', ''))
     assert element_width == width, "Paragraph width is incorrect"
+
+
+def test(text, ele):
+    pass

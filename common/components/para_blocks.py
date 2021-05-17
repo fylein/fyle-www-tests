@@ -10,11 +10,11 @@ def assert_para_blocks(browser, para_width, image_width, spacing=0):
     right_blocks = browser.find_many(xpath="//section[contains(@class, 'features-parallel-content-img')]//div[contains(@class, 'fyle-features-row')]//div[contains(@class, 'fy-feature-right-para-padding')]")
 
     for i, left_block in enumerate(left_blocks):
-        assert_spacing_right(left_block, value)
+        assert_spacing_right(left_block, spacing)
         assert_element_width(left_block, para_width)
 
     for i, right_block in enumerate(right_blocks):
-        assert_spacing_left(right_block, value)
+        assert_spacing_left(right_block, spacing)
         assert_element_width(left_block, para_width)
 
 
