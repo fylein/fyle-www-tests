@@ -20,12 +20,13 @@ logger = logging.getLogger(__name__)
 @m.describe("Demo form test suit")
 @m.it("Should test bad-emial")
 def test_bad_email(browser):
-    # click('Get a demo')
-    # input('Work Email', 'value')
-    # click('Get a demo')
-    # validate('Work email', 'Validation text......')
-    #logger.info('Testing bad email valdiation...')
-    assert_bad_email(browser, email="tes#.")
+    test('click', 'Get a demo')
+    click('Get a demo')
+    input('Work Email', 'value')
+    click('Get a demo')
+    validate('Work email', 'Validation text......')
+    # logger.info('Testing bad email valdiation...')
+    # assert_bad_email(browser, email="tes#.")
 
 @m.it("Should test non business email")
 def test_non_business_email(browser):
@@ -61,10 +62,10 @@ def test_para_blocks(browser):
 
 
 def test_sneak_peek_section(browser):
-    - find('There’s more to cloud expense management')
-    - click('Eliminate overhead costs')
-    - is_displayed(dropdown, True)
-    - is_displayed(img)
+    # - find('There’s more to cloud expense management')
+    # - click('Eliminate overhead costs')
+    # - is_displayed(dropdown, True)
+    # - is_displayed(img)
     assert_sneak_peek_section(browser)
     pass
 
@@ -96,3 +97,18 @@ def test_resources_section(browser, base_url):
 #     link = 'https://ww2.fylehq.com/help/en'
 #     help_body = "//div[contains(@class, 'content')]"
 #     assert_links(browser, help_link, link, help_body)
+
+
+
+#Describe it test
+@pytest.mark.describe("Addition test")
+def add(x, y):
+    return x+y
+@pytest.mark.parametrize(['x', 'y', 'expected'], [
+        (1, 2, 3),
+        (3, 4, 7),
+        (5, 6, 10),
+    ])
+@pytest.mark.it('returns {expected} for add({x}, {y})')
+def test_add(x, y, expected):
+    assert add(x, y) == expected
