@@ -125,7 +125,7 @@ def assert_collapsible_feature_comparison_table(browser):
             assert feature_contents.is_displayed() is False, f'Unable to collapse feature: {div.text}'
         browser.scroll_up_or_down(50)
 
-def assert_cards_redirection(browser, base_url, section_xpath, cards_xpath, redirect_to_urls, same_tab=False):
+def assert_cards_redirection(browser, base_url, cards_xpath, redirect_to_urls, same_tab=False):
     if same_tab:
         for i, card_elem in enumerate(cards_xpath):
             card = browser.find(card_elem, scroll=True, scroll_by=-200)
@@ -140,7 +140,7 @@ def assert_cards_redirection(browser, base_url, section_xpath, cards_xpath, redi
             browser.hover_and_click(card)
             browser.switch_tab_next(1)
             #sleep(1)
-            assert browser.get_current_url() == f'{base_url}{redirect_to_urls[i]}', 'Redirecting to wrong page'
+            assert browser.get_current_url() == f'{base_url}{redirect_to_urls[i]}', f'Redirecting to wrong page - {redirect_to_urls[i]}'
             browser.close_windows()
 
 def assert_cta_click_and_modal_show(browser, cta_section_xpath, cta_xpath):
@@ -292,9 +292,5 @@ def assert_links(browser, link_element, link, xpath):
 
 
 def assert_element_width(element, width):
-    element_width = int(element.value_of_css_property('width').replace('px', ''))
-    assert element_width == width, "Paragraph width is incorrect"
-
-
-def test(text, ele):
-    pass
+    element_width = int(element.value_of_css_property('width').replace('px', '').split('.')[0])
+    assert element_width == width, f"Element width is incorrect - {element.get_attribute('innerHTML')} - the width is {element_width} - the actual width is {width}"

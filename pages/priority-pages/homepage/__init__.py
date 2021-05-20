@@ -8,15 +8,17 @@ def init_browser(module_browser, base_url, request):
     module_browser.hover(site_element)
     return module_browser
 
-#Desktop - 1920
+#Desktop - 1920px
 @pytest.fixture(params=[('desktop_1')], scope='function')
 def desktop_browser(module_browser, base_url, request):
     return init_browser(module_browser, base_url, request)
 
-#Mobile - 445
+#Laptop - 1440px
+@pytest.fixture(params=[('laptop_1')], scope='function')
+def laptop_browser(module_browser, base_url, request):
+    return init_browser(module_browser, base_url, request)
+
+#Mobile - 441px
 @pytest.fixture(params=[('mobile_1')], scope='function')
 def mobile_browser(module_browser, base_url, request):
     return init_browser(module_browser, base_url, request)
-
-#Laptop - 1440
-#......Code for Other resolutions

@@ -103,8 +103,11 @@ class SimpleBrowser:
         return l
 
     def find_many(self, xpath):
-        m = self.wait.until(
-            EC.presence_of_all_elements_located((By.XPATH, xpath)))
+        try:
+            m = self.wait.until(
+                EC.presence_of_all_elements_located((By.XPATH, xpath)))
+        except TimeoutException:
+            m = []
         return m
 
     def click(self, xpath, scroll=False):
@@ -221,3 +224,12 @@ class SimpleBrowser:
 
     def clear_local_storage(self):
         self.driver.execute_script("window.localStorage.clear();")
+
+    # def wait_unitl_visible(self, el):
+    #     self.wait.until(
+    #         lambda x: self.driver.execute_script("return arguments[0].complete", el)
+    #     )
+    #     return el
+
+    def get_window_size(self):
+        return self.driver.get_window_size()
