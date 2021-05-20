@@ -1,5 +1,6 @@
 import pytest
 from common.utils import resize_browser
+
 # from common.components.demo_form import DemoForm
 def init_browser(module_browser, base_url, request):
     resize_browser(browser=module_browser, resolution=request.param)

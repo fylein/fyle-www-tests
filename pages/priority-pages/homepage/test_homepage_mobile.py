@@ -7,7 +7,6 @@ from common.components.sneak_peek import assert_sneak_peek_section
 
 from homepage import mobile_browser as browser
 
-
 logger = logging.getLogger(__name__)
 
 #Check demo form (common section)
