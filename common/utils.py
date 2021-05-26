@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 resolutions = {
     'desktop_1': {'width': 1920, 'height': 864},
     'laptop_1' : {'width': 1440, 'height': 864},
-    'mobile_1': {'width': 500, 'height': 896}
+    'mobile_1': {'width': 450, 'height': 896 }
 }
 
 def get_resolution(browser):

@@ -91,7 +91,7 @@ class SimpleBrowser:
         try:
             l = self.wait.until(EC.presence_of_element_located((By.XPATH, xpath)))
             if scroll:
-                self.driver.execute_script("arguments[0].scrollIntoView(true);", l)
+                self.driver.execute_script("arguments[0].scrollIntoView(false);", l)
                 #sleep(1)
                 if scroll_by != 0:
                     self.driver.execute_script(f"window.scrollBy(0, {scroll_by});")

@@ -136,7 +136,7 @@ def assert_cards_redirection(browser, base_url, cards_xpath, redirect_to_urls, s
         cards = browser.find_many(xpath=cards_xpath)
         assert len(cards) > 0, 'Wrong xpath given for cards'
         for i, card in enumerate(cards):
-            card = browser.find(xpath=f'({cards_xpath})[{i+1}]', scroll=True)
+            card = browser.find(xpath=f'({cards_xpath})[{i+1}]', scroll=True, scroll_by=300)
             browser.hover_and_click(card)
             browser.switch_tab_next(1)
             #sleep(1)
