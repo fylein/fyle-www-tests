@@ -293,4 +293,4 @@ def assert_links(browser, link_element, link, xpath):
 
 def assert_element_width(element, width):
     element_width = int(element.value_of_css_property('width').replace('px', '').split('.')[0])
-    assert element_width == width, f"Element width is incorrect - {element.get_attribute('innerHTML')} - the width is {element_width} - the actual width is {width}"
+    assert element_width == width, f"Element width is incorrect - {element.get_attribute('innerHTML')} - the correct value in {width} but, {element_width} found"

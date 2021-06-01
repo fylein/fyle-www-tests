@@ -1,0 +1,68 @@
+{
+  "Expenses": "/product/expenses",
+  "Budgets": "/product/budgets",
+  "Integrations": "/product/integrations",
+  "Netsuite": "/product/integrations/netsuite-accounting-software",
+  "Sage Intacct": "/product/integrations/sage-intacct-accounting-software",
+  "Quickbooks": "/product/integrations/quickbooks-online-accounting-software",
+  "Cards": "/product/cards",
+  "Approvals": "/product/approvals",
+  "Compliance": "/product/compliance",
+  "Finance Operations": "/product/finance-operations",
+  "Analytics": "/product/analytics",
+  "Payments": "/product/payments",
+  "Security": "/product/security",
+
+  "Efficient Project Spends": "/solutions/goals/project-spends",
+  "Enhanced Employee Experience": "/solutions/goals/employee-experience",
+  "Increased Compliance & Control": "/solutions/goals/compliance-and-control",
+  " Paperless Process": "/solutions/goals/paperless-expenses",
+  "Digital Transformation": "/solutions/goals/digital-transformation",
+  " Cost Savings": "/solutions/goals/cost-savings",
+  "Construction": "/solutions/industry/construction",
+  "Accounting Services": "/solutions/industry/accounting-services",
+  "IT Services": "/solutions/industry/information-technology",
+  "Legal Services": "/solutions/industry/legal-services",
+  "Non-profits": "/solutions/industry/non-profit-organizations",
+  "CFO": "/solutions/role/cfo",
+  "Finance": "/solutions/role/finance",
+
+  "Partners" : "/partners",
+  "Accounting Firms": "/partners/accounting-firms",
+  "Travel Partners": "/partners/travel-management-company",
+  "About Us": "/company",
+  "Customers": "/customers",
+  "Customer Reviews": "/customers/reviews",
+  "Press": "/company/press",
+
+  "Case Studies" : "/resources/case-study",
+  "E-books": "/resources/guide",
+  "Webinars": "/resources/webinars",
+  "Expense Report Template": "/templates/expense-reports",
+  " Refer a Client ": "/partner-referral",
+
+  "Expense Report Software": "/expense-report-software",
+  "Travel and Expense Management": "/travel-expense-management",
+  "Expense Reimbursement Software": "/expense-reimbursement-software",
+  "Travel and Expense Software": "/travel-and-expense-software",
+  "Travel Reimbursement Software": "/travel-reimbursement-software",
+  "Automated Expense Reporting": "/automated-expense-reporting",
+  "Expense Management Software": "/expense-management-software",
+  "Expense Software": "/expense-software",
+
+  "Fyle vs Expensify": "/alternative/expensify",
+  "Fyle vs Concur": "/alternative/concur",
+  "Fyle vs Chrome River": "/alternative/chromeriver",
+  "Fyle vs Certify": "/alternative/certify",
+
+  "ROI Calculator": "/resources/expense-management-roi-calculator",
+  "Per Diem Calculator": "/per-diem/calculator",
+
+  "Pricing": "/pricing",
+  "Team": "/company/team",
+  "Careers": "/company/team/join",
+
+  "All Features": "/product",
+  "Product Releases": "/product/releases"
+
+}

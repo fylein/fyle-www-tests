@@ -5,6 +5,9 @@ from common.components.para_blocks import assert_para_blocks
 from common.components.demo_form import assert_bad_email, assert_required_fields, assert_success, assert_non_business_email, assert_invalid_names
 from common.components.resources import assert_resources_section
 from common.components.sneak_peek import assert_sneak_peek_section
+from common.components.navbar import assert_navbar
+from common.components.footer import assert_footer
+from common.components.hero import assert_hero_section
 
 from . import desktop_browser as browser
 
@@ -37,3 +40,14 @@ def test_sneak_peek_section(browser):
 def test_resources_section(browser, base_url):
     links = ['/resources/expense-management-roi-calculator', '/resources/ebooks/automate-travel-expense-management', '/resources']
     assert_resources_section(browser, base_url, links)
+
+def test_navbar(browser, base_url):
+    assert_navbar(browser, base_url)
+
+def test_footer(browser, base_url):
+    assert_footer(browser, base_url)
+
+def test_hero_section(browser):
+    section_class = 'homepage-hero'
+    assert_hero_section(browser, section_class, 1140, 1350)
+

@@ -1,0 +1,61 @@
+[
+  {
+    "bottom_link" : {
+      "View all features": "/product",
+      " Check out our new releases ": "/product/releases"
+    },
+    "Expenses": "/product/expenses",
+		"Budgets": "/product/budgets",
+    "Integrations": "/product/integrations",
+    "Netsuite": "/product/integrations/netsuite-accounting-software",
+    "Sage Intacct": "/product/integrations/sage-intacct-accounting-software",
+    "Quickbooks": "/product/integrations/quickbooks-online-accounting-software",
+    "Cards": "/product/cards",
+    "Approvals": "/product/approvals",
+    "Compliance": "/product/compliance",
+    "Finance Operations": "/product/finance-operations",
+    "Analytics": "/product/analytics",
+    "Payments": "/product/payments",
+    "Security": "/product/security"
+    
+  },
+
+  {
+    
+    "Efficient Project Spends": "/solutions/goals/project-spends",
+    "Enhanced Employee Experience": "/solutions/goals/employee-experience",
+    "Increased Compliance & Control": "/solutions/goals/compliance-and-control",
+    "Paperless Process": "/solutions/goals/paperless-expenses",
+    "Digital Transformation": "/solutions/goals/digital-transformation",
+    "Cost Savings": "/solutions/goals/cost-savings",
+    "Construction": "/solutions/industry/construction",
+    "Accounting Services": "/solutions/industry/accounting-services",
+    "IT Services": "/solutions/industry/information-technology",
+    "Legal Services": "/solutions/industry/legal-services",
+    "Non-profit": "/solutions/industry/non-profit-organizations",
+    "CFO": "/solutions/role/cfo",
+    "Finance": "/solutions/role/finance"
+
+  },
+
+  {
+    "Partners" : "/partners",
+    "Travel Partners": "/partners/travel-management-company",
+    "About Us": "/company",
+    "Customers": "/customers",
+    "Customer Reviews": "/customers/reviews",
+    "Press": "/company/press"
+  },
+
+  {
+    "Case Studies" : "/resources/case-study",
+    "E-Books": "/resources/guide",
+    "Reports": "/resources/guide",
+    "Webinars": "/resources/webinars",
+    "Templates": "/resources/templates",
+    "Refer a Client": "/partner-referral",
+    "bottom_link": {
+      " View all resources ": "/resources"
+    }
+  }
+]

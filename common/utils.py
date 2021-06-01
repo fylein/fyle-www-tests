@@ -1,5 +1,6 @@
 import os
 import logging
+import json
 from simplebrowser import SimpleBrowser
 
 logger = logging.getLogger(__name__)
@@ -27,3 +28,7 @@ def resize_browser(browser, resolution):
     height = resolutions[resolution]['height']
     browser.set_window_size(width=width, height=height)
     return browser
+
+def load_test_data(file_name):
+    with open(os.path.dirname(__file__) + '/test_data/' + file_name) as file_data:
+        return json.load(file_data)

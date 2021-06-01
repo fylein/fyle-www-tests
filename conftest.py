@@ -73,4 +73,4 @@ def module_browser(base_url, request):
     browser.get(base_url)
     browser.click(xpath="//span[contains(@class, 'banner-close')]")
     yield browser
-    browser.close()
+    browser.quit()

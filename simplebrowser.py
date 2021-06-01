@@ -87,11 +87,11 @@ class SimpleBrowser:
         self.driver.execute_script(f'window.scrollBy(0, {pixels_to_scroll});')
         sleep(random.uniform(0.0, 1.0))
 
-    def find(self, xpath, scroll=False, scroll_by=0):
+    def find(self, xpath, scroll=False, scroll_by=0, scroll_to_view='false'):
         try:
             l = self.wait.until(EC.presence_of_element_located((By.XPATH, xpath)))
             if scroll:
-                self.driver.execute_script("arguments[0].scrollIntoView(true);", l)
+                self.driver.execute_script(f"arguments[0].scrollIntoView({scroll_to_view});", l)
                 #sleep(1)
                 if scroll_by != 0:
                     self.driver.execute_script(f"window.scrollBy(0, {scroll_by});")
@@ -227,3 +227,7 @@ class SimpleBrowser:
 
     def get_window_size(self):
         return self.driver.get_window_size()
+
+    def activate_page(self):
+        site_element = self.find(xpath='//div[contains(@class, "site-content")]')
+        self.hover(site_element)

@@ -4,6 +4,8 @@ from common.asserts import assert_overflowing
 from common.components.demo_form import assert_bad_email, assert_required_fields, assert_success, assert_non_business_email, assert_invalid_names
 from common.components.resources import assert_resources_section
 from common.components.sneak_peek import assert_sneak_peek_section
+from common.components.navbar import assert_mobile_navbar
+from common.components.footer import assert_footer
 
 from homepage import mobile_browser as browser
 
@@ -34,3 +36,9 @@ def test_page_overflow(browser):
 
 def test_sneak_peek_section(browser):
     assert_sneak_peek_section(browser)
+
+def test_navbar(browser, base_url):
+    assert_mobile_navbar(browser, base_url)
+
+def test_footer(browser, base_url):
+    assert_footer(browser, base_url)
