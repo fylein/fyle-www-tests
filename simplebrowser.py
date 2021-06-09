@@ -18,7 +18,7 @@ class SimpleBrowser:
 
     @classmethod
     def __create_driver(cls, browser, capabilities):
-        assert browser in ['chrome', 'ie', 'edge',
+        assert browser in ['chrome', 'ie', 'edge', 'safari',
                            'firefox', 'remote', None], 'unsupported browser'
         driver = None
         for _ in range(0, 3):
@@ -46,6 +46,13 @@ class SimpleBrowser:
         if driver:
             driver.quit()
         #sleep(2)
+    
+    def close(self):
+        sleep(1)
+        driver = self.driver
+        self.driver = None
+        if driver:
+            driver.close()
 
     def __del__(self):
         logger.debug('destructor called')
@@ -154,7 +161,7 @@ class SimpleBrowser:
         while len(self.driver.window_handles) > 1:
             w = self.driver.window_handles[-1]
             self.driver.switch_to.window(w)
-            self.driver.quit()
+            self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
     def mark_divs(self):
@@ -231,3 +238,18 @@ class SimpleBrowser:
     def activate_page(self):
         site_element = self.find(xpath='//div[contains(@class, "site-content")]')
         self.hover(site_element)
+
+    def find_by_link_text(self, text, scroll=False, scroll_by=0, scroll_to_view='false'):
+        try:
+            l = self.wait.until(EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, text)))
+            if scroll:
+                self.driver.execute_script(f"arguments[0].scrollIntoView({scroll_to_view});", l)
+                #sleep(1)
+                if scroll_by != 0:
+                    self.driver.execute_script(f"window.scrollBy(0, {scroll_by});")
+                    #sleep(2)
+                l = self.wait.until(
+                    EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, text)))
+        except TimeoutException:
+            l = False
+        return l

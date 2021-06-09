@@ -290,7 +290,51 @@ def assert_links(browser, link_element, link, xpath):
     landing_page_element = browser.find(xpath)
     assert landing_page_element.is_displayed, "Page not loaded!"
 
-
 def assert_element_width(element, width):
     element_width = int(element.value_of_css_property('width').replace('px', '').split('.')[0])
-    assert element_width == width, f"Element width is incorrect - {element.get_attribute('innerHTML')} - the correct value in {width} but, {element_width} found"
+    assert element_width == width, f"Element width is incorrect - the expected value is {width}, but {element_width} found"
+
+def verify_url(browser, url):
+    assert browser.get_current_url() == url, f"LinkError: The expected URL is {url}, but {browser.get_current_url()} is found"
+
+def find(browser, xpath, scroll=False, scroll_by=0, scroll_to_view='false'):
+    el = browser.find(xpath, scroll, scroll_by, scroll_to_view)
+    assert el, "Element not found"
+    assert el.is_displayed(), "Element found, but it is not displayed"
+    return el
+
+def get_padding(position, element):
+    return int(element.value_of_css_property(f'padding-{position}').replace('px', ''))
+
+def get_margin(position, element):
+    return int(element.value_of_css_property(f'margin-{position}').replace('px', ''))
+
+def assert_spacing(position, element, value):
+    padding = get_padding(position, element)
+    margin = get_margin(position, element)
+    total_spacing = padding + margin
+    assert total_spacing == value, f"spacing {position} is not correct"
+
+def assert_demo_cta(browser, element_path):
+    browser.find(element_path, scroll=True, scroll_to_view='false')
+    browser.click(element_path)
+    form_modal = browser.find(xpath='//div[contains(@class, "modal fade show")]', scroll=True)
+    assert form_modal and form_modal.is_displayed(), 'Form modal not displayed, Error in Get a demo CTA'
+    close_modal(browser)
+
+def close_modal(browser):
+    close_btn = browser.find(xpath='//div[contains(@class, "modal-body")]//button[contains(@class, "close")]', scroll=True, scroll_to_view='false')
+    browser.hover_and_click(close_btn)
+    form_modal = browser.find(xpath='//div[contains(@class, "modal fade show")]', scroll=True)
+    assert not form_modal, 'Form modal is not closing'
+
+def verify_url_by_link_text(browser, text, base_url, url, same_tab=False):
+    el = browser.find_by_link_text(text, scroll=True, scroll_by=300)
+    browser.hover_and_click(el)
+    url = f'{base_url}{url}'
+    if same_tab:
+        verify_url(browser, url)
+    else:
+        browser.switch_tab_next(1)
+        verify_url(browser, url)
+        browser.close_windows()

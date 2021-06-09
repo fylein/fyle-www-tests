@@ -63,6 +63,10 @@
   "Careers": "/company/team/join",
 
   "All Features": "/product",
-  "Product Releases": "/product/releases"
+  "Product Releases": "/product/releases",
 
+  "external_links": {
+    "Help Articles": "/help",
+    "Blog": "/blog"
+  }
 }

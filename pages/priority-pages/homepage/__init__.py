@@ -21,5 +21,5 @@ def laptop_browser(module_browser, base_url, request):
 
 #Mobile - 441px
 @pytest.fixture(params=[('mobile_1')], scope='function')
-def mobile_browser(module_browser, base_url, request):
-    return init_browser(module_browser, base_url, request)
+def mobile_browser(module_browser_mobile, base_url, request):
+    return init_browser(module_browser_mobile, base_url, request)

@@ -56,6 +56,7 @@
     "Refer a Client": "/partner-referral",
     "bottom_link": {
       " View all resources ": "/resources"
-    }
+    },
+    "Blog": "/blog/"
   }
 ]
