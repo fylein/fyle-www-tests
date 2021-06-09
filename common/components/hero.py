@@ -1,6 +1,6 @@
 import logging
 import time
-from common.asserts import assert_spacing_bottom, assert_element_width, assert_spacing_top, assert_spacing, assert_demo_cta
+from common.asserts import assert_element_width, assert_spacing, assert_demo_cta
 
 logger = logging.getLogger(__name__)
 

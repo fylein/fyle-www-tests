@@ -69,30 +69,6 @@ def assert_horizontal_spacing_between(element1=None, element2=None, value=None):
     space_between = space_right + space_left
     assert space_between == value, f"Horizontal spacing between elements '{element1.text[:20]}...' and '{element2.text[:20]}...' is not correct"
 
-def assert_spacing_bottom(element=None, value=None):
-    padding_below = int(element.value_of_css_property('padding-bottom').replace('px', ''))
-    margin_below = int(element.value_of_css_property('margin-bottom').replace('px', ''))
-    space_below = padding_below + margin_below
-    assert space_below == value, "spacing below is not correct"
-
-def assert_spacing_top(element=None, value=None):
-    padding_top = int(element.value_of_css_property('padding-top').replace('px', ''))
-    margin_top = int(element.value_of_css_property('margin-top').replace('px', ''))
-    space_top = padding_top + margin_top
-    assert space_top == value, "spacing top is not correct"
-
-def assert_spacing_right(element=None, value=None):
-    padding_right = int(element.value_of_css_property('padding-right').replace('px', ''))
-    margin_right = int(element.value_of_css_property('margin-right').replace('px', ''))
-    space_right = padding_right + margin_right
-    assert space_right == value, f"spacing right is not correct for '{element.text}'"
-
-def assert_spacing_left(element=None, value=None):
-    padding_left = int(element.value_of_css_property('padding-left').replace('px', ''))
-    margin_left = int(element.value_of_css_property('margin-left').replace('px', ''))
-    space_top = padding_left + margin_left
-    assert space_top == value, "spacing left is not correct"
-
 def assert_thank_you_modal(browser, ty_message, demoform=None):
     e = browser.find(xpath="//div[contains(@id, 'contact-us-ty-modal')]")
     assert e and e.is_displayed, "Thank you modal is not displayed"
