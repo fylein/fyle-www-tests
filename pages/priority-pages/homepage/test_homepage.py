@@ -4,7 +4,6 @@ from common.asserts import assert_overflowing
 from common.components.para_blocks import assert_para_blocks
 from common.components.demo_form import assert_bad_email, assert_required_fields, assert_success, assert_non_business_email, assert_invalid_names
 from common.components.resources import assert_resources_section
-from common.components.sneak_peek import assert_sneak_peek_section
 from common.components.navbar import assert_navbar
 from common.components.footer import assert_footer
 from common.components.hero import assert_hero_section
