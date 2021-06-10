@@ -99,7 +99,7 @@ class SimpleBrowser:
             l = self.wait.until(EC.presence_of_element_located((By.XPATH, xpath)))
             if scroll:
                 self.driver.execute_script(f"arguments[0].scrollIntoView({scroll_to_view});", l)
-                #sleep(1)
+                sleep(1)
                 if scroll_by != 0:
                     self.driver.execute_script(f"window.scrollBy(0, {scroll_by});")
                     #sleep(2)
@@ -239,17 +239,24 @@ class SimpleBrowser:
         site_element = self.find(xpath='//div[contains(@class, "site-content")]')
         self.hover(site_element)
 
-    def find_by_link_text(self, text, scroll=False, scroll_by=0, scroll_to_view='false'):
+    def find_by_link_text(self, text, partial=True, scroll=False, scroll_by=0, scroll_to_view='false'):
         try:
-            l = self.wait.until(EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, text)))
+            if partial:
+                l = self.wait.until(EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, text)))
+            else:
+                l = self.wait.until(EC.presence_of_element_located((By.LINK_TEXT, text)))
             if scroll:
                 self.driver.execute_script(f"arguments[0].scrollIntoView({scroll_to_view});", l)
-                #sleep(1)
+                sleep(1)
                 if scroll_by != 0:
                     self.driver.execute_script(f"window.scrollBy(0, {scroll_by});")
                     #sleep(2)
-                l = self.wait.until(
-                    EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, text)))
+                if partial:
+                    l = self.wait.until(
+                        EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, text)))
+                else:
+                    l = self.wait.until(
+                        EC.presence_of_element_located((By.LINK_TEXT, text)))
         except TimeoutException:
             l = False
         return l

@@ -48,15 +48,15 @@
   },
 
   {
+    "bottom_link": {
+      " View all resources ": "/resources"
+    },
     "Case Studies" : "/resources/case-study",
     "E-Books": "/resources/guide",
     "Reports": "/resources/guide",
     "Webinars": "/resources/webinars",
     "Templates": "/resources/templates",
     "Refer a Client": "/partner-referral",
-    "bottom_link": {
-      " View all resources ": "/resources"
-    },
     "Blog": "/blog/"
   }
 ]

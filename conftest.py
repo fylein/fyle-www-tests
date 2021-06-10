@@ -31,39 +31,39 @@ def base_url(url):
 
 #Assigning capabilities based on where the test case is going to run.(Remote or Local)
 BROWSER_CAPABALITIES = [None] if get_browser_name() != 'remote' else [
-        {
-            "build" : "Homepage - windows",
-            "name" : "windows-desktop",
-            "platform" : "Windows 10",
-            "browserName" : "Chrome",
-            "version" : "88.0",
-        },
+    {
+        "build" : "Homepage - windows",
+        "name" : "windows-desktop",
+        "platform" : "Windows 10",
+        "browserName" : "Chrome",
+        "version" : "88.0",
+    },
 
-        {
-            "build" : "Homepage- mac",
-            "name" : "mac-desktop",
-            "platform" : "MacOS Big sur",
-            "browserName" : "Safari",
-            "version" : "14.0",
-        },
+    {
+        "build" : "Homepage- mac",
+        "name" : "mac-desktop",
+        "platform" : "MacOS Big sur",
+        "browserName" : "Safari",
+        "version" : "14.0",
+    },
 
-        {
-            "build" : "Homepage - firefox",
-            "name" : "firefox-desktop",
-            "platform" : "Windows 10",
-            "browserName" : "Firefox",
-            "version" : "87.0"
-        }
-    ]
+    {
+        "build" : "Homepage - firefox",
+        "name" : "firefox-desktop",
+        "platform" : "Windows 10",
+        "browserName" : "Firefox",
+        "version" : "87.0"
+    }
+]
 
 BROWSER_CAPABALITIES_MOBILE = [None] if get_browser_name() != 'remote' else [
-        {
-            "build" : "Homepage - mobile",
-            "name" : "windows-mobile",
-            "platform" : "Windows 10",
-            "browserName" : "Chrome",
-            "version" : "88.0",
-        }
+    {
+        "build" : "Homepage - mobile",
+        "name" : "windows-mobile",
+        "platform" : "Windows 10",
+        "browserName" : "Chrome",
+        "version" : "88.0",
+    }
 ]
 
 #Assigning parameter to this fixture, allowing all the test cases to run on number of browser capabilites
