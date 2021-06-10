@@ -15,7 +15,7 @@ def test_hero_section(browser):
     section_class = 'homepage-hero'
     assert_hero_section(browser, section_class, 1140, 1140)
 
-def test_para_blocks(browser):
+def test_para_blocks(browser, base_url):
     assert_para_blocks(browser, para_width=505, image_width=635, spacing=60)
     verify_url_by_link_text(browser, 'Turn expense reporting real-time', base_url, '/product/expenses')
     verify_url_by_link_text(browser, 'Automate corporate card reconciliations', base_url, '/product/cards')
