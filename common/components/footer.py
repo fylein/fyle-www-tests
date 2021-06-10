@@ -25,6 +25,7 @@ def assert_footer(browser, base_url):
                 for link_text in external_links:
                     logger.info(link_text)
                     el = browser.find(f'//footer//div[contains(@class, "footer-col")]//div[not(contains(@class, "d-md-none"))]//a[contains(@class, "sub-link") and text()="{link_text}"]', scroll=True)
+                    assert el, f'Unable to find {link_text}'
                     browser.hover_and_click(el)
                     verify_url(browser, f'{base_url}{footer_data["external_links"][link_text]}')
                     browser.back()
@@ -53,7 +54,8 @@ def assert_mobile_footer(browser, base_url):
                 external_links = footer_data['external_links'].keys()
                 for link_text in external_links:
                     logger.info(link_text)
-                    el = browser.find(f'//footer//div[contains(@class, "footer-col")]//div[not(contains(@class, "d-none d-md-none"))]//a[contains(@class, "sub-link") and text()="{link_text}"]', scroll=True)
+                    el = browser.find(f'//footer//div[contains(@class, "footer-col")]//div[not(contains(@class, "d-none d-md-none"))]//a[contains(@class, "sub-link")]//span[text()="{link_text}"]', scroll=True)
+                    assert el, f'Unable to find {link_text}' 
                     browser.hover_and_click(el)
                     verify_url(browser, f'{base_url}{footer_data["external_links"][link_text]}')
                     browser.back()

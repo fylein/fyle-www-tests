@@ -32,7 +32,7 @@ def base_url(url):
 #Assigning capabilities based on where the test case is going to run.(Remote or Local)
 BROWSER_CAPABALITIES = [None] if get_browser_name() != 'remote' else [
         {
-            "build" : "Homepage",
+            "build" : "Homepage - windows",
             "name" : "windows-desktop",
             "platform" : "Windows 10",
             "browserName" : "Chrome",
@@ -40,7 +40,7 @@ BROWSER_CAPABALITIES = [None] if get_browser_name() != 'remote' else [
         },
 
         {
-            "build" : "Desktop navbar",
+            "build" : "Homepage- mac",
             "name" : "mac-desktop",
             "platform" : "MacOS Big sur",
             "browserName" : "Safari",
@@ -48,20 +48,11 @@ BROWSER_CAPABALITIES = [None] if get_browser_name() != 'remote' else [
         },
 
         {
-            "build" : "Desktop navbar",
+            "build" : "Homepage - firefox",
             "name" : "firefox-desktop",
             "platform" : "Windows 10",
             "browserName" : "Firefox",
             "version" : "87.0"
-        },
-
-        {
-            "build" : "Desktop navbar",
-            "name" : "IE-desktop",
-            "platform" : "Windows 10",
-            "browserName" : "Internet Explorer",
-            "version" : "11.0",
-            "ie.compatibility" : 11001
         }
     ]
 
