@@ -1,4 +1,10 @@
 {
+
+  "external_links": {
+    "Help Articles": "/help/en/",
+    "Blog": "/blog/"
+  },
+
   "Expenses": "/product/expenses",
   "Budgets": "/product/budgets",
   "Integrations": "/product/integrations",
@@ -6,19 +12,19 @@
   "Sage Intacct": "/product/integrations/sage-intacct-accounting-software",
   "Quickbooks": "/product/integrations/quickbooks-online-accounting-software",
   "Cards": "/product/cards",
-  "Approvals": "/product/approvals",
   "Compliance": "/product/compliance",
   "Finance Operations": "/product/finance-operations",
   "Analytics": "/product/analytics",
   "Payments": "/product/payments",
   "Security": "/product/security",
+  "Approvals": "/product/approvals",
 
   "Efficient Project Spends": "/solutions/goals/project-spends",
   "Enhanced Employee Experience": "/solutions/goals/employee-experience",
   "Increased Compliance & Control": "/solutions/goals/compliance-and-control",
-  " Paperless Process": "/solutions/goals/paperless-expenses",
+  "Paperless Process": "/solutions/goals/paperless-expenses",
   "Digital Transformation": "/solutions/goals/digital-transformation",
-  " Cost Savings": "/solutions/goals/cost-savings",
+  "Cost Savings": "/solutions/goals/cost-savings",
   "Construction": "/solutions/industry/construction",
   "Accounting Services": "/solutions/industry/accounting-services",
   "IT Services": "/solutions/industry/information-technology",
@@ -29,7 +35,6 @@
 
   "Partners" : "/partners",
   "Accounting Firms": "/partners/accounting-firms",
-  "Travel Partners": "/partners/travel-management-company",
   "About Us": "/company",
   "Customers": "/customers",
   "Customer Reviews": "/customers/reviews",
@@ -37,9 +42,8 @@
 
   "Case Studies" : "/resources/case-study",
   "E-books": "/resources/guide",
-  "Webinars": "/resources/webinars",
   "Expense Report Template": "/templates/expense-reports",
-  " Refer a Client ": "/partner-referral",
+  "Refer a Client": "/partner-referral",
 
   "Expense Report Software": "/expense-report-software",
   "Travel and Expense Management": "/travel-expense-management",
@@ -57,16 +61,10 @@
 
   "ROI Calculator": "/resources/expense-management-roi-calculator",
   "Per Diem Calculator": "/per-diem/calculator",
-
-  "Pricing": "/pricing",
+  
   "Team": "/company/team",
   "Careers": "/company/team/join",
 
   "All Features": "/product",
-  "Product Releases": "/product/releases",
-
-  "external_links": {
-    "Help Articles": "/help/en/",
-    "Blog": "/blog"
-  }
+  "Product Releases": "/product/releases"
 }

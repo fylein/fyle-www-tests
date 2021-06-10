@@ -8,8 +8,11 @@ logger = logging.getLogger(__name__)
 
 def open_dropdown(browser, i):
     el = find(browser, xpath=f'(//nav//li[contains(@class, "has-dropdown")])[{i+1}]', scroll=True)
-    el = browser.hover(el)
+    assert el, f'Unable to find nav element'
+    el = browser.hover_and_click(el)
+    time.sleep(2)
     drop_down = browser.find(xpath='//nav//div[contains(@class, "is-dropdown-visible")]')
+    time.sleep(1)
     assert drop_down and drop_down.is_displayed(), 'Drop down is not opening'
     time.sleep(0.5)
     drop_down_section = browser.find(xpath=f'(//nav//ul[contains(@id, "nav-product-child-node")]//li)[{i+1}][contains(@class, "active")]')
