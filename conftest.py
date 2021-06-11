@@ -53,6 +53,16 @@ BROWSER_CAPABALITIES = [None] if get_browser_name() != 'remote' else [
         "platform" : "Windows 10",
         "browserName" : "Firefox",
         "version" : "87.0"
+    },
+
+    {
+        "build" : "Typeform - IE",
+		"name" : "typeform",
+		"platform" : "Windows 10",
+		"browserName" : "Internet Explorer",
+		"version" : "11.0",
+		"resolution" : "1920x1200",
+		"ie.compatibility" : 11001
     }
 ]
 
