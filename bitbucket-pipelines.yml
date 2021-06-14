@@ -31,7 +31,7 @@ pipelines:
               - virtualenv venv --python=python3.7
               - source venv/bin/activate
               - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-              - python -m pytest -v pages/priority-pages/typeform/test_typeform.py --url stag1 --junitxml=test-reports/report.xml
+              - python -m pytest -v pages/priority-pages/typeform/ --url stag1 --junitxml=test-reports/report.xml
 
     staging2-pipeline:
       - step:
