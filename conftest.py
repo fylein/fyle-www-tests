@@ -36,15 +36,7 @@ BROWSER_CAPABALITIES = [None] if get_browser_name() != 'remote' else [
         "name" : "windows-desktop",
         "platform" : "Windows 10",
         "browserName" : "Chrome",
-        "version" : "88.0",
-    },
-
-    {
-        "build" : "Form - mac",
-        "name" : "mac-desktop",
-        "platform" : "MacOS Big sur",
-        "browserName" : "Safari",
-        "version" : "14.0",
+        "version" : "88.0"
     },
 
     {
@@ -57,12 +49,20 @@ BROWSER_CAPABALITIES = [None] if get_browser_name() != 'remote' else [
 
     {
         "build" : "Form - IE",
-		"name" : "typeform",
-		"platform" : "Windows 10",
-		"browserName" : "Internet Explorer",
-		"version" : "11.0",
-		"resolution" : "1920x1200",
-		"ie.compatibility" : 11001
+        "name" : "typeform",
+        "platform" : "Windows 10",
+        "browserName" : "Internet Explorer",
+        "version" : "11.0",
+        "resolution" : "1920x1200",
+        "ie.compatibility" : 11001
+    },
+
+    {
+        "build" : "Form - mac",
+        "name" : "mac-desktop",
+        "platform" : "MacOS Big sur",
+        "browserName" : "Safari",
+        "version" : "14.0",
     }
 ]
 

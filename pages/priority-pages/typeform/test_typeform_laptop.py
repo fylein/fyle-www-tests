@@ -1,6 +1,6 @@
 import logging
 from common.components.typeform import *
-from . import mobile_browser as browser
+from . import laptop_browser as browser
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +30,9 @@ def test_name_validation(browser):
 
 def test_thank_you_gif(browser):
     assert_thank_you_gif(browser)
+
+def test_logo_image(browser):
+    assert_logo(browser)
 
 def test_tc_url(browser, base_url):
     assert_tc_url(browser, base_url)
