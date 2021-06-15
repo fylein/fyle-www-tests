@@ -9,42 +9,48 @@ logger = logging.getLogger(__name__)
 def open_dropdown(browser, i):
     el = find(browser, xpath=f'(//nav//li[contains(@class, "has-dropdown")])[{i+1}]', scroll=True)
     assert el, f'Unable to find nav element'
-    el = browser.hover_and_click(el)
-    time.sleep(2)
-    drop_down = browser.find(xpath='//nav//div[contains(@class, "is-dropdown-visible")]')
-    time.sleep(1)
-    assert drop_down and drop_down.is_displayed(), 'Drop down is not opening'
-    time.sleep(0.5)
-    drop_down_section = browser.find(xpath=f'(//nav//ul[contains(@id, "nav-product-child-node")]//li)[{i+1}][contains(@class, "active")]')
-    assert drop_down_section and drop_down_section.is_displayed(), f'Incorrect section was opened'
+    for attempt in range(5):
+        try:
+            el = browser.hover_and_click(el)
+            drop_down = browser.find(xpath='//nav//div[contains(@class, "is-dropdown-visible")]')
+            time.sleep(1)
+            assert drop_down and drop_down.is_displayed(), 'Drop down is not opening'
+            time.sleep(0.5)
+            drop_down_section = browser.find(xpath=f'(//nav//ul[contains(@id, "nav-product-child-node")]//li)[{i+1}][contains(@class, "active")]')
+            assert drop_down_section and drop_down_section.is_displayed(), f'Incorrect section was opened'
+        except (AssertionError, AttributeError) as e:
+            logger.info(attempt)
+            if attempt < 4:
+                logger.info(e)
+                time.sleep(1)
+                continue
+            else:
+                raise
+        break
 
 def assert_navbar(browser, base_url):
     nav_data = load_test_data('navbar.json')
     nav_drop_down_elements = browser.find_many(xpath='//nav//li[contains(@class, "has-dropdown")]')
     for i, el in enumerate(nav_drop_down_elements):
         links = nav_data[i].keys()
-        try:
-            for j, link_text in enumerate(links):
-                if link_text != 'bottom_link':
+        for j, link_text in enumerate(links):
+            if link_text != 'bottom_link':
+                browser.activate_page()
+                open_dropdown(browser, i)
+                link_element = browser.find(xpath=f'(//nav//ul[contains(@id, "nav-product-child-node")]//li)[{i+1}][contains(@class, "active")]//a[contains(@class, "hover-effect")]//span[contains(text(), "{link_text}")]')
+                assert link_element and link_element.is_displayed(), f'Link element {link_text} not found'
+                browser.hover_and_click(link_element)
+                logger.info(nav_data[i][link_text])
+                verify_url(browser, f'{base_url}{nav_data[i][link_text]}')
+            else:
+                bottom_links = nav_data[i]['bottom_link'].keys()
+                for link_text in bottom_links:
                     browser.activate_page()
                     open_dropdown(browser, i)
-                    link_element = browser.find(xpath=f'(//nav//ul[contains(@id, "nav-product-child-node")]//li)[{i+1}][contains(@class, "active")]//a[contains(@class, "hover-effect")]//span[contains(text(), "{link_text}")]')
-                    assert link_element and link_element.is_displayed(), f'Link element {link_text} not found'
-                    browser.hover_and_click(link_element)
-                    logger.info(nav_data[i][link_text])
-                    verify_url(browser, f'{base_url}{nav_data[i][link_text]}')
-                else:
-                    bottom_links = nav_data[i]['bottom_link'].keys()
-                    for link_text in bottom_links:
-                        browser.activate_page()
-                        open_dropdown(browser, i)
-                        drop_down_bottom_link = browser.find(f'(//nav//ul[contains(@id, "nav-product-child-node")]//li)[{i+1}][contains(@class, "active")]//div[contains(@class, "dropdown-bottom-link")]//a[contains(text(), "{link_text}")]')
-                        assert drop_down_bottom_link and drop_down_bottom_link.is_displayed, f'Link element {link_text} not found'
-                        browser.hover_and_click(drop_down_bottom_link)
-                        verify_url(browser, f'{base_url}{nav_data[i]["bottom_link"][link_text]}')
-        except Exception as e:
-            logger.error(e)
-            continue
+                    drop_down_bottom_link = browser.find(f'(//nav//ul[contains(@id, "nav-product-child-node")]//li)[{i+1}][contains(@class, "active")]//div[contains(@class, "dropdown-bottom-link")]//a[contains(text(), "{link_text}")]')
+                    assert drop_down_bottom_link and drop_down_bottom_link.is_displayed(), f'Link element {link_text} not found'
+                    browser.hover_and_click(drop_down_bottom_link)
+                    verify_url(browser, f'{base_url}{nav_data[i]["bottom_link"][link_text]}')
 
 def open_mobile_navbar(browser):
     time.sleep(0.5)

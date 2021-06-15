@@ -17,8 +17,8 @@ def test_hero_section(browser):
     section_class = 'homepage-hero'
     assert_hero_section(browser, section_class, 1140, 1350)
 
-# def test_navbar(browser, base_url):
-#     assert_navbar(browser, base_url)
+def test_navbar(browser, base_url):
+    assert_navbar(browser, base_url)
 
 # def test_footer(browser, base_url):
 #     assert_footer(browser, base_url)
