@@ -56,7 +56,7 @@
     "Reports": "/resources/guide",
     "Webinars": "/resources/webinars",
     "Templates": "/resources/templates",
-    "Refer a Client": "/partner-referral",
-    "Blog": "/blog/"
+    "Blog": "/blog/",
+    "Refer a Client": "/partner-referral"
   }
 ]

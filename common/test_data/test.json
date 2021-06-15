@@ -1,32 +1,25 @@
-{
-  "build" : "Homepage - windows",
-  "name" : "windows-desktop",
-  "platform" : "Windows 10",
-  "browserName" : "Chrome",
-  "version" : "88.0",
-},
+[
+  {
+    
+    "Security": "/product/security"
+    
+  },
 
-{
-  "build" : "Homepage- mac",
-  "name" : "mac-desktop",
-  "platform" : "MacOS Big sur",
-  "browserName" : "Safari",
-  "version" : "14.0",
-},
+  {
+    
+    "Finance": "/solutions/role/finance"
 
-{
-  "build" : "Homepage - firefox",
-  "name" : "firefox-desktop",
-  "platform" : "Windows 10",
-  "browserName" : "Firefox",
-  "version" : "87.0"
-},
+  },
 
-{
-  "build" : "your build name",
-  "name" : "your test name",
-  "platform" : "Windows 10",
-  "browserName" : "Internet Explorer",
-  "version" : "11.0",
-  "ie.compatibility" : 11001
-}
+  {
+    "Partners" : "/partners"
+  },
+
+  {
+    "Case Studies" : "/resources/case-study",
+    "Webinars": "/resources/webinars",
+    "Templates": "/resources/templates",
+    "Blog": "/blog/",
+    "Refer a Client": "/partner-referral"
+  }
+]

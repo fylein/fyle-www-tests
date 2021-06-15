@@ -7,10 +7,10 @@ from ..asserts import find, verify_url
 logger = logging.getLogger(__name__)
 
 def open_dropdown(browser, i):
-    el = find(browser, xpath=f'(//nav//li[contains(@class, "has-dropdown")])[{i+1}]', scroll=True)
-    assert el, f'Unable to find nav element'
     for attempt in range(5):
         try:
+            el = find(browser, xpath=f'(//nav//li[contains(@class, "has-dropdown")])[{i+1}]', scroll=True)
+            assert el, f'Unable to find nav element'
             el = browser.hover_and_click(el)
             drop_down = browser.find(xpath='//nav//div[contains(@class, "is-dropdown-visible")]')
             time.sleep(1)
@@ -22,6 +22,8 @@ def open_dropdown(browser, i):
             logger.info(attempt)
             if attempt < 4:
                 logger.info(e)
+                browser.refresh()
+                browser.activate_page()
                 time.sleep(1)
                 continue
             else:
@@ -42,6 +44,9 @@ def assert_navbar(browser, base_url):
                 browser.hover_and_click(link_element)
                 logger.info(nav_data[i][link_text])
                 verify_url(browser, f'{base_url}{nav_data[i][link_text]}')
+                if link_text == 'Blog':
+                    browser.back()
+                    time.sleep(1)
             else:
                 bottom_links = nav_data[i]['bottom_link'].keys()
                 for link_text in bottom_links:
