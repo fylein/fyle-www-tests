@@ -236,8 +236,19 @@ class SimpleBrowser:
         return self.driver.get_window_size()
 
     def activate_page(self):
-        site_element = self.find(xpath='//div[contains(@class, "site-content")]')
-        self.hover(site_element)
+        for attempt in range(3):
+            try:
+                site_element = self.find(xpath='//div[contains(@class, "site-content")]')
+                self.hover(site_element)
+            except AttributeError as e:
+                logger.error(e)
+                if attempt < 2:
+                    self.driver.refresh()
+                    sleep(1)
+                    continue
+                else:
+                    raise
+            break
 
     def find_by_link_text(self, text, partial=True, scroll=False, scroll_by=0, scroll_to_view='false'):
         try:
