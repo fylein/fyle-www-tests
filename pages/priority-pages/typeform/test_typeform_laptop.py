@@ -45,3 +45,6 @@ def test_downward_arrow(browser):
 
 def test_values_after_closing_form(browser):
     assert_values_after_closing_form(browser)
+
+def test_thankyou_page_urls(browser, base_url):
+    assert_thankyou_page_url(browser, base_url)

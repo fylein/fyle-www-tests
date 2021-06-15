@@ -345,3 +345,14 @@ def assert_progress_bar(browser):
     assert progress_bar_text.get_attribute('innerHTML') == f'{no_of_fields_filled} out of 6 answered', 'Progress bar not showing proper values'
     progress_bar_width = browser.find('//div[contains(@class, "form-instance")]//div[contains(@class, "progress-line-bar")]//div[@id="progress-bar"]')
     assert progress_bar_width.get_attribute('style') == f'width: {(100/6)*no_of_fields_filled:.4f}%;'
+
+def assert_thankyou_page_urls(browser, base_url):
+    open_typeform(browser)
+    submit_field(browser, email='test@fyle.in', firstname='test', lastname='test', phone='898387654', size='501 to 1000', consent='Yes')
+    verify_url_by_link_text(browser, 'case studies', base_url, '/resources/case-study')
+    verify_url_by_link_text(browser, 'customers love us', base_url, '/customers/reviews')
+
+# def assert_firstname_in_phone_field(browser):
+#     open_typeform(browser)
+#     submit_field(browser, email='test@fyle.in', first_name='test')
+#     next_field(browser)

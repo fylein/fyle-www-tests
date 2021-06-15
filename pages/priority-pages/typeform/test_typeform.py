@@ -46,6 +46,9 @@ def test_downward_arrow(browser):
 def test_values_after_closing_form(browser):
     assert_values_after_closing_form(browser)
 
+def test_thankyou_page_urls(browser, base_url):
+    assert_thankyou_page_urls(browser, base_url)
+
 # def test_goto_missing_fields(browser):
 #     assert_goto_missing_fields(browser, firstname='test', lastname='test', phone='345689763', size='>1000')
 
