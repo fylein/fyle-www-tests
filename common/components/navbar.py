@@ -37,8 +37,7 @@ def assert_navbar(browser, base_url):
         links = nav_data[i].keys()
         for j, link_text in enumerate(links):
             if link_text != 'bottom_link':
-                if link_text != 'Blog':
-                    browser.activate_page()
+                browser.activate_page()
                 open_dropdown(browser, i)
                 link_element = browser.find(xpath=f'(//nav//ul[contains(@id, "nav-product-child-node")]//li)[{i+1}][contains(@class, "active")]//a[contains(@class, "hover-effect")]//span[contains(text(), "{link_text}")]')
                 assert link_element and link_element.is_displayed(), f'Link element {link_text} not found'
@@ -98,6 +97,9 @@ def assert_mobile_navbar(browser, base_url):
                 browser.hover_and_click(link_element)
                 logger.info(nav_data[i][link_text])
                 verify_url(browser, f'{base_url}{nav_data[i][link_text]}')
+                if link_text == 'Blog':
+                    browser.back()
+                    time.sleep(1)
             else:
                 bottom_links = nav_data[i]['bottom_link'].keys()
                 for link_text in bottom_links:
