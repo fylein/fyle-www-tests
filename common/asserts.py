@@ -266,9 +266,13 @@ def assert_links(browser, link_element, link, xpath):
     landing_page_element = browser.find(xpath)
     assert landing_page_element.is_displayed, "Page not loaded!"
 
-def assert_element_width(element, width):
+def assert_element_width(element, width, min_width=None):
     element_width = int(element.value_of_css_property('width').replace('px', '').split('.')[0])
-    assert element_width == width, f"Element width is incorrect - the expected value is {width}, but {element_width} found"
+    if min_width:
+        logger.info(element_width)
+        assert element_width <= width and element_width >= min_width, f"Element width is cincorrect - the expceted value in {width}, and min_width is {min_width}, but {element_width} found"
+    else:
+        assert element_width == width, f"Element width is incorrect - the expected value is {width}, but {element_width} found"
 
 def verify_url(browser, url):
     assert browser.get_current_url() == url, f"LinkError: The expected URL is {url}, but {browser.get_current_url()} is found"

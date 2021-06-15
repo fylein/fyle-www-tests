@@ -17,14 +17,14 @@ logger = logging.getLogger(__name__)
 class SimpleBrowser:
 
     @classmethod
-    def __create_driver(cls, browser, capabilities):
+    def __create_driver(cls, browser, capabilities, emulation):
         assert browser in ['chrome', 'ie', 'edge', 'safari',
                            'firefox', 'remote', None], 'unsupported browser'
         driver = None
         for _ in range(0, 3):
             try:
                 #Getting driver from webdriver_settings
-                driver = get_driver(browser, capabilities)
+                driver = get_driver(browser, capabilities, emulation)
             except SessionNotCreatedException:
                 logger.exception('couldnt create session properly')
                 sleep(4)
@@ -32,9 +32,9 @@ class SimpleBrowser:
                 break
         return driver
 
-    def __init__(self, browser, capabilities):
+    def __init__(self, browser, capabilities, emulation):
         self.browser = browser
-        self.driver = SimpleBrowser.__create_driver(browser=browser, capabilities=capabilities)
+        self.driver = SimpleBrowser.__create_driver(browser=browser, capabilities=capabilities, emulation=emulation)
         assert self.driver, 'unable to initialize browser properly'
         self.timeout = 5
         self.wait = WebDriverWait(self.driver, self.timeout)
@@ -260,3 +260,6 @@ class SimpleBrowser:
         except TimeoutException:
             l = False
         return l
+
+    def get_browser_name(self):
+        return self.driver.capabilities['browserName']

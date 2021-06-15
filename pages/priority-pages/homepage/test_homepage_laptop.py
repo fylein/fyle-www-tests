@@ -15,12 +15,15 @@ def test_hero_section(browser):
     section_class = 'homepage-hero'
     assert_hero_section(browser, section_class, 1140, 1140)
 
-def test_para_blocks(browser, base_url):
+def test_para_blocks(browser):
     assert_para_blocks(browser, para_width=505, image_width=635, spacing=60)
-    verify_url_by_link_text(browser, 'Turn expense reporting real-time', base_url, '/product/expenses')
-    verify_url_by_link_text(browser, 'Automate corporate card reconciliations', base_url, '/product/cards')
-    verify_url_by_link_text(browser, 'Check out how data flows in and out of Fyle', base_url, '/product/integrations')
-    verify_url_by_link_text(browser, 'More informed decisions with all the expense', base_url, '/product/analytics')
+
+def test_para_block_links(browser, base_url):
+    if browser.get_browser_name() != 'Safari':
+        verify_url_by_link_text(browser, 'Turn expense reporting real-time', base_url, '/product/expenses')
+        verify_url_by_link_text(browser, 'Automate corporate card reconciliations', base_url, '/product/cards')
+        verify_url_by_link_text(browser, 'Check out how data flows in and out of Fyle', base_url, '/product/integrations')
+        verify_url_by_link_text(browser, 'More informed decisions with all the expense', base_url, '/product/analytics')
 
 def test_page_overflow(browser):
     assert_overflowing(browser)

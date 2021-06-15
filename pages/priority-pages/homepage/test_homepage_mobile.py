@@ -17,8 +17,10 @@ def test_hero_section(browser):
     section_class = 'homepage-hero'
     assert_mobile_hero_section(browser, section_class)
 
-def test_para_blocks(browser, base_url):
+def test_para_block_spacing(browser):
     assert_para_blocks(browser, para_width=440, image_width=440)
+
+def test_para_block_links(browser, base_url):
     verify_url_by_link_text(browser, 'Turn expense reporting real-time', base_url, '/product/expenses')
     verify_url_by_link_text(browser, 'Automate corporate card reconciliations', base_url, '/product/cards')
     verify_url_by_link_text(browser, 'Check out how data flows in and out of Fyle', base_url, '/product/integrations')
