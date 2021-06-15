@@ -24,7 +24,7 @@ def assert_hero_section(browser, section_class, img_width, logo_width):
     assert_spacing('top', customer_logo_section, 100)
 
     customer_logo = browser.find(f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//section//img[contains(@class, "hero-customer-logo")]', scroll=True)
-    time.sleep(2)
+    time.sleep(3)
     assert customer_logo and customer_logo.is_displayed(), f'Logo is not displayed'
     assert_element_width(customer_logo, logo_width)
 

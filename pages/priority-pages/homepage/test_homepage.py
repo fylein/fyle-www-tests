@@ -17,14 +17,14 @@ def test_hero_section(browser):
     section_class = 'homepage-hero'
     assert_hero_section(browser, section_class, 1140, 1350)
 
-def test_navbar(browser, base_url):
-    assert_navbar(browser, base_url)
+# def test_navbar(browser, base_url):
+#     assert_navbar(browser, base_url)
 
-def test_footer(browser, base_url):
-    assert_footer(browser, base_url)
+# def test_footer(browser, base_url):
+#     assert_footer(browser, base_url)
 
 def test_para_blocks(browser, base_url):
-    assert_para_blocks(browser, para_width=660, image_width=880, spacing=85)
+    # assert_para_blocks(browser, para_width=660, image_width=880, spacing=85)
     verify_url_by_link_text(browser, 'Turn expense reporting real-time', base_url, '/product/expenses')
     verify_url_by_link_text(browser, 'Automate corporate card reconciliations', base_url, '/product/cards')
     verify_url_by_link_text(browser, 'Check out how data flows in and out of Fyle', base_url, '/product/integrations')

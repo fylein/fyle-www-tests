@@ -311,9 +311,9 @@ def verify_url_by_link_text(browser, text, base_url, url, same_tab=False):
     if same_tab:
         verify_url(browser, url)
     else:
-        sleep(2)
+        #sleep(3)
         browser.switch_tab_next(1)
-        sleep(2)
+        #sleep(8)
         verify_url(browser, url)
         browser.close_windows()
-        sleep(2)
+        #sleep(3)
