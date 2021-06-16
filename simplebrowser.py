@@ -17,14 +17,14 @@ logger = logging.getLogger(__name__)
 class SimpleBrowser:
 
     @classmethod
-    def __create_driver(cls, browser, capabilities, emulation):
+    def __create_driver(cls, browser, capabilities):
         assert browser in ['chrome', 'ie', 'edge', 'safari',
                            'firefox', 'remote', None], 'unsupported browser'
         driver = None
         for _ in range(0, 3):
             try:
                 #Getting driver from webdriver_settings
-                driver = get_driver(browser, capabilities, emulation)
+                driver = get_driver(browser, capabilities)
             except SessionNotCreatedException:
                 logger.exception('couldnt create session properly')
                 sleep(4)
@@ -32,9 +32,9 @@ class SimpleBrowser:
                 break
         return driver
 
-    def __init__(self, browser, capabilities, emulation):
+    def __init__(self, browser, capabilities):
         self.browser = browser
-        self.driver = SimpleBrowser.__create_driver(browser=browser, capabilities=capabilities, emulation=emulation)
+        self.driver = SimpleBrowser.__create_driver(browser=browser, capabilities=capabilities)
         assert self.driver, 'unable to initialize browser properly'
         self.timeout = 5
         self.wait = WebDriverWait(self.driver, self.timeout)
@@ -45,8 +45,7 @@ class SimpleBrowser:
         self.driver = None
         if driver:
             driver.quit()
-        #sleep(2)
-    
+
     def close(self):
         sleep(1)
         driver = self.driver
@@ -102,7 +101,6 @@ class SimpleBrowser:
                 sleep(1)
                 if scroll_by != 0:
                     self.driver.execute_script(f"window.scrollBy(0, {scroll_by});")
-                    #sleep(2)
                 l = self.wait.until(
                     EC.presence_of_element_located((By.XPATH, xpath)))
         except TimeoutException:
@@ -119,14 +117,12 @@ class SimpleBrowser:
 
     def click(self, xpath, scroll=False):
         l = self.find(xpath, scroll)
-        #sleep(1)
         ltag = l.tag_name.lower() if l.tag_name else None
         assert ltag in ['input', 'li', 'button', 'span',
                         'a', 'div', 'textarea'], 'xpath did not return proper element'
         l = self.wait.until(
             EC.element_to_be_clickable((By.XPATH, xpath)))
         l.click()
-        #sleep(3)
         return l
 
     def click_element(self, element):
@@ -140,7 +136,6 @@ class SimpleBrowser:
         action = ActionChains(self.driver)
         action.move_to_element(element).perform()
         l = element.click()
-        #sleep(3)
         return l
 
     def input(self, xpath, keys, scroll=False):
@@ -151,9 +146,7 @@ class SimpleBrowser:
                         'a', 'div', 'textarea'], 'xpath did not return proper element'
         l = self.wait.until(EC.element_to_be_clickable((By.XPATH, xpath)))
         l.click()
-        #sleep(0.1)
         l.send_keys(keys)
-        #sleep(0.1)
         return l
 
     def close_windows(self):
@@ -210,7 +203,6 @@ class SimpleBrowser:
         return self.driver.back()
 
     def switch_tab_next(self, number):
-        #sleep(2)
         return self.driver.switch_to.window(self.driver.window_handles[number])
 
     # method to get the downloaded file name

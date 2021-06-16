@@ -115,7 +115,6 @@ def assert_cards_redirection(browser, base_url, cards_xpath, redirect_to_urls, s
             card = browser.find(xpath=f'({cards_xpath})[{i+1}]', scroll=True)
             browser.hover_and_click(card)
             browser.switch_tab_next(1)
-            #sleep(1)
             assert browser.get_current_url() == f'{base_url}{redirect_to_urls[i]}', f'Redirecting to wrong page - {redirect_to_urls[i]}'
             browser.close_windows()
 
@@ -303,7 +302,7 @@ def assert_demo_cta(browser, element_path):
     close_modal(browser)
 
 def close_modal(browser):
-    close_btn = browser.find(xpath='//div[contains(@class, "modal-body")]//button[contains(@class, "close")]', scroll=True, scroll_to_view='false')
+    close_btn = browser.find(xpath='//div[contains(@class, "steps-form-modal-body")]//button[contains(@class, "close")]')
     browser.hover_and_click(close_btn)
     form_modal = browser.find(xpath='//div[contains(@class, "modal fade show")]', scroll=True)
     assert not form_modal, 'Form modal is not closing'
@@ -315,9 +314,6 @@ def verify_url_by_link_text(browser, text, base_url, url, same_tab=False):
     if same_tab:
         verify_url(browser, url)
     else:
-        #sleep(3)
         browser.switch_tab_next(1)
-        #sleep(8)
         verify_url(browser, url)
         browser.close_windows()
-        #sleep(3)

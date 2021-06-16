@@ -28,11 +28,11 @@ def assert_hero_section(browser, section_class, img_width, logo_width):
     assert customer_logo and customer_logo.is_displayed(), f'Logo is not displayed'
     assert_element_width(customer_logo, logo_width)
 
-    # #Button spacing assertion
-    # button_xpath = f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//div[contains(@class, "hero-cta")]'
-    # button = browser.find(button_xpath)
-    # assert_spacing('bottom', button, 40)
-    # assert_demo_cta(browser, button_xpath)
+    #Button spacing assertion
+    button_xpath = f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//div[contains(@class, "hero-cta")]'
+    button = browser.find(button_xpath)
+    assert_spacing('bottom', button, 40)
+    assert_demo_cta(browser, button_xpath)
 
 def assert_mobile_hero_section(browser, section_class):
     #H1 spacing assertion
@@ -48,7 +48,7 @@ def assert_mobile_hero_section(browser, section_class):
     assert customer_logo and customer_logo.is_displayed(), f'Logo is not displayed'
     assert_element_width(customer_logo, 375)
 
-    # #Button spacing assertion
-    # button_xpath = f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//div[contains(@class, "hero-cta")]'
-    # button = browser.find(button_xpath)
-    # assert_spacing('bottom', button, 40)
+    #Button spacing assertion
+    button_xpath = f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//div[contains(@class, "hero-cta")]'
+    button = browser.find(button_xpath)
+    assert_spacing('bottom', button, 40)
