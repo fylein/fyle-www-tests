@@ -19,8 +19,8 @@ def get_resolution(browser):
 def get_browser_name():
     return os.getenv('BROWSER', 'chrome')
 
-def create_browser(browser_name, capabilities, emulation=None):
-    browser = SimpleBrowser(browser_name, capabilities, emulation)
+def create_browser(browser_name, capabilities):
+    browser = SimpleBrowser(browser_name, capabilities)
     return browser
 
 def resize_browser(browser, resolution):
