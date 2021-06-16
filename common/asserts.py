@@ -268,19 +268,12 @@ def assert_links(browser, link_element, link, xpath):
 def assert_element_width(element, width, min_width=None):
     element_width = int(element.value_of_css_property('width').replace('px', '').split('.')[0])
     if min_width:
-        logger.info(element_width)
         assert element_width <= width and element_width >= min_width, f"Element width is cincorrect - the expceted value in {width}, and min_width is {min_width}, but {element_width} found"
     else:
         assert element_width == width, f"Element width is incorrect - the expected value is {width}, but {element_width} found"
 
 def verify_url(browser, url):
     assert browser.get_current_url() == url, f"LinkError: The expected URL is {url}, but {browser.get_current_url()} is found"
-
-def find(browser, xpath, scroll=False, scroll_by=0, scroll_to_view='false'):
-    el = browser.find(xpath, scroll, scroll_by, scroll_to_view)
-    assert el, "Element not found"
-    assert el.is_displayed(), "Element found, but it is not displayed"
-    return el
 
 def get_padding(position, element):
     return int(element.value_of_css_property(f'padding-{position}').replace('px', ''))

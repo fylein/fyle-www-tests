@@ -101,6 +101,7 @@ class SimpleBrowser:
                 sleep(1)
                 if scroll_by != 0:
                     self.driver.execute_script(f"window.scrollBy(0, {scroll_by});")
+                    sleep(1)
                 l = self.wait.until(
                     EC.presence_of_element_located((By.XPATH, xpath)))
         except TimeoutException:
@@ -253,7 +254,7 @@ class SimpleBrowser:
                 sleep(1)
                 if scroll_by != 0:
                     self.driver.execute_script(f"window.scrollBy(0, {scroll_by});")
-                    sleep(2)
+                    sleep(1)
                 if partial:
                     l = self.wait.until(
                         EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, text)))

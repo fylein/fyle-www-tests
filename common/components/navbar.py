@@ -2,18 +2,17 @@ import logging
 import time
 
 from ..utils import load_test_data
-from ..asserts import find, verify_url
+from ..asserts import verify_url
 
 logger = logging.getLogger(__name__)
 
 def open_dropdown(browser, i):
     for attempt in range(5):
         try:
-            el = find(browser, xpath=f'(//nav//li[contains(@class, "has-dropdown")])[{i+1}]', scroll=True)
+            el = browser.find(xpath=f'(//nav//li[contains(@class, "has-dropdown")])[{i+1}]')
             assert el, f'Unable to find nav element'
             el = browser.hover_and_click(el)
             drop_down = browser.find(xpath='//nav//div[contains(@class, "is-dropdown-visible")]')
-            time.sleep(1)
             assert drop_down and drop_down.is_displayed(), 'Drop down is not opening'
             time.sleep(0.5)
             drop_down_section = browser.find(xpath=f'(//nav//ul[contains(@id, "nav-product-child-node")]//li)[{i+1}][contains(@class, "active")]')
@@ -21,7 +20,7 @@ def open_dropdown(browser, i):
         except (AssertionError, AttributeError) as e:
             logger.info(attempt)
             if attempt < 4:
-                logger.info(e)
+                logger.error(e)
                 browser.refresh()
                 browser.activate_page()
                 time.sleep(1)
