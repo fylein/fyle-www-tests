@@ -1,8 +1,12 @@
 {
 
-  "external_links": {
+  "special_links": {
     "Help Articles": "/help/en/",
-    "Blog": "/blog/"
+    "Blog": "/blog/",
+    "Privacy": "/privacy/privacy-policy",
+    "Terms and conditions": "/privacy/terms-and-conditions",
+    "GDPR compliance": "/privacy/gdpr",
+    "Cookie policy": "/privacy/cookie-policy"
   },
 
   "Expenses": "/product/expenses",

@@ -45,8 +45,7 @@ class SimpleBrowser:
         self.driver = None
         if driver:
             driver.quit()
-        #sleep(2)
-    
+
     def close(self):
         sleep(1)
         driver = self.driver
@@ -119,14 +118,12 @@ class SimpleBrowser:
 
     def click(self, xpath, scroll=False):
         l = self.find(xpath, scroll)
-        #sleep(1)
         ltag = l.tag_name.lower() if l.tag_name else None
         assert ltag in ['input', 'li', 'button', 'span',
                         'a', 'div', 'textarea', 'img', 'label'], 'xpath did not return proper element'
         l = self.wait.until(
             EC.element_to_be_clickable((By.XPATH, xpath)))
         l.click()
-        #sleep(3)
         return l
 
     def click_element(self, element):
@@ -140,7 +137,6 @@ class SimpleBrowser:
         action = ActionChains(self.driver)
         action.move_to_element(element).perform()
         l = element.click()
-        #sleep(3)
         return l
 
     def input(self, xpath, keys, scroll=False):
@@ -151,9 +147,7 @@ class SimpleBrowser:
                         'a', 'div', 'textarea'], 'xpath did not return proper element'
         l = self.wait.until(EC.element_to_be_clickable((By.XPATH, xpath)))
         l.click()
-        #sleep(0.1)
         l.send_keys(keys)
-        #sleep(0.1)
         return l
 
     def close_windows(self):
@@ -210,7 +204,6 @@ class SimpleBrowser:
         return self.driver.back()
 
     def switch_tab_next(self, number):
-        #sleep(2)
         return self.driver.switch_to.window(self.driver.window_handles[number])
 
     # method to get the downloaded file name
@@ -236,8 +229,19 @@ class SimpleBrowser:
         return self.driver.get_window_size()
 
     def activate_page(self):
-        site_element = self.find(xpath='//div[contains(@class, "site-content")]')
-        self.hover(site_element)
+        for attempt in range(3):
+            try:
+                site_element = self.find(xpath='//div[contains(@class, "site-content")]')
+                self.hover(site_element)
+            except AttributeError as e:
+                logger.error(e)
+                if attempt < 2:
+                    self.driver.refresh()
+                    sleep(1)
+                    continue
+                else:
+                    raise
+            break
 
     def find_by_link_text(self, text, partial=True, scroll=False, scroll_by=0, scroll_to_view='false'):
         try:
@@ -264,3 +268,6 @@ class SimpleBrowser:
     def press_key(self, key):
         action = ActionChains(self.driver)
         action.key_down(key).key_up(key).perform()
+
+    def get_browser_name(self):
+        return self.driver.capabilities['browserName']

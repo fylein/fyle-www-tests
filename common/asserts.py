@@ -101,7 +101,7 @@ def assert_collapsible_feature_comparison_table(browser):
             assert feature_contents.is_displayed() is False, f'Unable to collapse feature: {div.text}'
         browser.scroll_up_or_down(50)
 
-def assert_cards_redirection(browser, base_url, cards_xpath, redirect_to_urls, same_tab=False):
+def assert_cards_redirection(browser, cards_xpath, redirect_to_urls, same_tab=False):
     if same_tab:
         for i, card_elem in enumerate(cards_xpath):
             card = browser.find(card_elem, scroll=True, scroll_by=-200)
@@ -111,13 +111,14 @@ def assert_cards_redirection(browser, base_url, cards_xpath, redirect_to_urls, s
     else:
         cards = browser.find_many(xpath=cards_xpath)
         assert len(cards) > 0, 'Wrong xpath given for cards'
-        for i, card in enumerate(cards):
-            card = browser.find(xpath=f'({cards_xpath})[{i+1}]', scroll=True)
+        for card in cards:
             browser.hover_and_click(card)
             browser.switch_tab_next(1)
-            #sleep(1)
-            assert browser.get_current_url() == f'{base_url}{redirect_to_urls[i]}', f'Redirecting to wrong page - {redirect_to_urls[i]}'
+            assert browser.get_current_url() in redirect_to_urls, 'Redirecting to wrong page'
             browser.close_windows()
+            if browser.is_desktop() is False:
+                browser.scroll_up_or_down(300)
+            sleep(2)
 
 def assert_cta_click_and_modal_show(browser, cta_section_xpath, cta_xpath):
     section = browser.find(xpath=cta_section_xpath, scroll=True)
@@ -266,18 +267,15 @@ def assert_links(browser, link_element, link, xpath):
     landing_page_element = browser.find(xpath)
     assert landing_page_element.is_displayed, "Page not loaded!"
 
-def assert_element_width(element, width):
+def assert_element_width(element, width, min_width=None):
     element_width = int(element.value_of_css_property('width').replace('px', '').split('.')[0])
-    assert element_width == width, f"Element width is incorrect - the expected value is {width}, but {element_width} found"
+    if min_width:
+        assert element_width <= width and element_width >= min_width, f"Element width is cincorrect - the expceted value in {width}, and min_width is {min_width}, but {element_width} found"
+    else:
+        assert element_width == width, f"Element width is incorrect - the expected value is {width}, but {element_width} found"
 
 def verify_url(browser, url):
     assert browser.get_current_url() == url, f"LinkError: The expected URL is {url}, but {browser.get_current_url()} is found"
-
-def find(browser, xpath, scroll=False, scroll_by=0, scroll_to_view='false'):
-    el = browser.find(xpath, scroll, scroll_by, scroll_to_view)
-    assert el, "Element not found"
-    assert el.is_displayed(), "Element found, but it is not displayed"
-    return el
 
 def get_padding(position, element):
     return int(element.value_of_css_property(f'padding-{position}').replace('px', ''))
@@ -299,7 +297,7 @@ def assert_demo_cta(browser, element_path):
     close_modal(browser)
 
 def close_modal(browser):
-    close_btn = browser.find(xpath='//div[contains(@class, "modal-body")]//button[contains(@class, "close")]', scroll=True, scroll_to_view='false')
+    close_btn = browser.find(xpath='//div[contains(@class, "steps-form-modal-body")]//button[contains(@class, "close")]')
     browser.hover_and_click(close_btn)
     form_modal = browser.find(xpath='//div[contains(@class, "modal fade show")]', scroll=True)
     assert not form_modal, 'Form modal is not closing'
@@ -311,9 +309,6 @@ def verify_url_by_link_text(browser, text, base_url, url, same_tab=False):
     if same_tab:
         verify_url(browser, url)
     else:
-        sleep(3)
         browser.switch_tab_next(1)
-        sleep(3)
         verify_url(browser, url)
         browser.close_windows()
-        sleep(3)
