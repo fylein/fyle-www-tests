@@ -8,13 +8,11 @@ from common.components.navbar import open_mobile_navbar
 logger = logging.getLogger(__name__)
 
 #Open typeform
-def open_typeform(browser, nav_open=True):
+def open_typeform(browser):
     if browser.is_desktop():
         browser.click(xpath="//div[contains(@class, 'nav-item')]//a[contains(text(), 'Get a demo')]")
     else:
-        if nav_open:
-            open_mobile_navbar(browser)
-        browser.click(xpath="//a[contains(@class, 'new-contact-us-demo-form')]")
+        browser.click(xpath="//div[contains(@class, 'sticky-cta-mobile')]//a")
 
     modal = browser.find(xpath="//div[contains(@class, 'modal fade show')]")
     assert modal and modal.is_displayed, 'Form modal is not opening'
@@ -321,7 +319,7 @@ def assert_values_after_closing_form(browser, email='test@fyle.in', firstname='t
     open_typeform(browser)
     submit_field(browser, email=email, firstname=firstname, lastname=lastname, phone=phone, size=size, submit=False)
     close_typeform(browser, open_form=False)
-    open_typeform(browser, nav_open=False)
+    open_typeform(browser)
     email_field = get_field(browser, 'email')
     assert email_field.get_attribute('value') == email, 'Email input value is incorrect or not showing up after form close'
     next_field(browser)
@@ -341,7 +339,6 @@ def assert_values_after_closing_form(browser, email='test@fyle.in', firstname='t
 def assert_progress_bar(browser, email=None, firstname=None, lastname=None, phone=None, size=None, consent=None):
     open_typeform(browser)
     no_of_fields_filled = submit_field(browser, email=email, firstname=firstname, lastname=lastname, phone=phone, size=size, consent=consent, submit=False)
-    logger.info(no_of_fields_filled)
     progress_bar_text = browser.find('//div[contains(@class, "form-instance")]//div[contains(@class, "progress-line-bar")]//div[contains(@class, "step-count")]')
     assert progress_bar_text.get_attribute('innerHTML') == f'{no_of_fields_filled} out of 6 answered', 'Progress bar not showing proper values'
     progress_bar = browser.find('//div[contains(@class, "form-instance")]//div[contains(@class, "progress-line-bar")]//div[@id="progress-bar"]')
