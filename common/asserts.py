@@ -312,3 +312,11 @@ def verify_url_by_link_text(browser, text, base_url, url, same_tab=False):
         browser.switch_tab_next(1)
         verify_url(browser, url)
         browser.close_windows()
+
+def assert_dimensions(element, width=None, height=None):
+    if width:
+        element_width = int(element.value_of_css_property('width').replace('px', '').split('.')[0])
+        assert element_width == width, f"Element width is incorrect - the expected value is {width}, but {element_width} found"
+    if height:
+        element_height = int(element.value_of_css_property('height').replace('px', '').split('.')[0])
+        assert element_height == height, f"Element width is incorrect - the expected value is {height}, but {element_height} found"
