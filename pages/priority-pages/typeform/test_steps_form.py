@@ -1,6 +1,6 @@
 import logging
-from common.components.typeform import *
-from . import laptop_browser as browser
+from common.components.steps_form import *
+from . import desktop_browser as browser
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +35,7 @@ def test_tc_url(browser, base_url):
     assert_tc_url(browser, base_url)
 
 def test_navigation(browser):
-    assert_naviagtion(browser)
+    assert_navigation(browser)
 
 def test_values_after_closing_form(browser):
     assert_values_after_closing_form(browser)

@@ -1,6 +1,6 @@
 import logging
-from common.components.typeform import *
-from . import desktop_browser as browser
+from common.components.steps_form import *
+from . import mobile_browser as browser
 
 logger = logging.getLogger(__name__)
 
@@ -28,9 +28,6 @@ def test_form_success_with_keys(browser):
 def test_name_validation(browser):
     assert_invalid_names(browser)
 
-def test_logo_image(browser):
-    assert_logo(browser)
-
 def test_tc_url(browser, base_url):
     assert_tc_url(browser, base_url)
 
@@ -52,14 +49,8 @@ def test_firstname_in_phone_field(browser):
 def test_progress_bar(browser):
     assert_progress_bar(browser)
 
-def test_form_width(browser):
-    assert_form_width(browser)
-
-def test_field_spacing(browser):
-    assert_field_spacing(browser)
-
 def test_radio_pill_spacing(browser):
-    assert_radio_pill_spacing(browser)
+    assert_radio_pill_spacing(browser, bottom_value=18)
 
 def test_consent_checkbox(browser):
     assert_consent_checkbox(browser)
