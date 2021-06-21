@@ -283,11 +283,14 @@ def get_padding(position, element):
 def get_margin(position, element):
     return int(element.value_of_css_property(f'margin-{position}').replace('px', ''))
 
-def assert_spacing(position, element, value):
+def assert_spacing(position, element, value, assert_msg=None):
     padding = get_padding(position, element)
     margin = get_margin(position, element)
     total_spacing = padding + margin
-    assert total_spacing == value, f"spacing {position} is not correct"
+    msg = f"spacing {position} is not correct"
+    if assert_msg:
+        msg = assert_msg
+    assert total_spacing == value, msg
 
 def assert_demo_cta(browser, element_path):
     browser.find(element_path, scroll=True, scroll_to_view='false')
@@ -319,4 +322,4 @@ def assert_dimensions(element, width=None, height=None):
         assert element_width == width, f"Element width is incorrect - the expected value is {width}, but {element_width} found"
     if height:
         element_height = int(element.value_of_css_property('height').replace('px', '').split('.')[0])
-        assert element_height == height, f"Element width is incorrect - the expected value is {height}, but {element_height} found"
+        assert element_height == height, f"Element height is incorrect - the expected value is {height}, but {element_height} found"

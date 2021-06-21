@@ -1,6 +1,8 @@
 import logging
+import time
 
-from common.asserts import assert_overflowing
+from common.asserts import assert_overflowing, assert_spacing
+from common.components.steps_form import assert_steps_form_modal, close_steps_form
 
 from . import desktop_browser as browser
 
@@ -68,4 +70,52 @@ def test_toggling(browser):
     test_monthly_price(browser)
     browser.click('//div[contains(@class, "switch-field")]')
     test_annual_price(browser)
+
+def test_demo_form_buttons(browser):
+    card_btns = browser.find_many('//div[contains(@class, "card-body")]//div[contains(@class, "card-btn")]')
+    for btn in card_btns:
+        browser.hover_and_click(btn)
+        assert_steps_form_modal(browser)
+        close_steps_form(browser) 
+
+def test_card_spacing(browser):
+    cards = browser.find_many('//div[contains(@class, "card-group")]//div[contains(@class, "card ")]')
+    for i, card in enumerate(cards):
+        assert_spacing('right', card, 25)
+        if i != 0:
+            assert_spacing('left', card, 25)
+        else:
+            assert_spacing('left', card, 165)
+
+def test_compare_button(browser):
+    btn = browser.find('//div[contains(@class, "compare-plan")]//div[contains(@class, "btn-compare")]', scroll=True, scroll_by=300)
+    time.sleep(1)
+    browser.hover_and_click(btn)
+    table = browser.find('//div[contains(@class, "compare-plan")]//div[contains(@class, "feature-table") and not(contains(@class, "d-none"))]', scroll=True)
+    time.sleep(1)
+    assert table and table.is_displayed(), 'Error in opening compare all features dropdown'
+
+    #Assert scroll top
+    browser.scroll_up_or_down(-300)
+    btn = browser.click('//a[@id="scroll"]//div[contains(@class, "scroll-btn")]')
+    time.sleep(2)
+
+
+def test_faq_spacing(browser):
+    faq_section = browser.find('//section[contains(@class, "pricing-faq")]', scroll=True)
+    assert_spacing('top', faq_section, 100)
+    assert_spacing('bottom', faq_section, 100)
+    faq_heading = browser.find('//section[contains(@class, "pricing-faq")]//h2')
+    assert_spacing('bottom', faq_heading, 40)
+
+def test_faq_card_spacing(browser):
+    faq_section = browser.find('//section[contains(@class, "pricing-faq")]', scroll=True)
+    faq_cards = browser.find_many('//section[contains(@class, "pricing-faq")]//div[contains(@class, "pricing-card")]')
+    for card in faq_cards:
+        assert_spacing('top', card, 40)
+        assert_spacing('right', card, 40)
+        assert_spacing('bottom', card, 40)
+        assert_spacing('left', card, 40)
     
+    card_row = browser.find('//section[contains(@class, "pricing-faq")]//div[contains(@class, "row")][2]')
+    assert_spacing('bottom', card_row, 30, 'FAQ section card row spacing bottom is incorrect')

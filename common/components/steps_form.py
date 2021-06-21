@@ -14,7 +14,9 @@ def open_steps_form(browser):
     else:
         sleep(0.5)
         browser.click(xpath="//div[contains(@class, 'sticky-cta-mobile')]//a")
+    assert_steps_form_modal(browser)
 
+def assert_steps_form_modal(browser):
     modal = browser.find(xpath="//div[contains(@class, 'modal fade show')]")
     assert modal and modal.is_displayed, 'Form modal is not opening'
 
