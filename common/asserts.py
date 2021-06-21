@@ -1,6 +1,8 @@
 from time import sleep
 import logging
 
+from selenium.common.exceptions import ElementClickInterceptedException
+
 logger = logging.getLogger(__name__)
 
 def assert_hero_section(browser, section):
@@ -323,3 +325,10 @@ def assert_dimensions(element, width=None, height=None):
     if height:
         element_height = int(element.value_of_css_property('height').replace('px', '').split('.')[0])
         assert element_height == height, f"Element height is incorrect - the expected value is {height}, but {element_height} found"
+
+def assert_overlap(browser, el):
+    try:
+        browser.hover_and_click(el)
+    except ElementClickInterceptedException as e:
+        logger.error(e)
+        raise

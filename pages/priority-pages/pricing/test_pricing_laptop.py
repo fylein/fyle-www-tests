@@ -5,7 +5,7 @@ from common.asserts import assert_overflowing, assert_spacing, assert_dimensions
 from common.components.steps_form import assert_steps_form_modal, close_steps_form
 from common.components.pricing import *
 
-from . import desktop_browser as browser
+from . import laptop_browser as browser
 
 logger = logging.getLogger(__name__)
 
@@ -24,20 +24,21 @@ def test_demo_form_buttons(browser):
 def test_card_spacing(browser):
     cards = browser.find_many('//div[contains(@class, "card-group")]//div[contains(@class, "card ")]')
     for i, card in enumerate(cards):
-        assert_spacing('right', card, 25)
-        if i != 0:
-            assert_spacing('left', card, 25)
+        if i != 1:
+            assert_spacing('left', card, 0)
+            assert_spacing('right', card, 0)
         else:
-            assert_spacing('left', card, 165)
+            assert_spacing('left', card, 13)
+            assert_spacing('right', card, 13)
 
 def test_card_width(browser):
-    assert_card_width(browser, 415, 1200, 1234)
+    assert_card_width(browser, 366, 1200, 1234)
 
 def test_title_desc_width(browser):
-    assert_title_desc_width(browser, 355, 60)
+    assert_title_desc_width(browser, 306, 60)
 
 def test_feature_list(browser):
-    assert_feature_list(browser, 330)
+    assert_feature_list(browser, 282)
 
 def test_usage_led_pricing(browser):
     assert_usage_led_pricing(browser, 984, 40)

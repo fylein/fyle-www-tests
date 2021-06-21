@@ -190,7 +190,7 @@ class SimpleBrowser:
 
     def hover(self, elem):
         ltag = elem.tag_name.lower() if elem.tag_name else None
-        assert ltag in ['li', 'button', 'span',
+        assert ltag in ['li', 'button', 'span', 'p',
                         'a', 'div'], 'xpath did not return proper element'
         actions = ActionChains(self.driver)
         actions.move_to_element(elem)
