@@ -1,8 +1,6 @@
 import logging
-import time
 
-from common.asserts import assert_overflowing, assert_spacing, assert_dimensions, assert_overlap
-from common.components.steps_form import assert_steps_form_modal, close_steps_form
+from common.asserts import assert_overflowing, assert_spacing
 from common.components.pricing import *
 
 from . import desktop_browser as browser
@@ -59,3 +57,6 @@ def test_faq_spacing(browser):
 
 def test_faq_card_spacing(browser):
     assert_faq_card_spacing(browser, 40, 40)
+
+def test_page_overflow(browser):
+    assert_overflowing(browser)

@@ -1,8 +1,6 @@
 import logging
-import time
 
-from common.asserts import assert_overflowing, assert_spacing, assert_dimensions, assert_overlap
-from common.components.steps_form import assert_steps_form_modal, close_steps_form
+from common.asserts import assert_overflowing, assert_spacing
 from common.components.pricing import *
 
 from . import mobile_browser as browser
@@ -38,7 +36,10 @@ def test_faq_card_spacing(browser):
     #Assert bottom spacing
     columns = browser.find_many('//section[contains(@class, "faq")]//div[contains(@class, "row") and contains(@class, "stretch")]//div[contains(@class, "col")]')
     for i, col in enumerate(columns):
-        if i != 2 and i != 4:
+        if i not in [2, 4]:
             assert_spacing('bottom', col, 20)
         else:
             assert_spacing('bottom', col, 0)
+
+def test_page_overflow(browser):
+    assert_overflowing(browser)
