@@ -332,3 +332,13 @@ def assert_overlap(browser, el):
     except ElementClickInterceptedException as e:
         logger.error(e)
         raise
+
+def assert_section_spacing(el, top, bottom):
+    assert_spacing('top', el, top)
+    assert_spacing('bottom', el, bottom)
+
+def assert_spacing_all_sides(el, top, right, bottom, left):
+    assert_spacing('top', el, top)
+    assert_spacing('right', el, right)
+    assert_spacing('bottom', el, bottom)
+    assert_spacing('left', el, left)
