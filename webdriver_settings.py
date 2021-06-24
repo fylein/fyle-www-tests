@@ -15,6 +15,8 @@ def get_driver(browser, capabilities):
         driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
     if browser == 'ie':
         driver = webdriver.Ie(IEDriverManager().install())
+    if browser == 'safari':
+        driver = webdriver.Safari()
     if browser == 'remote':
         user_name = os.getenv('LAMBDA_USER_NAME', None)
         access_key = os.getenv('LAMBDA_ACCESS_KEY', None)

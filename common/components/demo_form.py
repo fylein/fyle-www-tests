@@ -1,3 +1,4 @@
+from time import sleep
 import logging
 from common.asserts import assert_thank_you_modal
 
@@ -25,9 +26,9 @@ def submit_getdemo_form(browser, email=None, firstname=None, lastname=None, phon
         browser.click(xpath='//div[contains(@class, "custom-checkbox")]')
     browser.click(xpath='//button[text()=" Get a demo "]')
 
-def assert_bad_email(browser):
+def assert_bad_email(browser, email='foo'):
     open_getdemo_form(browser)
-    submit_getdemo_form(browser, email='foo')
+    submit_getdemo_form(browser, email=email)
     e = browser.find(xpath="//form[@id='contact-us-form']//label[@for='demo-email'][@class='error']")
     assert e and e.is_displayed(), 'No error displayed for invalid email'
 
@@ -49,19 +50,21 @@ def assert_success(browser):
     open_getdemo_form(browser)
     submit_getdemo_form(browser, email='test@fyle.in', firstname='test', lastname='test', phone='123456789', company_size='Under 5', agree=True)
     e = browser.find(xpath="//h3[contains(text(), 'Thank')]")
+    sleep(2)
     assert e and e.is_displayed(), 'Not displaying thank you message'
-    ty_message = 'Sit back and relax. Our Sales team will get in touch with you within the next 24 hours to schedule a detailed demo.'
+    ty_message = 'Our sales team will respond within the next 60 minutes to schedule a detailed product demo.'
     assert_thank_you_modal(browser, ty_message, 'demoform')
 
 def assert_non_business_email(browser):
     open_getdemo_form(browser)
     submit_getdemo_form(browser, email='test@gmail.com', firstname='test', lastname='test', phone='1234567865', company_size='Under 5', agree=True)
+    sleep(2)
     email_error = browser.find(xpath="//label[@for='demo-email'][@class='error email-error']")
     assert email_error and email_error.is_displayed(), 'No error displayed for non business email'
 
-def assert_invalid_names(browser):
+def assert_invalid_names(browser, first_name='test1', last_name='test2'):
     open_getdemo_form(browser)
-    submit_getdemo_form(browser, firstname='test1', lastname='test2')
+    submit_getdemo_form(browser, firstname=first_name, lastname=last_name)
     firstname_error = browser.find(xpath="//label[@for='demo-first-name'][@class='error demo-first-name-error']")
     lastname_error = browser.find(xpath="//label[@for='demo-last-name'][@class='error demo-last-name-error']")
     assert firstname_error and firstname_error.is_displayed(), "No error displayed for invalid firstname"

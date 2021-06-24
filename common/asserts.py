@@ -69,30 +69,6 @@ def assert_horizontal_spacing_between(element1=None, element2=None, value=None):
     space_between = space_right + space_left
     assert space_between == value, f"Horizontal spacing between elements '{element1.text[:20]}...' and '{element2.text[:20]}...' is not correct"
 
-def assert_spacing_bottom(element=None, value=None):
-    padding_below = int(element.value_of_css_property('padding-bottom').replace('px', ''))
-    margin_below = int(element.value_of_css_property('margin-bottom').replace('px', ''))
-    space_below = padding_below + margin_below
-    assert space_below == value, "spacing below is not correct"
-
-def assert_spacing_top(element=None, value=None):
-    padding_top = int(element.value_of_css_property('padding-top').replace('px', ''))
-    margin_top = int(element.value_of_css_property('margin-top').replace('px', ''))
-    space_top = padding_top + margin_top
-    assert space_top == value, "spacing top is not correct"
-
-def assert_spacing_right(element=None, value=None):
-    padding_right = int(element.value_of_css_property('padding-right').replace('px', ''))
-    margin_right = int(element.value_of_css_property('margin-right').replace('px', ''))
-    space_top = padding_right + margin_right
-    assert space_top == value, f"spacing right is not correct for '{element.text}'"
-
-def assert_spacing_left(element=None, value=None):
-    padding_left = int(element.value_of_css_property('padding-left').replace('px', ''))
-    margin_left = int(element.value_of_css_property('margin-left').replace('px', ''))
-    space_top = padding_left + margin_left
-    assert space_top == value, "spacing left is not correct"
-
 def assert_thank_you_modal(browser, ty_message, demoform=None):
     e = browser.find(xpath="//div[contains(@id, 'contact-us-ty-modal')]")
     assert e and e.is_displayed, "Thank you modal is not displayed"
@@ -281,13 +257,6 @@ def assert_home_testimonial(browser):
             current_active_index = get_active_index(carousel_indicators)
             assert carousel_items[current_active_index].is_displayed(), 'Error in testimonial idicators'
 
-def assert_left_right_para_block(browser, left_blocks, right_blocks, value):
-    for i, left_block in enumerate(left_blocks):
-        assert_spacing_right(left_block, value)
-
-    for i, right_block in enumerate(right_blocks):
-        assert_spacing_left(right_block, value)
-
 def assert_links(browser, link_element, link, xpath):
     ele = browser.find_many(link_element)
     if browser.is_desktop():
@@ -297,3 +266,49 @@ def assert_links(browser, link_element, link, xpath):
     assert browser.get_current_url().rstrip('/') == link, "Redirecting to wrong page"
     landing_page_element = browser.find(xpath)
     assert landing_page_element.is_displayed, "Page not loaded!"
+
+def assert_element_width(element, width, min_width=None):
+    element_width = int(element.value_of_css_property('width').replace('px', '').split('.')[0])
+    if min_width:
+        assert element_width <= width and element_width >= min_width, f"Element width is cincorrect - the expceted value in {width}, and min_width is {min_width}, but {element_width} found"
+    else:
+        assert element_width == width, f"Element width is incorrect - the expected value is {width}, but {element_width} found"
+
+def verify_url(browser, url):
+    assert browser.get_current_url() == url, f"LinkError: The expected URL is {url}, but {browser.get_current_url()} is found"
+
+def get_padding(position, element):
+    return int(element.value_of_css_property(f'padding-{position}').replace('px', ''))
+
+def get_margin(position, element):
+    return int(element.value_of_css_property(f'margin-{position}').replace('px', ''))
+
+def assert_spacing(position, element, value):
+    padding = get_padding(position, element)
+    margin = get_margin(position, element)
+    total_spacing = padding + margin
+    assert total_spacing == value, f"spacing {position} is not correct"
+
+def assert_demo_cta(browser, element_path):
+    browser.find(element_path, scroll=True, scroll_to_view='false')
+    browser.click(element_path)
+    form_modal = browser.find(xpath='//div[contains(@class, "modal fade show")]', scroll=True)
+    assert form_modal and form_modal.is_displayed(), 'Form modal not displayed, Error in Get a demo CTA'
+    close_modal(browser)
+
+def close_modal(browser):
+    close_btn = browser.find(xpath='//div[contains(@class, "steps-form-modal-body")]//button[contains(@class, "close")]')
+    browser.hover_and_click(close_btn)
+    form_modal = browser.find(xpath='//div[contains(@class, "modal fade show")]', scroll=True)
+    assert not form_modal, 'Form modal is not closing'
+
+def verify_url_by_link_text(browser, text, base_url, url, same_tab=False):
+    el = browser.find_by_link_text(text, scroll=True, scroll_by=300)
+    browser.hover_and_click(el)
+    url = f'{base_url}{url}'
+    if same_tab:
+        verify_url(browser, url)
+    else:
+        browser.switch_tab_next(1)
+        verify_url(browser, url)
+        browser.close_windows()

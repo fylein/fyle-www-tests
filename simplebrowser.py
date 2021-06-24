@@ -18,7 +18,8 @@ class SimpleBrowser:
 
     @classmethod
     def __create_driver(cls, browser, capabilities):
-        assert browser in ['chrome', 'ie', 'edge',
+        #If the environment variable BROWSER was not set it would be None, and if browser is none its defaults to chrome. So added None
+        assert browser in ['chrome', 'ie', 'edge', 'safari',
                            'firefox', 'remote', None], 'unsupported browser'
         driver = None
         for _ in range(0, 3):
@@ -45,7 +46,13 @@ class SimpleBrowser:
         self.driver = None
         if driver:
             driver.quit()
-        sleep(2)
+
+    def close(self):
+        sleep(1)
+        driver = self.driver
+        self.driver = None
+        if driver:
+            driver.close()
 
     def __del__(self):
         logger.debug('destructor called')
@@ -87,15 +94,15 @@ class SimpleBrowser:
         self.driver.execute_script(f'window.scrollBy(0, {pixels_to_scroll});')
         sleep(random.uniform(0.0, 1.0))
 
-    def find(self, xpath, scroll=False, scroll_by=0):
+    def find(self, xpath, scroll=False, scroll_by=0, scroll_to_view='false'):
         try:
             l = self.wait.until(EC.presence_of_element_located((By.XPATH, xpath)))
             if scroll:
-                self.driver.execute_script("arguments[0].scrollIntoView(true);", l)
+                self.driver.execute_script(f"arguments[0].scrollIntoView({scroll_to_view});", l)
                 sleep(1)
                 if scroll_by != 0:
                     self.driver.execute_script(f"window.scrollBy(0, {scroll_by});")
-                    sleep(2)
+                    sleep(1)
                 l = self.wait.until(
                     EC.presence_of_element_located((By.XPATH, xpath)))
         except TimeoutException:
@@ -103,20 +110,21 @@ class SimpleBrowser:
         return l
 
     def find_many(self, xpath):
-        m = self.wait.until(
-            EC.presence_of_all_elements_located((By.XPATH, xpath)))
+        try:
+            m = self.wait.until(
+                EC.presence_of_all_elements_located((By.XPATH, xpath)))
+        except TimeoutException:
+            m = []
         return m
 
     def click(self, xpath, scroll=False):
         l = self.find(xpath, scroll)
-        sleep(1)
         ltag = l.tag_name.lower() if l.tag_name else None
         assert ltag in ['input', 'li', 'button', 'span',
                         'a', 'div', 'textarea'], 'xpath did not return proper element'
         l = self.wait.until(
             EC.element_to_be_clickable((By.XPATH, xpath)))
         l.click()
-        sleep(3)
         return l
 
     def click_element(self, element):
@@ -127,8 +135,9 @@ class SimpleBrowser:
     # Method to do hover(move_to_elemet) operation before clicking to avoid click interception error.
     def hover_and_click(self, element):
         self.hover(element)
+        action = ActionChains(self.driver)
+        action.move_to_element(element).perform()
         l = element.click()
-        sleep(3)
         return l
 
     def input(self, xpath, keys, scroll=False):
@@ -139,9 +148,7 @@ class SimpleBrowser:
                         'a', 'div', 'textarea'], 'xpath did not return proper element'
         l = self.wait.until(EC.element_to_be_clickable((By.XPATH, xpath)))
         l.click()
-        sleep(0.1)
         l.send_keys(keys)
-        sleep(0.1)
         return l
 
     def close_windows(self):
@@ -149,7 +156,7 @@ class SimpleBrowser:
         while len(self.driver.window_handles) > 1:
             w = self.driver.window_handles[-1]
             self.driver.switch_to.window(w)
-            self.driver.quit()
+            self.driver.close()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
     def mark_divs(self):
@@ -198,7 +205,6 @@ class SimpleBrowser:
         return self.driver.back()
 
     def switch_tab_next(self, number):
-        sleep(2)
         return self.driver.switch_to.window(self.driver.window_handles[number])
 
     # method to get the downloaded file name
@@ -219,3 +225,48 @@ class SimpleBrowser:
 
     def clear_local_storage(self):
         self.driver.execute_script("window.localStorage.clear();")
+
+    def get_window_size(self):
+        return self.driver.get_window_size()
+
+    # The second fold content will not be loaded unless a mousemove, without loading we cannot find any elements. 
+    # So the activate_page which do hover and load the second fold of a page.
+    def activate_page(self):
+        for attempt in range(3):
+            try:
+                site_element = self.find(xpath='//div[contains(@class, "site-content")]')
+                self.hover(site_element)
+            except AttributeError as e:
+                logger.error(e)
+                if attempt < 2:
+                    self.driver.refresh()
+                    sleep(1)
+                    continue
+                else:
+                    raise
+            break
+
+    def find_by_link_text(self, text, partial=True, scroll=False, scroll_by=0, scroll_to_view='false'):
+        try:
+            if partial:
+                l = self.wait.until(EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, text)))
+            else:
+                l = self.wait.until(EC.presence_of_element_located((By.LINK_TEXT, text)))
+            if scroll:
+                self.driver.execute_script(f"arguments[0].scrollIntoView({scroll_to_view});", l)
+                sleep(1)
+                if scroll_by != 0:
+                    self.driver.execute_script(f"window.scrollBy(0, {scroll_by});")
+                    sleep(1)
+                if partial:
+                    l = self.wait.until(
+                        EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, text)))
+                else:
+                    l = self.wait.until(
+                        EC.presence_of_element_located((By.LINK_TEXT, text)))
+        except TimeoutException:
+            l = False
+        return l
+
+    def get_browser_name(self):
+        return self.driver.capabilities['browserName']
