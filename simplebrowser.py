@@ -229,7 +229,7 @@ class SimpleBrowser:
     def get_window_size(self):
         return self.driver.get_window_size()
 
-    # The second fold conent will not be loaded unless a mousemove, without loading we cannot find any elements. 
+    # The second fold content will not be loaded unless a mousemove, without loading we cannot find any elements. 
     # So the activate_page which do hover and load the second fold of a page.
     def activate_page(self):
         for attempt in range(3):
