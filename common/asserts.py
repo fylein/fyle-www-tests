@@ -289,7 +289,7 @@ def assert_spacing(position, element, value, assert_msg=None):
     padding = get_padding(position, element)
     margin = get_margin(position, element)
     total_spacing = padding + margin
-    msg = f"spacing {position} is not correct"
+    msg = f"spacing {position} is not correct, the expected value is {value}, but {total_spacing} found."
     if assert_msg:
         msg = assert_msg
     assert total_spacing == value, msg
