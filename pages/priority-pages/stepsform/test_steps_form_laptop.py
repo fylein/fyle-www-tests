@@ -31,8 +31,8 @@ def test_name_validation(browser):
 def test_logo_image(browser):
     assert_logo(browser)
 
-def test_tc_url(browser, base_url):
-    assert_tc_url(browser, base_url)
+def test_terms_and_conditions_url(browser, base_url):
+    assert_terms_and_conditions_url(browser, base_url)
 
 def test_navigation(browser):
     assert_naviagtion(browser)
@@ -61,5 +61,5 @@ def test_field_spacing(browser):
 def test_radio_pill_spacing(browser):
     assert_radio_pill_spacing(browser)
 
-def test_consent_checkbox(browser):
-    assert_consent_checkbox(browser)
+def test_gdpr_checkbox(browser):
+    assert_gdpr_checkbox(browser)

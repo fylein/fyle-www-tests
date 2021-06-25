@@ -44,22 +44,22 @@ def go_to_email_field(browser):
 
 def get_field(browser, field, size=None, consent=None):
     if field == 'email':
-        field = browser.find("//div[contains(@class, 'typeform')]//input[@name='email']")
+        field = browser.find("//div[contains(@class, 'steps-form')]//input[@name='email']")
 
     if field == 'firstname':
-        field = browser.find("//div[contains(@class, 'typeform')]//input[@name='firstname']")
+        field = browser.find("//div[contains(@class, 'steps-form')]//input[@name='firstname']")
 
     if field == 'lastname':
-        field = browser.find("//div[contains(@class, 'typeform')]//input[@name='lastname']")
+        field = browser.find("//div[contains(@class, 'steps-form')]//input[@name='lastname']")
 
     if field == 'phone':
-        field = browser.find("//div[contains(@class, 'typeform')]//input[@name='phone']")
+        field = browser.find("//div[contains(@class, 'steps-form')]//input[@name='phone']")
 
     if field == 'company_size':
-        field = browser.find(f"//div[contains(@class, 'typeform')]//label[contains(text(), '{size}')]")
+        field = browser.find(f"//div[contains(@class, 'steps-form')]//label[contains(text(), '{size}')]")
 
     if field == 'consent':
-        field = browser.find(f"//div[contains(@class, 'typeform')]//label[contains(text(), '{consent}')]")
+        field = browser.find(f"//div[contains(@class, 'steps-form')]//label[contains(text(), '{consent}')]")
     return field
 
 def go_to_field(browser, field):
@@ -103,7 +103,7 @@ short_cut_keys = {
 }
 
 def enter(browser, keys=False):
-    button_path = "//div[contains(@class, 'typeform')]//div[contains(@class, 'next-button')]//button"
+    button_path = "//div[contains(@class, 'steps-form')]//div[contains(@class, 'next-button')]//button"
     if not keys:
         browser.click(xpath=button_path)
     else:
@@ -113,7 +113,7 @@ def enter(browser, keys=False):
 def submit_field(browser, email=None, firstname=None, lastname=None, phone=None, size=None, consent=None, keys=False, submit=True):
     no_of_fields_filled = 0
     if email:
-        browser.input(xpath="//div[contains(@class, 'typeform')]//input[@name='email']", keys=email)
+        browser.input(xpath="//div[contains(@class, 'steps-form')]//input[@name='email']", keys=email)
         if submit:
             enter(browser, keys=keys)
         else:
@@ -124,7 +124,7 @@ def submit_field(browser, email=None, firstname=None, lastname=None, phone=None,
             next_field(browser)
 
     if firstname:
-        browser.input(xpath="//div[contains(@class, 'typeform')]//input[@name='firstname']", keys=firstname)
+        browser.input(xpath="//div[contains(@class, 'steps-form')]//input[@name='firstname']", keys=firstname)
         if submit:
             enter(browser, keys=keys)
         else:
@@ -134,7 +134,7 @@ def submit_field(browser, email=None, firstname=None, lastname=None, phone=None,
         if not submit:
             next_field(browser)
     if lastname:
-        browser.input(xpath="//div[contains(@class, 'typeform')]//input[@name='lastname']", keys=lastname)
+        browser.input(xpath="//div[contains(@class, 'steps-form')]//input[@name='lastname']", keys=lastname)
         if submit:
             enter(browser, keys=keys)
         else:
@@ -145,7 +145,7 @@ def submit_field(browser, email=None, firstname=None, lastname=None, phone=None,
             next_field(browser)
 
     if phone:
-        browser.input(xpath="//div[contains(@class, 'typeform')]//input[@name='phone']", keys=phone)
+        browser.input(xpath="//div[contains(@class, 'steps-form')]//input[@name='phone']", keys=phone)
         if submit:
             enter(browser, keys=keys)
         else:
@@ -156,15 +156,15 @@ def submit_field(browser, email=None, firstname=None, lastname=None, phone=None,
             next_field(browser)
 
     if size:
-        path = f"//div[contains(@class, 'typeform')]//label[contains(text(), '{size}')]"
+        path = f"//div[contains(@class, 'steps-form')]//label[contains(text(), '{size}')]"
         if not keys:
             el = browser.click(xpath=path)
             key_value = short_cut_keys[size]
-            radio_btn = browser.find(xpath=f"//div[contains(@class, 'typeform')]//input[@id='btn-radio-{key_value}']")
+            radio_btn = browser.find(xpath=f"//div[contains(@class, 'steps-form')]//input[@id='btn-radio-{key_value}']")
             assert el and el.is_displayed() and radio_btn.is_selected(), f'Error in selecting company size {size}'
         else:
             key_value = short_cut_keys[size]
-            el = browser.find(xpath=f"//div[contains(@class, 'typeform')]//input[@id='btn-radio-{key_value}']")
+            el = browser.find(xpath=f"//div[contains(@class, 'steps-form')]//input[@id='btn-radio-{key_value}']")
             browser.press_key(f'{key_value}')
             assert el.is_selected(), f'Error in selecting company size {size} by using keys'
         if submit:
@@ -179,7 +179,7 @@ def submit_field(browser, email=None, firstname=None, lastname=None, phone=None,
     if consent:
         #go_to_field(browser, 'consent')
         if not keys:
-            el = browser.click(xpath=f"//div[contains(@class, 'typeform')]//label[contains(text(), '{consent}')]")
+            el = browser.click(xpath=f"//div[contains(@class, 'steps-form')]//label[contains(text(), '{consent}')]")
             assert el and el.is_displayed(), 'Error in clicking consent'
         else:
             browser.press_key('y')
@@ -193,46 +193,46 @@ def submit_field(browser, email=None, firstname=None, lastname=None, phone=None,
 def assert_invalid_email(browser, email='foo'):
     open_steps_form(browser)
     submit_field(browser, email=email)
-    e = browser.find(xpath="//div[contains(@class, 'typeform')]//label[@id='email-error']")
+    e = browser.find(xpath="//div[contains(@class, 'steps-form')]//label[@id='email-error']")
     assert e and e.is_displayed(), 'No error displayed for invalid email'
 
 #Assert required fields
 def assert_required_fields(browser):
     open_steps_form(browser)
     enter(browser)
-    email_error = browser.find(xpath="//div[contains(@class, 'typeform')]//label[@id='email-error']")
+    email_error = browser.find(xpath="//div[contains(@class, 'steps-form')]//label[@id='email-error']")
     assert email_error and email_error.is_displayed(), "No error displayed for missing email"
 
     next_field(browser)
     enter(browser)
-    firstname_error = browser.find(xpath="//div[contains(@class, 'typeform')]//label[@id='first-name-error']")
+    firstname_error = browser.find(xpath="//div[contains(@class, 'steps-form')]//label[@id='first-name-error']")
     assert firstname_error and firstname_error.is_displayed(), "No error displayed for missing firstname"
 
     next_field(browser)
     enter(browser)
-    lastname_error = browser.find(xpath="//div[contains(@class, 'typeform')]//label[@id='last-name-error']")
+    lastname_error = browser.find(xpath="//div[contains(@class, 'steps-form')]//label[@id='last-name-error']")
     assert lastname_error and lastname_error.is_displayed(), "No error displayed for missing lastname"
 
     next_field(browser)
     enter(browser)
-    phone_error = browser.find(xpath="//div[contains(@class, 'typeform')]//label[@id='phone-error']")
+    phone_error = browser.find(xpath="//div[contains(@class, 'steps-form')]//label[@id='phone-error']")
     assert phone_error and phone_error.is_displayed(), "No error displayed for missing phone number"
 
     next_field(browser)
     enter(browser)
-    company_size_error = browser.find(xpath="//div[contains(@class, 'typeform')]//label[@id='company-size-error']")
+    company_size_error = browser.find(xpath="//div[contains(@class, 'steps-form')]//label[@id='company-size-error']")
     assert company_size_error and company_size_error.is_displayed(), "No error displayed for missing phone number"
 
     next_field(browser)
     enter(browser)
-    consent_error = browser.find(xpath="//div[contains(@class, 'typeform')]//label[@id='gdpr-error']")
+    consent_error = browser.find(xpath="//div[contains(@class, 'steps-form')]//label[@id='gdpr-error']")
     assert consent_error and consent_error.is_displayed(), "No error displayed for missing consent"
 
 def assert_invalid_phone_number(browser):
     open_steps_form(browser)
     go_to_field(browser, 'phone')
     submit_field(browser, phone='asdf')
-    e = browser.find(xpath="//div[contains(@class, 'typeform')]//label[@id='phone-error']")
+    e = browser.find(xpath="//div[contains(@class, 'steps-form')]//label[@id='phone-error']")
     assert e and e.is_displayed(), "No error displayed invalid phone number"
     assert e.get_attribute('innerHTML') == 'Please enter a valid phone number', 'Wrong error message displayed'
 
@@ -255,12 +255,12 @@ def assert_invalid_names(browser):
     open_steps_form(browser)
     go_to_field(browser, 'firstname')
     submit_field(browser, firstname='332fff')
-    firstname_error = browser.find(xpath="//div[contains(@class, 'typeform')]//label[@id='first-name-error']")
+    firstname_error = browser.find(xpath="//div[contains(@class, 'steps-form')]//label[@id='first-name-error']")
     assert firstname_error and firstname_error.is_displayed(), "No error displayed for missing firstname"
 
     go_to_field(browser, 'lastname')
     submit_field(browser, lastname='ere4gds')
-    lastname_error = browser.find(xpath="//div[contains(@class, 'typeform')]//label[@id='last-name-error']")
+    lastname_error = browser.find(xpath="//div[contains(@class, 'steps-form')]//label[@id='last-name-error']")
     assert lastname_error and lastname_error.is_displayed(), "No error displayed for missing lastname"
 
 def assert_thank_you_gif(browser):
@@ -274,7 +274,7 @@ def assert_logo(browser):
     for logo in logos:
         assert logo and logo.is_displayed(), 'Logo image not displayed'
 
-def assert_tc_url(browser, base_url):
+def assert_terms_and_conditions_url(browser, base_url):
     open_steps_form(browser)
     go_to_field(browser, 'consent')
     verify_url_by_link_text(browser, 'terms and conditions', base_url, '/privacy/terms-and-conditions')
@@ -363,11 +363,11 @@ def assert_firstname_in_phone_field(browser, firstname='test'):
     assert first_name == firstname, 'First name in phone field is incorrect'
 
 def assert_question_spacing(browser, i):
-    question_block = browser.find(f'((//div[contains(@class, "tab")]//div[contains(@class, "question")])[{i+1}]//label)[1]')
+    question_block = browser.find(f'((//div[contains(@class, "block-view")]//div[contains(@class, "question")])[{i+1}]//label)[1]')
     assert_spacing('bottom', question_block, 23)
 
 def assert_number_spacing(browser, i):
-    question_number = browser.find(f'(//div[contains(@class, "tab")]//span[contains(@class, "question-number")])[{i+1}]')
+    question_number = browser.find(f'(//div[contains(@class, "block-view")]//span[contains(@class, "field-number")])[{i+1}]')
     assert_spacing('right', question_number, 16)
 
 def assert_field_spacing(browser):
@@ -390,11 +390,11 @@ def assert_radio_pill_spacing(browser, bottom_value=25):
         assert_spacing('right', pill, 25)
         assert_spacing('bottom', pill, bottom_value)
 
-def assert_consent_checkbox(browser):
+def assert_gdpr_checkbox(browser):
     open_steps_form(browser)
     go_to_field(browser, 'consent')
-    el = browser.click(xpath=f"//div[contains(@class, 'typeform')]//label[contains(text(), 'Yes')]")
+    el = browser.click(xpath=f"//div[contains(@class, 'steps-form')]//label[contains(text(), 'Yes')]")
     field = browser.find('//div[contains(@class, "gdpr")]//input[@type="checkbox"]')
     assert field.is_selected(), 'Problem in clicking on consent button'
-    el = browser.click(xpath=f"//div[contains(@class, 'typeform')]//label[contains(text(), 'Yes')]")
+    el = browser.click(xpath=f"//div[contains(@class, 'steps-form')]//label[contains(text(), 'Yes')]")
     assert not field.is_selected(), 'Problem in unchecking the consent checkbox'
