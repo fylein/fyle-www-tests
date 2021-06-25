@@ -1,7 +1,8 @@
-from . import laptop_browser as browser
 from common.components.slider import *
 from common.components.hero import assert_product_hero_section
-from common.asserts import assert_element_width, assert_spacing, assert_demo_cta
+from common.asserts import *
+
+from . import laptop_browser as browser
 
 def test_hero_section(browser):
     assert_product_hero_section(browser, 760, 997)
@@ -14,3 +15,6 @@ def test_slider_section_para_block(browser):
 
 def test_bottom_banner_cta(browser):
     assert_demo_cta(browser, '//section[contains(@class, "bottom-stat-with-cta")]//a')
+
+def test_page_overflow(browser):
+    assert_overflowing(browser)
