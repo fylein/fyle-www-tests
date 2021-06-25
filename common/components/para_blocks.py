@@ -34,6 +34,6 @@ def assert_para_blocks(browser, para_width, image_width, spacing=None, slider_la
             assert_element_width(right_block_el, image_width, min_width=(image_width))
 
 def assert_para_block_section_spacing(browser, spacing=100):
-    section = browser.find('//section[contains(@class, "features-parallel-content-img")]', scroll=True)
+    section = browser.find("//div[contains(@class, 'fyle-features-row')]//div[contains(@class, 'fy-feature-left-para-padding')]/ancestor::section", scroll=True)
     assert_spacing('top', section, spacing)
     assert_spacing('bottom', section, spacing)
