@@ -28,8 +28,8 @@ def test_form_success_with_keys(browser):
 def test_name_validation(browser):
     assert_invalid_names(browser)
 
-def test_tc_url(browser, base_url):
-    assert_tc_url(browser, base_url)
+def test_terms_and_conditions_url(browser, base_url):
+    assert_terms_and_conditions_url(browser, base_url)
 
 def test_navigation(browser):
     assert_navigation(browser)
@@ -53,4 +53,4 @@ def test_radio_pill_spacing(browser):
     assert_radio_pill_spacing(browser, bottom_value=18)
 
 def test_gdpr_checkbox(browser):
-    assert_consent_checkbox(browser)
+    assert_gdpr_checkbox(browser)
