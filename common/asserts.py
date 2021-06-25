@@ -303,7 +303,7 @@ def close_modal(browser):
     assert not form_modal, 'Form modal is not closing'
 
 def verify_url_by_link_text(browser, text, base_url, url, same_tab=False):
-    el = browser.find_by_link_text(text)
+    el = browser.find_by_link_text(text, scroll=True, scroll_by=300)
     browser.hover_and_click(el)
     url = f'{base_url}{url}'
     if same_tab:
