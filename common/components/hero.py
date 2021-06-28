@@ -4,13 +4,17 @@ from common.asserts import assert_element_width, assert_spacing, assert_demo_cta
 
 logger = logging.getLogger(__name__)
 
-def assert_h1_spacing(browser, section_class):
+def assert_h1_spacing(browser, section_class, value=20):
     heading = browser.find(f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//h1')
-    assert_spacing('bottom', heading, 20)
+    assert_spacing('bottom', heading, value)
 
-def assert_subtext_spacing(browser, section_class):
-    span = browser.find(f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//div[contains(@class, "single-column")]//p')
-    assert_spacing('bottom', span, 40)
+def assert_subtext_spacing(browser, section_class, last_span=60, mid_span=10):
+    spans = browser.find_many(f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//div[contains(@class, "single-column")]//p')
+    for i, el in enumerate(spans):
+        if i == (len(spans)-1):
+            assert_spacing('bottom', el, last_span)
+        else:
+            assert_spacing('bottom', el, mid_span)
 
 def assert_img(browser, img_width, section_class):
     img = browser.find(f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//img[contains(@class, "gradient-hero-img")]')
@@ -42,6 +46,12 @@ def assert_customer_logo_v2(browser, logo_width):
     assert_spacing('top', logo_container, 80)
 
     logo = browser.find('//section[contains(@class, "customer-logos-v2")]//div[contains(@class, "container")]//img[contains(@class, "d-md-block")]', scroll=True)
+    time.sleep(3)
+    assert logo and logo.is_displayed(), 'Logo is not displayed'
+    assert_element_width(logo, logo_width)
+
+def assert_customer_logo_img(browser, xpath, logo_width):
+    logo = browser.find(xpath, scroll=True)
     time.sleep(3)
     assert logo and logo.is_displayed(), 'Logo is not displayed'
     assert_element_width(logo, logo_width)
