@@ -8,13 +8,16 @@ def assert_h1_spacing(browser, section_class, value=20):
     heading = browser.find(f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//h1')
     assert_spacing('bottom', heading, value)
 
-def assert_subtext_spacing(browser, section_class, last_span=60, mid_span=10):
+def assert_subtext_spacing(browser, section_class, span=40, last_span=60, mid_span=10):
     spans = browser.find_many(f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//div[contains(@class, "single-column")]//p')
     for i, el in enumerate(spans):
-        if i == (len(spans)-1):
-            assert_spacing('bottom', el, last_span)
+        if len(spans) == 1:
+            assert_spacing('bottom', el, span)
         else:
-            assert_spacing('bottom', el, mid_span)
+            if i == (len(spans)-1):
+                assert_spacing('bottom', el, last_span)
+            else:
+                assert_spacing('bottom', el, mid_span)
 
 def assert_img(browser, img_width, section_class):
     img = browser.find(f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//img[contains(@class, "gradient-hero-img")]')
