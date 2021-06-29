@@ -1,6 +1,7 @@
 from common.asserts import assert_overflowing
 from common.components.para_blocks import *
 from common.components.g2_section import *
+from common.components.hero import *
 from common.asserts import verify_url_by_link_text
 
 from . import laptop_browser as browser
