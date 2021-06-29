@@ -1,6 +1,4 @@
 import logging
-import datetime
-import time
 
 from common.asserts import assert_overflowing
 from common.components.para_blocks import *
@@ -36,13 +34,3 @@ def test_para_block_links(browser, base_url):
 
 def test_page_overflow(browser):
     assert_overflowing(browser)
-
-def test_date_time(browser):
-    dt = datetime.datetime.now().strftime("%d-%m-%Y, %I:%M:%S %p")
-    # dt = dt.strptime(dt.strftime("%H:%M:%S"), )
-    # current_time = dt.strftime("%d-%m-%Y, %H:%M:%S")
-    # logger.info(current_time)
-    # date = dt.strftime("%d-%m-%Y, %I:%M:%S %p")
-    # logger.info(date)
-    logger.info(dt)
-
