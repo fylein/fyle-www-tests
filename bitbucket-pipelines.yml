@@ -3,55 +3,70 @@ image: python:3.7
 pipelines:
   branches:
     master:
-      - step:
-          name: Test
-          caches:
-            - pip
-          script:
-            - pip install virtualenv
-            - virtualenv venv --python=python3.7
-            - source venv/bin/activate
-            - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-            - python -m pytest -v pages/ --junitxml=test-reports/report.xml
+      - parallel:
+          - step:
+              name: Master test - suite1
+              caches:
+                - pip
+              script:
+                - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+                - python -m pytest -v pages/suite1 --url --junitxml=test-reports/report.xml
+          - step:
+              name: Master test - suite2
+              caches:
+                - pip
+              script:
+                - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+                - python -m pytest -v pages/suite2 --url --junitxml=test-reports/report.xml
 
   custom:
     prod-pipeline:
-      - step:
-          name: Prod test
-          caches:
-            - pip
-          script:
-            - pip install virtualenv
-            - virtualenv venv --python=python3.7
-            - source venv/bin/activate
-            - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-            - python -m pytest -v pages/priority-pages/homepage/test_homepage.py::test_navbar --junitxml=test-reports/report.xml
+      - parallel:
+          - step:
+              name: Prod test - suite1
+              caches:
+                - pip
+              script:
+                - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+                - python -m pytest -v pages/suite1 --url --junitxml=test-reports/report.xml
+          - step:
+              name: Prod test - suite2
+              caches:
+                - pip
+              script:
+                - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+                - python -m pytest -v pages/suite2 --url --junitxml=test-reports/report.xml
 
     staging1-pipeline:
        - parallel:
           - step:
-              name: Staging1 test - step1
+              name: Staging1 test - suite1
               caches:
                 - pip
               script:
                 - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-                - python -m pytest -v pages/priority-pages/homepage/test_homepage.py::test_navbar --junitxml=test-reports/report.xml
+                - python -m pytest -v pages/suite1 --url stag1 --junitxml=test-reports/report.xml
           - step:
-              name: Staging1 test - step2
+              name: Staging1 test - suite2
               caches:
                 - pip
               script:
                 - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-                - python -m pytest -v pages/priority-pages/homepage/test_homepage.py::test_footer --junitxml=test-reports/report.xml
+                - python -m pytest -v pages/suite2 --url stag1 --junitxml=test-reports/report.xml
 
     staging2-pipeline:
-      - step:
-          name: Staging2 test
-          caches:
-            - pip
-          script:
-            - pip install virtualenv
-            - virtualenv venv --python=python3.7
-            - source venv/bin/activate
-            - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-            - python -m pytest -v pages/ --url stag2 --junitxml=test-reports/report.xml
+      - parallel:
+          - step:
+              name: Staging2 test - suite1
+              caches:
+                - pip
+              script:
+                - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+                - python -m pytest -v pages/suite1 --url stag1 --junitxml=test-reports/report.xml
+          - step:
+              name: Staging2 test - suite2
+              caches:
+                - pip
+              script:
+                - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+                - python -m pytest -v pages/suite2 --url stag1 --junitxml=test-reports/report.xml
