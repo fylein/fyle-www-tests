@@ -25,7 +25,7 @@ pipelines:
             - virtualenv venv --python=python3.7
             - source venv/bin/activate
             - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-            - python -m pytest -v pages/priority-pages/homepage/test_homepage.py::test_para_block_spacing --junitxml=test-reports/report.xml
+            - python -m pytest -v pages/priority-pages/homepage/test_homepage.py::test_navbar --junitxml=test-reports/report.xml
 
     staging1-pipeline:
        - parallel:
@@ -35,14 +35,14 @@ pipelines:
                 - pip
               script:
                 - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-                - python -m pytest -v pages/priority-pages/homepage/test_homepage.py::test_para_block_spacing --junitxml=test-reports/report.xml
+                - python -m pytest -v pages/priority-pages/homepage/test_homepage.py::test_navbar --junitxml=test-reports/report.xml
           - step:
               name: Staging1 test - step2
               caches:
                 - pip
               script:
                 - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-                - python -m pytest -v pages/priority-pages/homepage/test_homepage.py::test_para_block_links --junitxml=test-reports/report.xml
+                - python -m pytest -v pages/priority-pages/homepage/test_homepage.py::test_footer --junitxml=test-reports/report.xml
 
     staging2-pipeline:
       - step:
