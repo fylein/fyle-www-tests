@@ -295,7 +295,7 @@ def assert_spacing(position, element, value, assert_msg=None):
     assert total_spacing == value, msg
 
 def assert_demo_cta(browser, element_path):
-    browser.find(element_path, scroll=True, scroll_to_view='false')
+    browser.find(element_path, scroll=True, scroll_to_view='false', scroll_by=300)
     browser.click(element_path)
     form_modal = browser.find(xpath='//div[contains(@class, "modal fade show")]', scroll=True)
     assert form_modal and form_modal.is_displayed(), 'Form modal not displayed, Error in Get a demo CTA'
@@ -345,3 +345,6 @@ def assert_spacing_all_sides(el, top, right, bottom, left):
     assert_spacing('right', el, right)
     assert_spacing('bottom', el, bottom)
     assert_spacing('left', el, left)
+
+def assert_bottom_banner_cta(browser):
+    assert_demo_cta(browser, '//section[contains(@class, "bottom-stat-with-cta")]//a')

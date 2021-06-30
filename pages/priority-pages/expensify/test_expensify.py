@@ -8,7 +8,7 @@ from common.components.hero_v2 import assert_hero_v2_section
 logger = logging.getLogger(__name__)
 
 def test_hero_section(browser):
-    assert_hero_v2_section(browser, 'expensify-hero', img_width=625, bulletin=True, g2_source='https://www.g2.com/reports/momentum-grid-report-for-expense-management-winter-2020')
+    assert_hero_v2_section(browser, 'expensify-hero', img_width=625, bulletin=True, section_spacing=80, g2_source='https://www.g2.com/reports/momentum-grid-report-for-expense-management-winter-2020')
 
 def test_customer_logo(browser):
     assert_customer_logo(browser, width=1345, height=217)
