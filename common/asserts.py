@@ -294,6 +294,7 @@ def assert_demo_cta(browser, element_path):
     browser.click(element_path)
     form_modal = browser.find(xpath='//div[contains(@class, "modal fade show")]', scroll=True)
     assert form_modal and form_modal.is_displayed(), 'Form modal not displayed, Error in Get a demo CTA'
+    sleep(1)
     close_modal(browser)
 
 def close_modal(browser):

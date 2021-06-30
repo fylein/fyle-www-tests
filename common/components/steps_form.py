@@ -245,6 +245,7 @@ def assert_form_success(browser, email='test@fyle.in', firstname='test', lastnam
 def close_steps_form(browser, open_form=True):
     if open_form:
         open_steps_form(browser)
+    sleep(1)
     browser.click(xpath='//div[contains(@class, "offer-campaign-dialog")]//button[contains(@class, "close")]')
     modal = browser.find(xpath="//div[contains(@class, 'modal fade show')]")
     assert not modal, 'Error in closing form'
@@ -374,11 +375,6 @@ def assert_field_spacing(browser):
         assert_question_spacing(browser, i)
         assert_number_spacing(browser, i)
         next_field(browser)
-
-def assert_form_width(browser, value=33):
-    open_steps_form(browser)
-    form_modal = browser.find('//div[contains(@class, "offer-campaign")]')
-    assert_dimensions(form_modal, width=(browser.get_width() - value), height=(browser.get_height() - 123))
 
 def assert_radio_pill_spacing(browser, bottom_value=25):
     open_steps_form(browser)

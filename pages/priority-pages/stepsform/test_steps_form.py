@@ -52,9 +52,6 @@ def test_firstname_in_phone_field(browser):
 def test_progress_bar(browser):
     assert_progress_bar(browser)
 
-def test_form_width(browser):
-    assert_form_width(browser)
-
 def test_field_spacing(browser):
     assert_field_spacing(browser)
 
