@@ -15,11 +15,11 @@ def test_hero_section(browser):
     section_class = 'homepage-hero'
     assert_hero_section(browser, section_class, 1140, 1350)
 
-# def test_navbar(browser, base_url):
-#     assert_navbar(browser, base_url)
+def test_navbar(browser, base_url):
+    assert_navbar(browser, base_url)
 
-# def test_footer(browser, base_url):
-#     assert_footer(browser, base_url)
+def test_footer(browser, base_url):
+    assert_footer(browser, base_url)
 
 def test_para_block_spacing(browser):
     assert_para_blocks(browser, para_width=660, image_width=880, spacing=85)

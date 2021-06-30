@@ -245,9 +245,11 @@ def assert_form_success(browser, email='test@fyle.in', firstname='test', lastnam
 def close_steps_form(browser, open_form=True):
     if open_form:
         open_steps_form(browser)
-    sleep(1)
     browser.click(xpath='//div[contains(@class, "offer-campaign-dialog")]//button[contains(@class, "close")]')
-    modal = browser.find(xpath="//div[contains(@class, 'modal fade show')]")
+    exit_intent = browser.find("//div[contains(@class, 'modal fade show') and @id='exit-intent']")
+    if exit_intent:
+        browser.click('//div[@id="exit-intent"]//button[contains(@class, "close")]')
+    modal = browser.find(xpath="//div[contains(@class, 'modal fade show') and @id='demo-form-steps']")
     assert not modal, 'Error in closing form'
 
 def assert_invalid_names(browser):
