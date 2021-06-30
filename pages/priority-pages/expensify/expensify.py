@@ -4,12 +4,6 @@ from common.asserts import assert_spacing, assert_section_spacing, assert_dimens
 
 logger = logging.getLogger(__name__)
 
-def assert_customer_logo(browser, width=None, height=None):
-    logo = browser.find('//section[contains(@class, "fyle-design-system fy-section-padding")]//img[contains(@class, "d-md-block")]', scroll=True, scroll_by=300)
-    assert_dimensions(logo, width, height)
-    section = browser.find('//section[contains(@class, "fyle-design-system fy-section-padding")]')
-    assert_section_spacing(section, 100, 100)
-
 def assert_switch_from_expensify(browser, section_top, section_bottom, h2_spacing, list_spacing):
     #Assert section spacing
     section = browser.find('//section[contains(@class, "why-choose-fyle-over-expensify")]', scroll=True, scroll_by=300)

@@ -59,7 +59,7 @@ def assert_customer_logo_img(browser, xpath, logo_width):
     assert logo and logo.is_displayed(), 'Logo is not displayed'
     assert_element_width(logo, logo_width)
 
-def assert_hero_section(browser, section_class, img_width, logo_width):
+def assert_hero_section(browser, section_class, img_width, logo_width=None):
     #H1 spacing assertions
     assert_h1_spacing(browser, section_class)
 
@@ -70,7 +70,8 @@ def assert_hero_section(browser, section_class, img_width, logo_width):
     assert_img(browser, img_width, section_class)
 
     #Customer logo assertions
-    assert_customer_logo(browser, section_class, logo_width)
+    if logo_width:
+        assert_customer_logo(browser, section_class, logo_width)
 
     #Button spacing assertion
     assert_button_spacing(browser, section_class)

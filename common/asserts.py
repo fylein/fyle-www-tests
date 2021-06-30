@@ -348,3 +348,9 @@ def assert_spacing_all_sides(el, top, right, bottom, left):
 
 def assert_bottom_banner_cta(browser):
     assert_demo_cta(browser, '//section[contains(@class, "bottom-stat-with-cta")]//a')
+
+def assert_customer_logo_section(browser, width=None, height=None):
+    logo = browser.find('//section[contains(@class, "fyle-design-system fy-section-padding")]//img[contains(@class, "d-md-block")]', scroll=True, scroll_by=300)
+    assert_dimensions(logo, width, height)
+    section = browser.find('//section[contains(@class, "fyle-design-system fy-section-padding")]')
+    assert_section_spacing(section, 100, 100)
