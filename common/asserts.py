@@ -294,12 +294,16 @@ def assert_demo_cta(browser, element_path):
     browser.click(element_path)
     form_modal = browser.find(xpath='//div[contains(@class, "modal fade show")]', scroll=True)
     assert form_modal and form_modal.is_displayed(), 'Form modal not displayed, Error in Get a demo CTA'
+    sleep(1)
     close_modal(browser)
 
 def close_modal(browser):
     close_btn = browser.find(xpath='//div[contains(@class, "steps-form-modal-body")]//button[contains(@class, "close")]')
     browser.hover_and_click(close_btn)
-    form_modal = browser.find(xpath='//div[contains(@class, "modal fade show")]', scroll=True)
+    exit_intent = browser.find("//div[contains(@class, 'modal fade show') and @id='exit-intent']")
+    if exit_intent:
+        browser.click('//div[@id="exit-intent"]//button[contains(@class, "close")]')
+    form_modal = browser.find(xpath='//div[contains(@class, "modal fade show") contains(@id="demo-form-steps")]', scroll=True)
     assert not form_modal, 'Form modal is not closing'
 
 def verify_url_by_link_text(browser, text, base_url, url, same_tab=False):
@@ -312,3 +316,11 @@ def verify_url_by_link_text(browser, text, base_url, url, same_tab=False):
         browser.switch_tab_next(1)
         verify_url(browser, url)
         browser.close_windows()
+
+def assert_dimensions(element, width=None, height=None):
+    if width:
+        element_width = int(element.value_of_css_property('width').replace('px', '').split('.')[0])
+        assert element_width == width, f"Element width is incorrect - the expected value is {width}, but {element_width} found"
+    if height:
+        element_height = int(element.value_of_css_property('height').replace('px', '').split('.')[0])
+        assert element_height == height, f"Element width is incorrect - the expected value is {height}, but {element_height} found"

@@ -121,7 +121,7 @@ class SimpleBrowser:
         l = self.find(xpath, scroll)
         ltag = l.tag_name.lower() if l.tag_name else None
         assert ltag in ['input', 'li', 'button', 'span',
-                        'a', 'div', 'textarea'], 'xpath did not return proper element'
+                        'a', 'div', 'textarea', 'img', 'label'], 'xpath did not return proper element'
         l = self.wait.until(
             EC.element_to_be_clickable((By.XPATH, xpath)))
         l.click()
@@ -267,6 +267,10 @@ class SimpleBrowser:
         except TimeoutException:
             l = False
         return l
+
+    def press_key(self, key):
+        action = ActionChains(self.driver)
+        action.key_down(key).key_up(key).perform()
 
     def get_browser_name(self):
         return self.driver.capabilities['browserName']
