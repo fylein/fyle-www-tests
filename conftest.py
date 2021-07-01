@@ -1,6 +1,7 @@
 import logging
 import pytest
 import datetime
+import pytz
 
 from common.utils import create_browser, get_browser_name
 
@@ -13,8 +14,10 @@ BASE_URL = {
     "local" : "http://localhost:4000"
 }
 
-current_time = datetime.datetime.now().strftime("%d-%m-%Y, %I:%M:%S %p")
+zone = pytz.timezone('Asia/Kolkata')
+current_time = datetime.datetime.now(zone).strftime("%d-%m-%Y, %I:%M:%S %p")
 test_name = f"Test on: {current_time}"
+
 #Parser adoption to use custom arguments from command line
 def pytest_addoption(parser):
     parser.addoption("--url", action="store", default="prod")
