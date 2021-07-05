@@ -4,7 +4,7 @@ from common.asserts import assert_element_width, assert_spacing, assert_demo_cta
 
 logger = logging.getLogger(__name__)
 
-def assert_hero_v2_section(browser, section_class, img_width=None, bulletin=False, g2_source=None):
+def assert_hero_img_on_right_section(browser, section_class, img_width=None, bulletin=False, g2_source=None):
     #H1 spacing assertion
     heading = browser.find(f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//h1')
     if img_width:
