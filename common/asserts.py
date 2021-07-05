@@ -342,3 +342,6 @@ def assert_spacing_all_sides(el, top, right, bottom, left):
     assert_spacing('right', el, right)
     assert_spacing('bottom', el, bottom)
     assert_spacing('left', el, left)
+
+def assert_bottom_banner_cta(browser):
+    assert_demo_cta(browser, '//section[contains(@class, "bottom-stat-with-cta")]//a')
