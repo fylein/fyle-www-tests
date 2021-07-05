@@ -45,7 +45,7 @@ pipelines:
                 - pip
               script:
                 - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-                - python -m pytest -v pages/suite1/--url stag1 --junitxml=test-reports/report.xml
+                - python -m pytest -v pages/suite1/ --url stag1 --junitxml=test-reports/report.xml
           - step:
               name: Staging1 test - suite2
               caches:
