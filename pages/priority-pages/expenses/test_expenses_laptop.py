@@ -14,7 +14,7 @@ def test_slider_section_para_block(browser):
     assert_slider_section_para_block(browser, 421, 521, 40, slider_laptop=True)
 
 def test_bottom_banner_cta(browser):
-    assert_demo_cta(browser, '//section[contains(@class, "bottom-stat-with-cta")]//a')
+    assert_bottom_banner_cta(browser)
 
 def test_page_overflow(browser):
     assert_overflowing(browser)
