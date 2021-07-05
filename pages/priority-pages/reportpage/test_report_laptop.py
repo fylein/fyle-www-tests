@@ -30,7 +30,7 @@ def test_g2_table(browser):
     assert_g2_table(browser)
 
 def test_bottom_banner_cta(browser):
-    assert_demo_cta(browser, '//section[contains(@class, "bottom-stat-with-cta")]//a')
+    assert_bottom_banner_cta(browser)
 
 def test_page_overflow(browser):
     assert_overflowing(browser)
