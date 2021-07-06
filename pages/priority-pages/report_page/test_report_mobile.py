@@ -1,14 +1,18 @@
-from common.asserts import assert_overflowing
+from common.asserts import assert_overflowing, verify_url_by_link_text
 from common.components.para_blocks import *
-from common.components.hero import *
 from common.components.g2_section import *
-from common.asserts import verify_url_by_link_text
+from common.components.hero import *
 
 from . import mobile_browser as browser
 
 def test_hero_section(browser):
     section_class = 'homepage-hero'
-    assert_mobile_hero_section(browser, section_class)
+    assert_h1_spacing(browser, section_class, 16)
+    assert_button_spacing(browser, section_class, cta=False)
+    assert_customer_logo(browser, 375,
+        section_xpath=f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//section',
+        logo_xpath=f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//section//div[contains(@class, "d-md-none d-block")]//img[contains(@class, "fy-container-mw-ie")]',
+        spacing_bottom=50)
 
 def test_para_block_spacing(browser):
     assert_para_blocks(browser, para_width=440, image_width=440)
