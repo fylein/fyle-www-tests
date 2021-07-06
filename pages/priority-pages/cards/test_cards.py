@@ -1,11 +1,20 @@
 from common.components.para_blocks import *
-from common.components.hero import assert_product_hero_section
 from common.asserts import *
+from common.components.hero import *
 
 from . import desktop_browser as browser
 
 def test_hero_section(browser):
-    assert_product_hero_section(browser, 1140, 1437)
+    section_class = 'product-hero'
+    assert_h1_spacing(browser, section_class)
+    assert_subtext_spacing(browser, section_class)
+    assert_img(browser, 1140, section_class)
+    assert_button_spacing(browser, section_class, value=48)
+    assert_customer_logo(browser, 1437,
+        section_xpath='//section[contains(@class, "customer-logos-v2")]//div[contains(@class, "container")]',
+        logo_xpath='//section[contains(@class, "customer-logos-v2")]//div[contains(@class, "container")]//img[contains(@class, "d-md-block")]',
+        spacing_top=80
+    )
 
 def test_para_block(browser):
     assert_para_blocks(browser, para_width=660, image_width=880, spacing=85)

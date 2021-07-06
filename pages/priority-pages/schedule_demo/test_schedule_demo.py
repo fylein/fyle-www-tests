@@ -1,8 +1,8 @@
 from common.asserts import assert_overflowing
 from common.components.demo_form import *
-from .scheduledemo import *
+from .common.schedule_demo import *
 
-from . import mobile_browser as browser
+from . import desktop_browser as browser
 
 def test_bad_email(browser):
     assert_bad_email(browser, inline=True)
@@ -23,4 +23,4 @@ def test_page_overflow(browser):
     assert_overflowing(browser=browser)
 
 def test_demo_section(browser):
-    assert_demo_section(browser, 10, 21)
+    assert_demo_section(browser)

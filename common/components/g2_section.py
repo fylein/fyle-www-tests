@@ -1,15 +1,15 @@
 from common.asserts import *
 
-def assert_g2_section_spacing(browser, section_spacing):
+def assert_g2_section_spacing(browser, section_spacing, h2_spacing=20, span_spacing=20):
     section = browser.find('//section[contains(@class, "all-alternative-comparison")]', scroll=True, scroll_by=300)
     assert_spacing('top', section, section_spacing)
 
     h2 = browser.find('//section[contains(@class, "all-alternative-comparison")]//h2', scroll=True, scroll_by=300)
-    assert_spacing('bottom', h2, 20)
+    assert_spacing('bottom', h2, h2_spacing)
 
     spans = browser.find_many('//section[contains(@class, "all-alternative-comparison")]//div[contains(@class, "col-lg-10")]//p')
     for i, el in enumerate(spans):
-        assert_spacing('bottom', el, 20)
+        assert_spacing('bottom', el, span_spacing)
 
 def assert_g2_links(browser):
     link = browser.find_by_link_text('G2 reviews', scroll=True, scroll_by=300)
