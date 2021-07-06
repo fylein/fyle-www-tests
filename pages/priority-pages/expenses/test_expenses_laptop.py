@@ -20,7 +20,7 @@ def test_side_nav(browser):
     assert_slider_section(browser)
 
 def test_slider_section_para_block(browser):
-    assert_slider_section_para_block(browser, 421, 521, 40, slider_laptop=True)
+    assert_slider_section_para_block(browser, 421, 622, 40)
 
 def test_bottom_banner_cta(browser):
     assert_bottom_banner_cta(browser)
