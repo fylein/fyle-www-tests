@@ -37,7 +37,7 @@ def assert_customer_logo(browser, section_class, logo_width):
     assert customer_logo and customer_logo.is_displayed(), 'Logo is not displayed'
     assert_element_width(customer_logo, logo_width)
 
-def assert_customer_logo_v2(browser, logo_width):
+def assert_customer_logo_in_product_hero(browser, logo_width):
     logo_container = browser.find('//section[contains(@class, "customer-logos-v2")]//div[contains(@class, "container")]', scroll=True)
     assert_spacing('top', logo_container, 80)
 
@@ -93,7 +93,7 @@ def assert_product_hero_section(browser, img_width, logo_width, section_class='p
     assert_img(browser, img_width, section_class)
 
     #Customer logo assertions
-    assert_customer_logo_v2(browser, logo_width)
+    assert_customer_logo_in_product_hero(browser, logo_width)
 
     #Button spacing assertion
     assert_button_spacing(browser, section_class)
