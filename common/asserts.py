@@ -345,3 +345,19 @@ def assert_spacing_all_sides(el, top, right, bottom, left):
 
 def assert_bottom_banner_cta(browser):
     assert_demo_cta(browser, '//section[contains(@class, "bottom-stat-with-cta")]//a')
+
+
+#max_time and poll_time unit is seconds
+def poll_and_assert(browser, max_time, poll_time, func):
+    no_of_attempts = int(max_time/poll_time)
+    for attempt in range(no_of_attempts):
+        try:
+            func()
+        except (Exception, AssertionError) as e:
+            if attempt < no_of_attempts-1:
+                logger.error(f'Attemp: {attempt} - {e}')
+                sleep(poll_time)
+                continue
+            else:
+                raise
+        break
