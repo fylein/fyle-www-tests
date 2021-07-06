@@ -2,7 +2,7 @@ import logging
 
 from . import desktop_browser as browser
 from common.asserts import assert_overflowing
-from .expensify import *
+from .common.expensify import *
 from common.components.hero_img_on_right import assert_hero_img_on_right_section
 
 logger = logging.getLogger(__name__)
