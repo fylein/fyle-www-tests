@@ -1,13 +1,13 @@
-from common.components.hero import *
 from common.asserts import *
-from .company import *
+from .common.company import *
+from common.components.hero import *
 from . import desktop_browser as browser
 
 def test_hero_section(browser):
     section_class = 'investor-logos'
     assert_h1_spacing(browser, section_class)
-    assert_subtext_spacing(browser, section_class)
-    assert_customer_logo_img(browser, '//section[contains(@class, "fy-p-0")]//div[contains(@class, "container")]//img[contains(@class, "d-md-block")]', 931)
+    assert_subtext_spacing(browser, section_class, value=60)
+    assert_customer_logo(browser, 931, logo_xpath='//section[contains(@class, "fy-p-0")]//div[contains(@class, "container")]//img[contains(@class, "d-md-block")]')
 
 def test_why_fyle_section(browser):
     assert_why_fyle_section(browser, 100, 40, 30, 341, 879)

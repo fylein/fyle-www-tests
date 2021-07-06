@@ -2,13 +2,16 @@ import logging
 
 from . import mobile_browser as browser
 from common.asserts import assert_overflowing
-from .expensify import *
-from common.components.hero_img_on_right import assert_hero_img_on_right_section
+from .common.expensify import *
+from common.components.hero_img_on_right import *
 
 logger = logging.getLogger(__name__)
 
 def test_hero_section(browser):
-    assert_hero_img_on_right_section(browser, 'expensify-hero', img_width=None, bulletin=True, g2_source='https://www.g2.com/reports/momentum-grid-report-for-expense-management-winter-2020')
+    section_class='expensify-hero'
+    assert_h1_spacing(browser, section_class, 16)
+    assert_bulletin(browser, section_class, spacing_top=20, spacing_bottom=43)
+    assert_section_spacing(browser, section_class, spacing_top=40)
 
 def test_switch_from_expensify(browser):
     assert_switch_from_expensify(browser, 40, 40, 20, list_spacing=10)
