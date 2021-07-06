@@ -1,6 +1,6 @@
 import logging
 import time
-from common.asserts import assert_element_width, assert_spacing, assert_demo_cta
+from common.asserts import assert_element_width, assert_spacing, assert_demo_cta, poll_and_assert
 
 logger = logging.getLogger(__name__)
 
@@ -52,9 +52,10 @@ def assert_customer_logo_in_product_hero(browser, logo_width):
 
 def assert_customer_logo_img(browser, xpath, logo_width):
     logo = browser.find(xpath, scroll=True)
-    time.sleep(3)
-    assert logo and logo.is_displayed(), 'Logo is not displayed'
-    assert_element_width(logo, logo_width)
+    def logo_display():
+        assert logo and logo.is_displayed(), 'Logo is not displayed'
+        assert_element_width(logo, logo_width)
+    poll_and_assert(3000, 500, logo_display)
 
 def assert_hero_section(browser, section_class, img_width, logo_width):
     #H1 spacing assertions
