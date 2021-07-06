@@ -349,8 +349,23 @@ def assert_spacing_all_sides(el, top, right, bottom, left):
 def assert_bottom_banner_cta(browser):
     assert_demo_cta(browser, '//section[contains(@class, "bottom-stat-with-cta")]//a')
 
-def assert_customer_logo_section(browser, width=None, height=None):
+def assert_fyle_over_expensify_img_section(browser, width=None, height=None):
     logo = browser.find('//section[contains(@class, "fyle-design-system fy-section-padding")]//img[contains(@class, "d-md-block")]', scroll=True, scroll_by=300)
     assert_dimensions(logo, width, height)
     section = browser.find('//section[contains(@class, "fyle-design-system fy-section-padding")]')
     assert_section_spacing(section, 100, 100)
+
+#max_time and poll_time unit is seconds
+def poll_and_assert(browser, max_time, poll_time, func):
+    no_of_attempts = int(max_time/poll_time)
+    for attempt in range(no_of_attempts):
+        try:
+            func()
+        except (Exception, AssertionError) as e:
+            if attempt < no_of_attempts-1:
+                logger.error(f'Attemp: {attempt} - {e}')
+                sleep(poll_time)
+                continue
+            else:
+                raise
+        break

@@ -1,26 +1,23 @@
-from common.components.slider import *
 from common.asserts import *
-from common.components.hero import *
+from common.components.para_blocks import *
+from common.components.hero_img_on_right import *
+from common.components.hero import assert_customer_logo
 
-from . import laptop_browser as browser
+from . import desktop_browser as browser
 
 def test_hero_section(browser):
-    section_class = 'product-hero'
+    section_class='capterra-hero'
     assert_h1_spacing(browser, section_class)
-    assert_subtext_spacing(browser, section_class)
-    assert_img(browser, 760, section_class)
-    assert_button_spacing(browser, section_class, value=48)
-    assert_customer_logo(browser, 997,
+    assert_hero_img(browser, section_class, 728)
+    assert_customer_logo(browser, 1437,
         section_xpath='//section[contains(@class, "customer-logos-v2")]//div[contains(@class, "container")]',
         logo_xpath='//section[contains(@class, "customer-logos-v2")]//div[contains(@class, "container")]//img[contains(@class, "d-md-block")]',
         spacing_top=80
     )
+    assert_demo_button(browser, section_class)
 
-def test_side_nav(browser):
-    assert_slider_section(browser)
-
-def test_slider_section_para_block(browser):
-    assert_slider_section_para_block(browser, 421, 521, 40, slider_laptop=True)
+def test_para_block_spacing(browser):
+    assert_para_blocks(browser, para_width=660, image_width=880, spacing=85)
 
 def test_bottom_banner_cta(browser):
     assert_bottom_banner_cta(browser)

@@ -1,18 +1,24 @@
 import logging
 
-from common.asserts import assert_overflowing, assert_customer_logo_section
-from .expensify import *
-from common.components.hero_v2 import assert_hero_v2_section
+from . import laptop_browser as browser
+from common.asserts import assert_overflowing, assert_fyle_over_expensify_img_section
+from .common.expensify import *
+from common.components.hero_img_on_right import *
 
 from . import laptop_browser as browser
 
 logger = logging.getLogger(__name__)
 
 def test_hero_section(browser):
-    assert_hero_v2_section(browser, 'expensify-hero', img_width=625, bulletin=True, section_spacing=80, g2_source='https://www.g2.com/reports/momentum-grid-report-for-expense-management-winter-2020')
+    section_class='expensify-hero'
+    assert_h1_spacing(browser, section_class)
+    assert_bulletin(browser, section_class, spacing_top=30)
+    assert_section_spacing(browser, section_class, spacing_top=80, spacing_bottom=80)
+    assert_hero_img(browser, section_class, 625)
+    assert_g2_link(browser, 'https://www.g2.com/reports/momentum-grid-report-for-expense-management-winter-2020')
 
-def test_customer_logo(browser):
-    assert_customer_logo_section(browser, width=1140, height=183)
+def test_fyle_over_expensify_img_section(browser):
+    assert_fyle_over_expensify_img_section(browser, width=1140, height=183)
 
 def test_switch_from_expensify(browser):
     assert_switch_from_expensify(browser, 100, 100, 40, list_spacing=16)

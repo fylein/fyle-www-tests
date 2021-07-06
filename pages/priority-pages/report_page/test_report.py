@@ -1,17 +1,24 @@
 from common.asserts import assert_overflowing
 from common.components.para_blocks import *
 from common.components.g2_section import *
-from common.components.hero import *
 from common.asserts import verify_url_by_link_text
+from common.components.hero import *
 
-from . import laptop_browser as browser
+from . import desktop_browser as browser
 
 def test_hero_section(browser):
     section_class = 'homepage-hero'
-    assert_hero_section(browser, section_class, 1140, 1140)
+    assert_h1_spacing(browser, section_class)
+    assert_subtext_spacing(browser, section_class)
+    assert_img(browser, 1140, section_class)
+    assert_button_spacing(browser, section_class)
+    assert_customer_logo(browser, 1350,
+        section_xpath=f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//section',
+        logo_xpath=f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//section//img[contains(@class, "hero-customer-logo")]',
+        spacing_top=100, spacing_bottom=100)
 
 def test_para_block_spacing(browser):
-    assert_para_blocks(browser, para_width=518, image_width=622, spacing=60)
+    assert_para_blocks(browser, para_width=660, image_width=880, spacing=85)
     assert_para_block_section_spacing(browser, spacing=100)
 
 def test_para_block_links(browser, base_url):
@@ -30,7 +37,7 @@ def test_g2_table(browser):
     assert_g2_table(browser)
 
 def test_bottom_banner_cta(browser):
-    assert_demo_cta(browser, '//section[contains(@class, "bottom-stat-with-cta")]//a')
+    assert_bottom_banner_cta(browser)
 
 def test_page_overflow(browser):
     assert_overflowing(browser)

@@ -1,6 +1,6 @@
 import logging
 
-from common.asserts import assert_overflowing, assert_customer_logo_section, assert_bottom_banner_cta
+from common.asserts import assert_overflowing, assert_fyle_over_expensify_img_section, assert_bottom_banner_cta
 from common.components.hero import assert_h1_spacing, assert_subtext_spacing, assert_img
 from common.components.para_blocks import *
 
@@ -14,8 +14,8 @@ def test_hero_section(browser):
     assert_subtext_spacing(browser, section_class)
     assert_img(browser, 690, section_class)
 
-def test_customer_logo(browser):
-    assert_customer_logo_section(browser, width=1140, height=286)
+def test_fyle_over_expensify_img_section(browser):
+    assert_fyle_over_expensify_img_section(browser, width=1140, height=286)
 
 def test_para_block_spacing(browser):
     assert_para_blocks(browser, para_width=518, image_width=622, spacing=60)
