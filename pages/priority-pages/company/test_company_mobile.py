@@ -10,13 +10,13 @@ def test_hero_section(browser):
     assert_customer_logo(browser, 380, logo_xpath='//section[contains(@class, "fy-p-0")]//div[contains(@class, "container")]//img[contains(@class, "d-md-none")]')
 
 def test_why_fyle_section(browser):
-    assert_why_fyle_section(browser, 40, 20, 10, 265, 426)
+    assert_why_fyle_section(browser, 40, None, 10, 265, 426)
 
 def test_stat_section(browser):
-    assert_stat_section(browser, 20, 400, 40)
+    assert_stat_section(browser, 20, None, None, 40)
 
 def test_fyle_journey(browser):
-    assert_fyle_journey(browser, 40, '//section[contains(@class, "fyle-journey")]//div[contains(@class, "fy-xl-row")]//div[contains(@class, col)]//img[contains(@class, "d-md-block")]', 440, 20, 30)
+    assert_fyle_journey(browser, 40, None, 440, 20, 30)
 
 def test_page_overflow(browser):
     assert_overflowing(browser)
