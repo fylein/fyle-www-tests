@@ -12,7 +12,6 @@ from . import desktop_browser as browser
 
 logger = logging.getLogger(__name__)
 
-@pytest.mark.hero
 def test_hero_section(browser):
     section_class = 'homepage-hero'
     assert_hero_section(browser, section_class, 1140, 1350)
