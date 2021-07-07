@@ -1,5 +1,4 @@
 import logging
-import pytest
 
 from common.asserts import assert_overflowing
 from common.components.para_blocks import *
