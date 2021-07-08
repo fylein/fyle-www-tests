@@ -150,7 +150,7 @@ class SimpleBrowser:
         l.send_keys(keys)
         return l
 
-    def close_windows(self):
+    def close_tabs(self):
         # close all windows except 0
         while len(self.driver.window_handles) > 1:
             w = self.driver.window_handles[-1]

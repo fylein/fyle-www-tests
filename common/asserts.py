@@ -316,7 +316,7 @@ def verify_url_by_link_text(browser, text, base_url, url, same_tab=False):
     else:
         browser.switch_tab_next(1)
         verify_url(browser, url)
-        browser.close_windows()
+        browser.close_tabs()
 
 def assert_dimensions(element, width=None, height=None):
     if width:
