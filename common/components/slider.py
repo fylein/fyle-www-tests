@@ -21,5 +21,5 @@ def assert_slider_section(browser):
         assert section_container.location['y'] <= limit, 'Side navigation is not working'
 
     
-def assert_slider_section_para_block(browser, para_width, img_width, spacing, slider_laptop=False):
-    assert_para_blocks(browser, para_width, img_width, spacing, slider_laptop)
+def assert_slider_section_para_block(browser, para_width, img_width, spacing):
+    assert_para_blocks(browser, para_width, img_width, spacing)
