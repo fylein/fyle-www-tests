@@ -85,9 +85,6 @@ def pytest_collection_modifyitems(config, items):
         rel_path = pathlib.Path(item.fspath).relative_to(rootdir)
         for part in rel_path.parts:
             mark_name = part.split('_')[-1].split('.')[0]
-        if mark_name in ['mobile', 'laptop']:
+        if mark_name in ['mobile', 'laptop', 'desktop']:
             mark = getattr(pytest.mark, mark_name)
-            item.add_marker(mark)
-        else:
-            mark = getattr(pytest.mark, 'desktop')
             item.add_marker(mark)
