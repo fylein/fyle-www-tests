@@ -73,7 +73,7 @@ def assert_demo_form_buttons(browser):
     for btn in card_btns:
         browser.hover_and_click(btn)
         assert_steps_form_modal(browser)
-        close_steps_form(browser)
+        close_steps_form(browser, open_form=False)
 
 def assert_card_width(browser, width=None, height=None, mid_card_height=None):
     cards = browser.find_many('//div[contains(@class, "card-group")]//div[contains(@class, "card ")]')
@@ -124,7 +124,7 @@ def assert_comparison_demo_button(browser):
     for btn in buttons:
         browser.hover_and_click(btn)
         assert_steps_form_modal(browser)
-        close_steps_form(browser)
+        close_steps_form(browser, open_form=False)
 
 def assert_sticky_header(browser, top_value=79):
     assert_comparison_section(browser)

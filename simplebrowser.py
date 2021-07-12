@@ -18,6 +18,7 @@ class SimpleBrowser:
 
     @classmethod
     def __create_driver(cls, browser, capabilities):
+        #If the environment variable BROWSER was not set it would be None, and if browser is none its defaults to chrome. So added None
         assert browser in ['chrome', 'ie', 'edge', 'safari',
                            'firefox', 'remote', None], 'unsupported browser'
         driver = None
@@ -150,7 +151,7 @@ class SimpleBrowser:
         l.send_keys(keys)
         return l
 
-    def close_windows(self):
+    def close_tabs(self):
         # close all windows except 0
         while len(self.driver.window_handles) > 1:
             w = self.driver.window_handles[-1]
@@ -228,6 +229,8 @@ class SimpleBrowser:
     def get_window_size(self):
         return self.driver.get_window_size()
 
+    # The second fold content will not be loaded unless a mousemove, without loading we cannot find any elements. 
+    # So the activate_page which do hover and load the second fold of a page.
     def activate_page(self):
         for attempt in range(3):
             try:
