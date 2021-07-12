@@ -10,7 +10,7 @@ pipelines:
                 - pip
               script:
                 - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-                - python -m pytest -m "desktop or mobile" -v pages/ --junitxml=test-reports/report.xml
+                - python -m pytest -m "desktop" -v pages/ --junitxml=test-reports/report.xml
           - step:
               name: Master test - suite2
               caches:
@@ -28,7 +28,7 @@ pipelines:
                 - pip
               script:
                 - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-                - python -m pytest -m "desktop or mobile" -v pages/ --junitxml=test-reports/report.xml
+                - python -m pytest -m "desktop" -v pages/ --junitxml=test-reports/report.xml
           - step:
               name: Prod test - suite2
               caches:
@@ -45,7 +45,7 @@ pipelines:
                 - pip
               script:
                 - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-                - python -m pytest -m "desktop or mobile" -v pages/ --url stag1 --junitxml=test-reports/report.xml
+                - python -m pytest -m "desktop" -v pages/ --url stag1 --junitxml=test-reports/report.xml
           - step:
               name: Staging1 test - suite2
               caches:
@@ -62,7 +62,7 @@ pipelines:
                 - pip
               script:
                 - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-                - python -m pytest -m "desktop or mobile" -v pages/ --url stag2 --junitxml=test-reports/report.xml
+                - python -m pytest -m "desktop" -v pages/ --url stag2 --junitxml=test-reports/report.xml
           - step:
               name: Staging2 test - suite2
               caches:
