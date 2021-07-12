@@ -1,24 +1,6 @@
 image: python:3.7
 
 pipelines:
-  branches:
-    master:
-      - parallel:
-          - step:
-              name: Master test - suite1
-              caches:
-                - pip
-              script:
-                - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-                - python -m pytest -m "desktop" -v pages/ --junitxml=test-reports/report.xml
-          - step:
-              name: Master test - suite2
-              caches:
-                - pip
-              script:
-                - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-                - python -m pytest -m "laptop" -v pages/ --junitxml=test-reports/report.xml
-
   custom:
     prod-pipeline:
       - parallel:

@@ -320,7 +320,7 @@ def verify_url_by_link_text(browser, text, base_url, url, same_tab=False):
     else:
         browser.switch_tab_next(1)
         verify_url(browser, url)
-        browser.close_windows()
+        browser.close_tabs()
 
 def assert_dimensions(element, width=None, height=None):
     if width:
@@ -336,3 +336,13 @@ def assert_overlap(browser, el):
     except ElementClickInterceptedException as e:
         logger.error(e)
         raise
+
+def assert_section_spacing(el, top, bottom):
+    assert_spacing('top', el, top)
+    assert_spacing('bottom', el, bottom)
+
+def assert_spacing_all_sides(el, top, right, bottom, left):
+    assert_spacing('top', el, top)
+    assert_spacing('right', el, right)
+    assert_spacing('bottom', el, bottom)
+    assert_spacing('left', el, left)
