@@ -318,9 +318,12 @@ def verify_url_by_link_text(browser, text, base_url, url, same_tab=False):
     if same_tab:
         verify_url(browser, url)
     else:
-        browser.switch_tab_next(1)
-        verify_url(browser, url)
-        browser.close_tabs()
+        switch_tab_and_verify_url(browser, url)
+
+def switch_tab_and_verify_url(browser, url):
+    browser.switch_tab_next(1)
+    verify_url(browser, url)
+    browser.close_windows()
 
 def assert_dimensions(element, width=None, height=None):
     if width:
@@ -349,7 +352,6 @@ def assert_spacing_all_sides(el, top, right, bottom, left):
 
 def assert_bottom_banner_cta(browser):
     assert_demo_cta(browser, '//section[contains(@class, "bottom-stat-with-cta")]//a')
-
 
 #max_time and poll_time unit is seconds
 def poll_and_assert(browser, max_time, poll_time, func):
