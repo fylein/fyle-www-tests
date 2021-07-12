@@ -17,7 +17,6 @@ def assert_thank_you_modal(browser, ty_message, demoform=None):
     assert ty_text == ty_message, "Thank you message is not correct"
 
 def assert_overflowing(browser):
-    sleep(1)
     assert browser.check_horizontal_overflow(), f'Horizontal Overflow is there in the page {browser.get_current_url()}'
 
 def assert_element_width(element, width, min_width=None):
