@@ -295,7 +295,7 @@ def assert_spacing(position, element, value, assert_msg=None):
     assert total_spacing == value, msg
 
 def assert_demo_cta(browser, element_path):
-    browser.find(element_path, scroll=True, scroll_to_view='false')
+    browser.find(element_path, scroll=True, scroll_to_view='false', scroll_by=300)
     browser.click(element_path)
     form_modal = browser.find(xpath='//div[contains(@class, "modal fade show")]', scroll=True)
     assert form_modal and form_modal.is_displayed(), 'Form modal not displayed, Error in Get a demo CTA'
@@ -323,7 +323,7 @@ def verify_url_by_link_text(browser, text, base_url, url, same_tab=False):
 def switch_tab_and_verify_url(browser, url):
     browser.switch_tab_next(1)
     verify_url(browser, url)
-    browser.close_windows()
+    browser.close_tabs()
 
 def assert_dimensions(element, width=None, height=None):
     if width:
