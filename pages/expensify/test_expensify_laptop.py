@@ -1,9 +1,11 @@
 import logging
 
 from . import laptop_browser as browser
-from common.asserts import assert_overflowing
+from common.asserts import assert_overflowing, assert_fyle_over_expensify_img_section
 from .common.expensify import *
 from common.components.hero_img_on_right import *
+
+from . import laptop_browser as browser
 
 logger = logging.getLogger(__name__)
 
@@ -15,8 +17,8 @@ def test_hero_section(browser):
     assert_hero_img(browser, section_class, 625)
     assert_g2_link(browser, 'https://www.g2.com/reports/momentum-grid-report-for-expense-management-winter-2020')
 
-def test_customer_logo(browser):
-    assert_customer_logo(browser, width=1140, height=183)
+def test_fyle_over_expensify_img_section(browser):
+    assert_fyle_over_expensify_img_section(browser, width=1140, height=183)
 
 def test_switch_from_expensify(browser):
     assert_switch_from_expensify(browser, 100, 100, 40, list_spacing=16)

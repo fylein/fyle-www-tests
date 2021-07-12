@@ -1,9 +1,10 @@
 import logging
 
-from . import mobile_browser as browser
 from common.asserts import assert_overflowing
 from .common.expensify import *
 from common.components.hero_img_on_right import *
+
+from . import mobile_browser as browser
 
 logger = logging.getLogger(__name__)
 
