@@ -13,8 +13,5 @@ def test_hero_section(browser):
         logo_xpath=f'//section[contains(@class, "customer-logos-v2")]//div[contains(@class, "container")]//img[contains(@class, "d-md-none")]',
         spacing_top=40)
 
-def test_sneak_peek_section(browser):
-    assert_sneak_peek_section(browser)
-
 def test_page_overflow(browser):
     assert_overflowing(browser)

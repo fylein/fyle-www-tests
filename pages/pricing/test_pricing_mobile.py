@@ -20,7 +20,7 @@ def test_see_details(browser):
     assert_see_details(browser)
 
 def test_usage_led_pricing(browser):
-    assert_usage_led_pricing(browser, 411, 80)
+    assert_usage_led_pricing(browser, 394, 80)
 
 def test_comparison_section(browser):
     assert_comparison_section(browser)
