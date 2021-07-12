@@ -9,12 +9,23 @@ logger = logging.getLogger(__name__)
 
 #Open typeform
 def open_steps_form(browser):
-    if browser.is_desktop():
-        browser.click(xpath="//div[contains(@class, 'nav-item')]//a[contains(text(), 'Get a demo')]")
-    else:
-        sleep(0.5)
-        browser.click(xpath="//div[contains(@class, 'sticky-cta-mobile')]//a")
-    assert_steps_form_modal(browser)
+    for attempt in range(5):
+        try:
+            if browser.is_desktop():
+                browser.click(xpath="//div[contains(@class, 'nav-item')]//a[contains(text(), 'Get a demo')]")
+            else:
+                sleep(0.5)
+                browser.click(xpath="//div[contains(@class, 'sticky-cta-mobile')]//a")
+            assert_steps_form_modal(browser)
+        except (Exception, AssertionError) as e:
+            if attempt < 4:
+                logger.error(e)
+                browser.refresh()
+                browser.activate_page()
+                continue
+            else:
+                raise
+        break
 
 def assert_steps_form_modal(browser):
     modal = browser.find(xpath="//div[contains(@class, 'modal fade show')]")
