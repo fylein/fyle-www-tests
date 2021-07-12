@@ -1,4 +1,5 @@
 import logging
+import pathlib
 import pytest
 import datetime
 import pytz
@@ -77,3 +78,13 @@ def module_browser_mobile(base_url, request):
     browser.click(xpath="//span[contains(@class, 'banner-close')]")
     yield browser
     browser.quit()
+
+def pytest_collection_modifyitems(config, items):
+    rootdir = pathlib.Path(config.rootdir)
+    for item in items:
+        rel_path = pathlib.Path(item.fspath).relative_to(rootdir)
+        for part in rel_path.parts:
+            mark_name = part.split('_')[-1].split('.')[0]
+        if mark_name in ['mobile', 'laptop', 'desktop']:
+            mark = getattr(pytest.mark, mark_name)
+            item.add_marker(mark)
