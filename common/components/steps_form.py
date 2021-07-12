@@ -11,11 +11,7 @@ logger = logging.getLogger(__name__)
 def open_steps_form(browser):
     for attempt in range(5):
         try:
-            if browser.is_desktop():
-                browser.click(xpath="//div[contains(@class, 'nav-item')]//a[contains(text(), 'Get a demo')]")
-            else:
-                sleep(0.5)
-                browser.click(xpath="//div[contains(@class, 'sticky-cta-mobile')]//a")
+            browser.click(xpath="//div[contains(@class, 'nav-item')]//a[contains(text(), 'Get a demo')]")
             assert_steps_form_modal(browser)
         except (Exception, AssertionError) as e:
             if attempt < 4:
