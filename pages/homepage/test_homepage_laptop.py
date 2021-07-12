@@ -1,7 +1,7 @@
 import logging
 
 from common.asserts import assert_overflowing
-from common.components.hero import assert_hero_section
+from common.components.hero import *
 from common.components.para_blocks import *
 from common.asserts import verify_url_by_link_text
 
@@ -11,7 +11,14 @@ logger = logging.getLogger(__name__)
 
 def test_hero_section(browser):
     section_class = 'homepage-hero'
-    assert_hero_section(browser, section_class, 1140, 1140)
+    assert_h1_spacing(browser, section_class)
+    assert_subtext_spacing(browser, section_class)
+    assert_img(browser, 1140, section_class)
+    assert_button_spacing(browser, section_class)
+    assert_customer_logo(browser, 1140,
+        section_xpath=f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//section',
+        logo_xpath=f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//section//img[contains(@class, "hero-customer-logo")]',
+        spacing_top=100, spacing_bottom=100)
 
 def test_para_block_spacing(browser):
     assert_para_blocks(browser, para_width=505, image_width=635, spacing=60)

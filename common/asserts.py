@@ -289,7 +289,7 @@ def assert_spacing(position, element, value, assert_msg=None):
     padding = get_padding(position, element)
     margin = get_margin(position, element)
     total_spacing = padding + margin
-    msg = f"spacing {position} is not correct"
+    msg = f"spacing {position} is not correct, the expected value is {value}, but {total_spacing} found."
     if assert_msg:
         msg = assert_msg
     assert total_spacing == value, msg
@@ -346,3 +346,22 @@ def assert_spacing_all_sides(el, top, right, bottom, left):
     assert_spacing('right', el, right)
     assert_spacing('bottom', el, bottom)
     assert_spacing('left', el, left)
+
+def assert_bottom_banner_cta(browser):
+    assert_demo_cta(browser, '//section[contains(@class, "bottom-stat-with-cta")]//a')
+
+
+#max_time and poll_time unit is seconds
+def poll_and_assert(browser, max_time, poll_time, func):
+    no_of_attempts = int(max_time/poll_time)
+    for attempt in range(no_of_attempts):
+        try:
+            func()
+        except (Exception, AssertionError) as e:
+            if attempt < no_of_attempts-1:
+                logger.error(f'Attemp: {attempt} - {e}')
+                sleep(poll_time)
+                continue
+            else:
+                raise
+        break
