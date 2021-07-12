@@ -1,5 +1,7 @@
 import logging
 import pytest
+import datetime
+import pytz
 
 from common.utils import create_browser, get_browser_name
 
@@ -11,6 +13,10 @@ BASE_URL = {
     "stag2" : "https://staging2.fyle.tech",
     "local" : "http://localhost:4000"
 }
+
+zone = pytz.timezone('Asia/Kolkata')
+current_time = datetime.datetime.now(zone).strftime("%d-%m-%Y, %I:%M:%S %p")
+test_name = f"Test on: {current_time}"
 
 #Parser adoption to use custom arguments from command line
 def pytest_addoption(parser):
@@ -31,21 +37,25 @@ def base_url(url):
 #Assigning capabilities based on where the test case is going to run.(Remote or Local)
 BROWSER_CAPABALITIES = [None] if get_browser_name() != 'remote' else [
     {
-        "build" : "Windows - chrome",
-        "name" : "windows-desktop",
+        "build" : test_name,
+        "name" : test_name,
         "platform" : "Windows 10",
         "browserName" : "Chrome",
         "version" : "88.0",
+        "console" : True,
+		"network" : True
     }
 ]
 
 BROWSER_CAPABALITIES_MOBILE = [None] if get_browser_name() != 'remote' else [
     {
-        "build" : "Windows - mobile",
-        "name" : "windows-mobile",
+        "build" : test_name,
+        "name" : test_name,
         "platform" : "Windows 10",
         "browserName" : "Chrome",
         "version" : "88.0",
+        "console" : True,
+		"network" : True
     }
 ]
 
