@@ -17,6 +17,7 @@ def assert_thank_you_modal(browser, ty_message, demoform=None):
     assert ty_text == ty_message, "Thank you message is not correct"
 
 def assert_overflowing(browser):
+    sleep(1)
     assert browser.check_horizontal_overflow(), f'Horizontal Overflow is there in the page {browser.get_current_url()}'
 
 def assert_element_width(element, width, min_width=None):
@@ -45,8 +46,10 @@ def assert_spacing(position, element, value, assert_msg=None):
     assert total_spacing == value, msg
 
 def assert_demo_cta(browser, element_path):
-    browser.find(element_path, scroll=True, scroll_to_view='false', scroll_by=300)
-    browser.click(element_path)
+    def find_and_click_cta():
+        browser.find(element_path, scroll=True, scroll_to_view='false', scroll_by=300)
+        browser.click(element_path)
+    poll_and_assert(browser, 3, 0.2, find_and_click_cta)
     form_modal = browser.find(xpath='//div[contains(@class, "modal fade show")]', scroll=True)
     assert form_modal and form_modal.is_displayed(), 'Form modal not displayed, Error in Get a demo CTA'
     sleep(1)
@@ -110,7 +113,7 @@ def assert_fyle_over_expensify_img_section(browser, width=None, height=None):
     assert_section_spacing(section, 100, 100)
 
 #max_time and poll_time unit is seconds
-def poll_and_assert(browser, max_time, poll_time, func):
+def poll_and_assert(browser, max_time, poll_time, func, refresh=False):
     no_of_attempts = int(max_time/poll_time)
     for attempt in range(no_of_attempts):
         try:
@@ -119,6 +122,9 @@ def poll_and_assert(browser, max_time, poll_time, func):
             if attempt < no_of_attempts-1:
                 logger.error(f'Attemp: {attempt} - {e}')
                 sleep(poll_time)
+                if refresh:
+                    borwser.refresh()
+                    browser.activate_page()
                 continue
             else:
                 raise

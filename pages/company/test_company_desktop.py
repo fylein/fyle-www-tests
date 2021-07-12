@@ -10,7 +10,7 @@ def test_hero_section(browser):
     assert_customer_logo(browser, 931, logo_xpath='//section[contains(@class, "fy-p-0")]//div[contains(@class, "container")]//img[contains(@class, "d-md-block")]')
 
 def test_why_fyle_section(browser):
-    assert_why_fyle_section(browser, 100, 40, 30, 341, 879)
+    assert_why_fyle_section(browser, 100, 40, 30, 341, 880)
 
 def test_stat_section(browser):
     assert_stat_section(browser, 50, 307, 60, None)
