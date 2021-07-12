@@ -13,7 +13,7 @@ def test_why_fyle_section(browser):
     assert_why_fyle_section(browser, 100, 40, 30, 341, 879)
 
 def test_stat_section(browser):
-    assert_stat_section(browser, 50, 307, 60)
+    assert_stat_section(browser, 50, 307, 60, None)
 
 def test_fyle_journey(browser):
     assert_fyle_journey(browser, 100, '//section[contains(@class, "fyle-journey")]//div[contains(@class, "fy-xl-row")]//div[contains(@class, col)]//img[contains(@class, "d-md-block")]', 880, 40, 60)

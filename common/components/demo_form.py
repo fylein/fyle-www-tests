@@ -5,10 +5,7 @@ from common.asserts import assert_thank_you_modal
 logger = logging.getLogger(__name__)
 
 def open_getdemo_form(browser):
-    if browser.is_desktop():
-        browser.click(xpath="//div[contains(@class, 'nav-item')]//a[contains(text(), 'Get a demo')]")
-    else:
-        browser.click(xpath="//div[contains(@class, 'sticky-cta-mobile')]/a")
+    browser.click(xpath="//div[contains(@class, 'nav-item')]//a[contains(text(), 'Get a demo')]")
 
 def submit_getdemo_form(browser, email=None, firstname=None, lastname=None, phone=None, company_size=None, agree=None, modal=''):
     if email:
