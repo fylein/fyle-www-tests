@@ -33,7 +33,7 @@ def assert_g2_link(browser, g2_source):
     browser.hover_and_click(el)
     browser.switch_tab_next(1)
     assert g2_source in browser.get_current_url(), 'URL is incorrect'
-    browser.close_windows()
+    browser.close_tabs()
 
 def assert_demo_button(browser, section_class):
     assert_demo_cta(browser, f'//section[contains(@class, "gradient-background") and contains(@class, "{section_class}")]//a[contains(@class, "d-none d-lg-block")]')

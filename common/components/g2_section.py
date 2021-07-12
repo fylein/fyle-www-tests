@@ -29,9 +29,12 @@ def assert_g2_table(browser):
     features = browser.find_many('//div[contains(@class, "feature-comparison-box")]//div[contains(@class, "accordion-toggle")]')
     for i, el in enumerate(features):
         el = browser.find(f'//div[contains(@class, "feature-comparison-box")]//div[contains(@class, "accordion-toggle")][{i+1}]', scroll=True, scroll_by=300)
+        # Not clicking on the first row since it's already opened.
         if i != 0:
             browser.hover_and_click(el)
+        # Finding the element expanded_el which is the same el element but using different Xpath, where aria-expanded=true
         expanded_el = browser.find(f'//div[contains(@class, "feature-comparison-box")]//div[@aria-expanded="true"]')
+        # If Xpath can find expanded_el then el == expanded_el, if not the dropdown down is not opened on click or arai-expanded=false.
         assert el == expanded_el and expanded_el.is_displayed(), 'Dropdown not opening in comparison table'
         browser.hover_and_click(el)
         closed_el = browser.find(f'//div[contains(@class, "feature-comparison-box")]//div[@aria-expanded="false"][{i+1}]')

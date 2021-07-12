@@ -1,6 +1,6 @@
 import logging
 from common.components.steps_form import *
-from . import desktop_browser as browser
+from . import laptop_browser as browser
 
 logger = logging.getLogger(__name__)
 
@@ -31,8 +31,8 @@ def test_name_validation(browser):
 def test_logo_image(browser):
     assert_logo(browser)
 
-def test_tc_url(browser, base_url):
-    assert_tc_url(browser, base_url)
+def test_terms_and_conditions_url(browser, base_url):
+    assert_terms_and_conditions_url(browser, base_url)
 
 def test_navigation(browser):
     assert_navigation(browser)
@@ -52,14 +52,11 @@ def test_firstname_in_phone_field(browser):
 def test_progress_bar(browser):
     assert_progress_bar(browser)
 
-def test_form_width(browser):
-    assert_form_width(browser)
-
 def test_field_spacing(browser):
     assert_field_spacing(browser)
 
 def test_radio_pill_spacing(browser):
     assert_radio_pill_spacing(browser)
 
-def test_consent_checkbox(browser):
-    assert_consent_checkbox(browser)
+def test_gdpr_checkbox(browser):
+    assert_gdpr_checkbox(browser)
