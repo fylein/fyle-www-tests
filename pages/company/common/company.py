@@ -1,6 +1,6 @@
 from common.asserts import *
 
-def assert_why_fyle_section(browser, section_spacing, underline_spacing, content_spacing, para_width, img_width, min_img_width):
+def assert_why_fyle_section(browser, section_spacing, underline_spacing, content_spacing, para_width, img_width, min_img_width=None):
     #Section spacing
     section = browser.find('//section[contains(@class, "fyle-in-map")]', scroll=True)
     assert_spacing('top', section, section_spacing)
