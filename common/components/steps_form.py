@@ -12,7 +12,7 @@ def open_steps_form(browser):
     def click_on_cta():
         browser.click(xpath="//div[contains(@class, 'nav-item')]//a[contains(text(), 'Get a demo')]")
         assert_steps_form_modal(browser)
-    poll_and_assert(browser, 3, 1, click_on_cta, scroll_by=10)
+    poll_and_assert(browser, 2, 0.5, click_on_cta, scroll_by=10)
 
 def assert_steps_form_modal(browser):
     modal = browser.find(xpath="//div[contains(@class, 'modal fade show')]")

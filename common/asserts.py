@@ -48,7 +48,7 @@ def assert_demo_cta(browser, element_path):
     def find_and_click_cta():
         browser.find(element_path, scroll=True, scroll_to_view='false', scroll_by=300)
         browser.click(element_path)
-    poll_and_assert(browser, 3, 1, find_and_click_cta, scroll_by=-10)
+    poll_and_assert(browser, 1, 0.25, find_and_click_cta, scroll_by=-10)
     form_modal = browser.find(xpath='//div[contains(@class, "modal fade show")]', scroll=True)
     assert form_modal and form_modal.is_displayed(), 'Form modal not displayed, Error in Get a demo CTA'
     sleep(1)
