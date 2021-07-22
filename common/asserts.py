@@ -45,8 +45,10 @@ def assert_spacing(position, element, value, assert_msg=None):
     assert total_spacing == value, msg
 
 def assert_demo_cta(browser, element_path):
-    browser.find(element_path, scroll=True, scroll_to_view='false', scroll_by=300)
-    browser.click(element_path)
+    def find_and_click_cta():
+        browser.find(element_path, scroll=True, scroll_to_view='false', scroll_by=300)
+        browser.click(element_path)
+    poll_and_assert(browser, 1, 0.25, find_and_click_cta, scroll_by=-10)
     form_modal = browser.find(xpath='//div[contains(@class, "modal fade show")]', scroll=True)
     assert form_modal and form_modal.is_displayed(), 'Form modal not displayed, Error in Get a demo CTA'
     sleep(1)
@@ -110,7 +112,7 @@ def assert_fyle_over_expensify_img_section(browser, width=None, height=None):
     assert_section_spacing(section, 100, 100)
 
 #max_time and poll_time unit is seconds
-def poll_and_assert(browser, max_time, poll_time, func):
+def poll_and_assert(browser, max_time, poll_time, func, scroll_by=0):
     no_of_attempts = int(max_time/poll_time)
     for attempt in range(no_of_attempts):
         try:
@@ -118,6 +120,8 @@ def poll_and_assert(browser, max_time, poll_time, func):
         except (Exception, AssertionError) as e:
             if attempt < no_of_attempts-1:
                 logger.error(f'Attemp: {attempt} - {e}')
+                if scroll_by != 0:
+                    browser.scroll_up_or_down(scroll_by)
                 sleep(poll_time)
                 continue
             else:

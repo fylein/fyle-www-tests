@@ -2,15 +2,17 @@ from time import sleep
 import logging
 from math import floor
 from selenium.webdriver.common.keys import Keys
-from common.asserts import verify_url_by_link_text, assert_spacing, assert_dimensions
+from common.asserts import verify_url_by_link_text, assert_spacing, assert_dimensions, poll_and_assert
 from common.components.navbar import open_mobile_navbar
 
 logger = logging.getLogger(__name__)
 
 #Open typeform
 def open_steps_form(browser):
-    browser.click(xpath="//div[contains(@class, 'nav-item')]//a[contains(text(), 'Get a demo')]")
-    assert_steps_form_modal(browser)
+    def click_on_cta():
+        browser.click(xpath="//div[contains(@class, 'nav-item')]//a[contains(text(), 'Get a demo')]")
+        assert_steps_form_modal(browser)
+    poll_and_assert(browser, 2, 0.5, click_on_cta, scroll_by=10)
 
 def assert_steps_form_modal(browser):
     modal = browser.find(xpath="//div[contains(@class, 'modal fade show')]")
