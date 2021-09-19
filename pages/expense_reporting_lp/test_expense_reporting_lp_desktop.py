@@ -17,7 +17,7 @@ def test_hero_section(browser):
     assert_demo_button(browser, section_class)
 
 def test_para_block_spacing(browser):
-    assert_para_blocks(browser, para_width=660, image_width=622, spacing=85)
+    assert_para_blocks(browser, para_width=660, image_width=880, spacing=85)
 
 def test_bottom_banner_cta(browser):
     assert_bottom_banner_cta(browser)
