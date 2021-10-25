@@ -69,6 +69,5 @@
   "Team": "/company/team",
   "Careers": "/company/team/join",
 
-  "All Features": "/product",
-  "Product Releases": "/product/releases"
+  "All Features": "/product"
 }

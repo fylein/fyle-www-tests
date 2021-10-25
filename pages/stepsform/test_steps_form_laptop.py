@@ -58,5 +58,3 @@ def test_field_spacing(browser):
 def test_radio_pill_spacing(browser):
     assert_radio_pill_spacing(browser)
 
-def test_gdpr_checkbox(browser):
-    assert_gdpr_checkbox(browser)

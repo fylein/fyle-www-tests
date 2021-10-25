@@ -1,8 +1,7 @@
 [
   {
     "bottom_link" : {
-      "View all features": "/product",
-      " Check out our new releases ": "/product/releases"
+      "View all features": "/product"
     },
     "Expenses": "/product/expenses",
 		"Budgets": "/product/budgets",
