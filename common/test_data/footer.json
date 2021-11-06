@@ -15,6 +15,8 @@
   "Netsuite": "/product/integrations/netsuite-accounting-software",
   "Sage Intacct": "/product/integrations/sage-intacct-accounting-software",
   "Quickbooks": "/product/integrations/quickbooks-online-accounting-software",
+  "Xero": "/product/integrations/xero-accounting-software",
+  "TravelPerk" : "/product/integrations/travelperk-travel-software",
   "Cards": "/product/cards",
   "Compliance": "/product/compliance",
   "Finance Operations": "/product/finance-operations",
