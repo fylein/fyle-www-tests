@@ -20,7 +20,7 @@ jobs:
         echo $CONDA/bin >> $GITHUB_PATH
     - name: Prod test - suite1
       run: |
-            -pip install -r requirements.txt; fi
+            -pip install -r requirements.txt;
             -python -m pytest -m "desktop" -v pages/ --junitxml=test-reports/report.xml
     # # - name: Install dependencies
     # #   run: |
