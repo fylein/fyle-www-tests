@@ -13,3 +13,16 @@ jobs:
       run:  if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run test
       run: python -m pytest -m "desktop" -v pages/ --junitxml=test-reports/report.xml
+
+  prod-test-suite-2:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.7'
+    - name: Install dependencies
+      run:  if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Run test
+      run: python -m pytest -m "laptop" -v pages/ --junitxml=test-reports/report.xml
