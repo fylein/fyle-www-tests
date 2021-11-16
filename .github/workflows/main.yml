@@ -2,7 +2,7 @@ on: [push]
 
 jobs:
   prod-test-suite-1:
-    runs-on: macos-latest
+    runs-on: macos-latest,windows-latest
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
