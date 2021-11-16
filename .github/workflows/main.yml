@@ -3,6 +3,9 @@ on: [push]
 jobs:
   prod-test-suite-1:
     runs-on: ubuntu-latest
+    services:
+       selenium:
+         image: selenium/standalone-chrome
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
