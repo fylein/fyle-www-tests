@@ -15,7 +15,7 @@ def test_hero_section(browser):
     assert_bulletin(browser, section_class, spacing_top=30)
     assert_section_spacing(browser, section_class, spacing_top=80, spacing_bottom=80)
     assert_hero_img(browser, section_class, 508)
-    assert_g2_link(browser, 'https://www.g2.com/compare/fyle-vs-expensify')
+    assert_g2_link(browser, 'https://www.g2.com/products/fyle/reviews')
 
 def test_fyle_over_expensify_img_section(browser):
     assert_fyle_over_expensify_img_section(browser, width=1345, height=216)
