@@ -57,7 +57,7 @@ def assert_g2_source(browser):
     time.sleep(1)
     browser.hover_and_click(el)
     browser.switch_tab_next(1)
-    verify_url(browser, 'https://www.g2.com/compare/fyle-vs-expensify')
+    verify_url(browser, 'https://www.fylehq.com/alternative/expensify')
 
 def assert_faq_section(browser):
     cards = browser.find_many('//section[contains(@class, "expensify-alternative-faq")]//div[contains(@class, "collapsible-card-header")]')

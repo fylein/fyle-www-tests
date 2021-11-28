@@ -15,10 +15,10 @@ def test_hero_section(browser):
     assert_bulletin(browser, section_class, spacing_top=30)
     assert_section_spacing(browser, section_class, spacing_top=80, spacing_bottom=80)
     assert_hero_img(browser, section_class, 508)
-    assert_g2_link(browser, 'https://www.g2.com/reports/momentum-grid-report-for-expense-management-winter-2020')
+    assert_g2_link(browser, 'https://www.g2.com/compare/fyle-vs-expensify')
 
 def test_fyle_over_expensify_img_section(browser):
-    assert_fyle_over_expensify_img_section(browser, width=1345, height=217)
+    assert_fyle_over_expensify_img_section(browser, width=1345, height=216)
 
 def test_switch_from_expensify(browser):
     assert_switch_from_expensify(browser, 100, 100, 40, list_spacing=16)
@@ -27,7 +27,7 @@ def test_table_width(browser):
     assert_table_width(browser, 1345)
 
 def test_fyle_vs_expensify_table_cells(browser):
-    assert_fyle_vs_expensify_table_cells(browser, 27, 30)
+    assert_fyle_vs_expensify_table_cells(browser, 21, 30)
 
 def test_rating_table_cells(browser):
     assert_rating_table_cells(browser, 21, 30, 20, 30)
