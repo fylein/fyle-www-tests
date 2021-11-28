@@ -22,7 +22,7 @@ def assert_overflowing(browser):
 def assert_element_width(element, width, min_width=None):
     element_width = int(element.value_of_css_property('width').replace('px', '').split('.')[0])
     if min_width:
-        assert element_width <= width and element_width >= min_width, f"Element width is cincorrect - the expceted value in {width}, and min_width is {min_width}, but {element_width} found"
+        assert element_width <= width and element_width >= min_width, f"Element width is incorrect - the expceted value in {width}, and min_width is {min_width}, but {element_width} found"
     else:
         assert element_width == width, f"Element width is incorrect - the expected value is {width}, but {element_width} found"
 
