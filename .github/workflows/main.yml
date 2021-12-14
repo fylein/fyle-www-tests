@@ -12,12 +12,12 @@ jobs:
     - name: Install dependencies
       run:  if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       id: install_dependencies
-    - name: Slack Notification
-      uses: rtCamp/action-slack-notify@v2
-      env:
-      SLACK_MESSAGE: ${{join(steps.install_dependencies.outputs.*, '\n')}}
-      SLACK_TITLE: CI Test Suite
-      SLACK_WEBHOOK: https://hooks.slack.com/services/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
+    # - name: Slack Notification
+    #   uses: rtCamp/action-slack-notify@v2
+    #   env:
+    #   SLACK_MESSAGE: ${{join(steps.install_dependencies.outputs.*, '\n')}}
+    #   SLACK_TITLE: CI Test Suite
+    #   SLACK_WEBHOOK: https://hooks.slack.com/services/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
     # - name: Run test
     #   run: python -m pytest -m "desktop" -v pages/ --junitxml=test-reports/report.xml
 
