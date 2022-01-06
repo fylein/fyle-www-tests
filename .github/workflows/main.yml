@@ -2,7 +2,7 @@ on: [push]
 
 jobs:
   prod-test-suite-1:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
@@ -22,7 +22,7 @@ jobs:
       run: python -m pytest -m "desktop" -v pages/ --junitxml=test-reports/report.xml
 
   prod-test-suite-2:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
