@@ -15,7 +15,7 @@ jobs:
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2
       env:
-        SLACK_MESSAGE: "Hi! This is being tested by Ansh"
+        SLACK_MESSAGE: "Hi! This webhook is being tested by Ansh"
         SLACK_TITLE: CI Test Suite
         SLACK_WEBHOOK: https://hooks.slack.com/services/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
     - name: Run test
