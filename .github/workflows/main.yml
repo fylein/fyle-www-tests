@@ -17,7 +17,7 @@ jobs:
       env:
         SLACK_MESSAGE: "Hi! This is being tested by Ansh"
         SLACK_TITLE: CI Test Suite
-        SLACK_WEBHOOK: https://hooks.slack.com/services/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
+        SLACK_WEBHOOK: https://hooks.slack.com/services/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
     - name: Run test
       run: python -m pytest -m "desktop" -v pages/ --junitxml=test-reports/report.xml
 
