@@ -15,7 +15,7 @@ jobs:
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2
       env:
-        SLACK_MESSAGE: ${{join(steps.install_dependencies.outputs.*, '\n')}}
+        SLACK_MESSAGE: "Hi! This is being tested by Ansh"
         SLACK_TITLE: CI Test Suite
         SLACK_WEBHOOK: https://hooks.slack.com/services/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
     - name: Run test
