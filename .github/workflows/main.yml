@@ -16,7 +16,7 @@ jobs:
       uses: rtCamp/action-slack-notify@v2
       env:
         SLACK_MESSAGE: "Hi hooman! This webhook is being tested by Ansh"
-        SLACK_WEBHOOK: https://hooks.slack.com/services/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
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
     - name: Run test
       run: python -m pytest -m "desktop" -v pages/ --junitxml=test-reports/report.xml
 
