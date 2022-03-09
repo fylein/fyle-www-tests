@@ -16,11 +16,12 @@ jobs:
       id: test_run
       run: python -m pytest -m "desktop" -v pages/ --junitxml=test-reports/report.xml
     - name: Slack Notification
+      if: always()
       uses: rtCamp/action-slack-notify@v2
       env:
         SLACK_MESSAGE: ${{join(steps.test_run.outputs.*, '\n')}}
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-        
+
   prod-test-suite-2:
     runs-on: ubuntu-latest
     steps:
