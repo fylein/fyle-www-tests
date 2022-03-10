@@ -15,9 +15,7 @@ jobs:
         python-version: '3.7'
     - name: Install dependencies
       run:  if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      id: install_dependencies
     - name: Run test
-      id: tests_run
       run: python -m pytest -m "desktop" -v pages/ 
     - name: Slack Notification
       if: always()
