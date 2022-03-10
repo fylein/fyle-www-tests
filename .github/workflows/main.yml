@@ -30,7 +30,7 @@ jobs:
       run: python -m pytest -m "laptop" -v pages/ --junitxml=test-reports/report.xml
   
   slackNotification:
-    needs: prod-test-suite-1
+    needs: [prod-test-suite-1, prod-test-suite-2]
     name: Slack Notification
     runs-on: ubuntu-latest
     steps:
