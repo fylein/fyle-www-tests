@@ -1,4 +1,8 @@
-on: [push]
+name: Website Tests Workflow
+
+on: 
+  push:
+    branches: [ master ]
 
 jobs:
   prod-test-suite-1:
