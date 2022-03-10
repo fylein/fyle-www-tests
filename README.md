@@ -21,7 +21,7 @@ Download and install Chrome webdriver from chromium site [here](https://chromedr
 
 # Setup Safari WebDriver
 
-Please follow instructions from Apple [here](https://developer.apple.com/documentation/webkit/testing_with_webdriver_in_safari).
+Please follow instructions from Apple [here](https://developer.apple.com/documentation/webkit/testing_with_webdriver_in_safari)
 
 # Running tests
 
