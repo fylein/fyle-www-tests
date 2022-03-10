@@ -39,4 +39,4 @@ jobs:
       uses: rtCamp/action-slack-notify@v2
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-        SLACK_COLOR: ${{ needs.prod_test_suite_1.result=='success' && needs.prod_test_suite_2.result=='success' }}
+        SLACK_COLOR: ${{ job.status }}
