@@ -12,9 +12,9 @@ jobs:
     - name: Install dependencies
       run:  if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       id: install_dependencies
-    - name: Run test
-      id: tests_run
-      run: python -m pytest -m "desktop" -v pages/ --junitxml=test-reports/report.xml
+    # - name: Run test
+    #   id: tests_run
+    #   run: python -m pytest -m "desktop" -v pages/ --junitxml=test-reports/report.xml
 
   prod-test-suite-2:
     runs-on: ubuntu-latest
@@ -26,8 +26,8 @@ jobs:
         python-version: '3.7'
     - name: Install dependencies
       run:  if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Run test
-      run: python -m pytest -m "laptop" -v pages/ --junitxml=test-reports/report.xml
+    # - name: Run test
+    #   run: python -m pytest -m "laptop" -v pages/ --junitxml=test-reports/report.xml
   
   slackNotification:
     needs: [prod-test-suite-1, prod-test-suite-2]
@@ -40,4 +40,4 @@ jobs:
       uses: rtCamp/action-slack-notify@v2
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-        SLACK_COLOR: ${{ prod-test-suite-1.status && prod-test-suite-2.status }}
+        SLACK_COLOR: ${{ jobs.prod-test-suite-1.status && jobs.prod-test-suite-2.status }}
