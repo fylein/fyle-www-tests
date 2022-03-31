@@ -16,9 +16,9 @@ jobs:
         accessKey: "gJgLiVmO16D1g7biXikxeYHdpRBpcFK68At4Umv0tYzM3GnFRy"
         tunnelName: "prod-test-suite-1-tunnel"
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v1
       with:
-        python-version: '3.7'
+        python-version: '3.7.7'
     - name: Install dependencies
       run:  if [ -f requirements.txt ]; then python3 -m pip install -r requirements.txt; fi
     - name: Run test
