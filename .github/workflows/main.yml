@@ -8,7 +8,13 @@ jobs:
   prod-test-suite-1:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Start Tunnel
+      uses: LambdaTest/LambdaTest-tunnel-action@v1
+      id: tunnel
+      with:
+        user: "ansh_srtv@outlook.com"
+        accessKey: "gJgLiVmO16D1g7biXikxeYHdpRBpcFK68At4Umv0tYzM3GnFRy"
+        tunnelName: "prod-test-suite-1-tunnel"
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
