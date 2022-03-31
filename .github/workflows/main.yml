@@ -20,9 +20,9 @@ jobs:
       with:
         python-version: '3.7'
     - name: Install dependencies
-      run:  if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      run:  if [ -f requirements.txt ]; then python3 -m pip install -r requirements.txt; fi
     - name: Run test
-      run: python -m pytest -m "desktop" -v pages/ 
+      run: python3 -m pytest -m "desktop" -v pages/ 
     - name: Slack Notification
       if: always()
       uses: rtCamp/action-slack-notify@v2
