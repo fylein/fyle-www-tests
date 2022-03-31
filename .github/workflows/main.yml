@@ -1,0 +1,44 @@
+name: Website Tests Workflow
+
+on: [push]
+  # push:
+  #   branches: [ master ]
+
+jobs:
+  prod-test-suite-1:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Start Tunnel
+      uses: LambdaTest/LambdaTest-tunnel-action@v1
+      id: tunnel
+      with:
+        user: "ansh_srtv@outlook.com"
+        accessKey: "gJgLiVmO16D1g7biXikxeYHdpRBpcFK68At4Umv0tYzM3GnFRy"
+        tunnelName: "prod-test-suite-1-tunnel"
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.7.7'
+    - name: Install dependencies
+      run:  if [ -f requirements.txt ]; then python3 -m pip install -r requirements.txt; fi
+    - name: Run test
+      run: python3 -m pytest -m "desktop" -v pages/ 
+    - name: Slack Notification
+      if: always()
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_COLOR: ${{ job.status }}
+
+  prod-test-suite-2:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.7'
+    - name: Install dependencies
+      run:  if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Run test
+      run: python -m pytest -m "laptop" -v pages/ 

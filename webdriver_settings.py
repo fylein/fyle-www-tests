@@ -1,5 +1,6 @@
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.utils import ChromeType
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.microsoft import IEDriverManager
 
@@ -10,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 def get_driver(browser, capabilities):
     if browser == 'chrome':
-        driver = webdriver.Chrome(ChromeDriverManager().install())
+        driver = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
     if browser == 'firefox':
         driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
     if browser == 'ie':
